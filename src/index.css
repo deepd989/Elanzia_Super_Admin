@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Only global element defaults live here. Everything else is a utility
+   class resolving from src/theme/tokens.js via the Tailwind preset. */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-lightGray font-body text-base text-charcoal;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-primary;
+  }
+
+  /* Tabular numerals keep money and weight columns aligned in tables. */
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
