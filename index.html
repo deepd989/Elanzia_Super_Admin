@@ -15,9 +15,20 @@
       rel="stylesheet"
     />
     <script>
-      // Applied before first paint so an explicitly chosen theme never flashes
-      // the other one. Unset means follow the system preference.
+      // Applied before first paint so a theme never flashes the other one.
+      //
+      // The unauthenticated screens are always light: nobody who has yet to
+      // sign in can reach the theme toggle. Everywhere else, an explicit
+      // choice wins and no choice means follow the system. AuthLayout does
+      // the same thing for the redirect case, where the router lands on the
+      // sign-in screen after this has already run.
       (function () {
+        var path = window.location.pathname;
+        if (path.indexOf('/sign-in') === 0 || path.indexOf('/reset-password') === 0) {
+          document.documentElement.setAttribute('data-theme', 'light');
+          return;
+        }
+
         try {
           var saved = localStorage.getItem('elanzia.theme');
           if (saved === 'light' || saved === 'dark') {

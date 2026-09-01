@@ -1,11 +1,29 @@
+import { useLayoutEffect } from 'react';
 import { ShieldCheck } from 'lucide-react';
 import { t } from '@/i18n/en';
+import { readThemePreference } from '@/theme/useThemePreference';
 
 // The frame for the three unauthenticated screens. It deliberately shows no
 // navigation, no breadcrumb and no member data - somebody who has not proved
 // who they are should not be able to read the shape of the portal off the
 // sign-in page.
 export default function AuthLayout({ title, subtitle, children, footer }) {
+  // The unauthenticated screens are always light, whatever the viewer has
+  // chosen for the portal itself. Somebody who has not signed in cannot reach
+  // the theme toggle, so this is the one surface that does not follow the
+  // preference. Signing in hands the page straight back to it.
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+    const chosen = readThemePreference();
+
+    root.setAttribute('data-theme', 'light');
+
+    return () => {
+      if (chosen) root.setAttribute('data-theme', chosen);
+      else root.removeAttribute('data-theme');
+    };
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-surface-inverse">
       <header className="flex h-topBarHeight shrink-0 items-baseline gap-2 px-gutter text-onInverse">

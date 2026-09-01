@@ -941,6 +941,14 @@ follow the operating system. `src/theme/useThemePreference.js` owns it, the top
 bar toggles it, and a small script in `index.html` applies a saved choice
 before first paint so the wrong theme never flashes.
 
+The one exception is the unauthenticated screens, which are **always light**,
+whatever the viewer has chosen. Nobody who has yet to sign in can reach the
+toggle, so that surface does not follow the preference at all. The pre-paint
+script handles a cold load of `/sign-in` or `/reset-password`; `AuthLayout`
+handles the redirect case, where a deep link lands on the sign-in screen after
+the script has already run, and restores the stored choice on unmount so
+signing in hands the portal straight back to it.
+
 Nothing else in the portal needs to know about it. If a screen uses only
 alias-backed classes, dark mode is already correct.
 

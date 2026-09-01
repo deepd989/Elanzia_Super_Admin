@@ -8,7 +8,10 @@ import { useCallback, useEffect, useState } from 'react';
 // choice never flashes the other theme on load.
 const STORAGE_KEY = 'elanzia.theme';
 
-function read() {
+// The stored choice, or null when the viewer has never made one and is
+// following the operating system. Exported because the unauthenticated
+// screens need to tell those two cases apart.
+export function readThemePreference() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved === 'light' || saved === 'dark' ? saved : null;
@@ -19,7 +22,7 @@ function read() {
 }
 
 export default function useThemePreference() {
-  const [preference, setPreference] = useState(read);
+  const [preference, setPreference] = useState(readThemePreference);
 
   useEffect(() => {
     const root = document.documentElement;
