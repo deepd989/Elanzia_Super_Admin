@@ -203,7 +203,7 @@ function FieldTable({ fields, dispatch }) {
   return (
     <section className="rounded-md border border-lightGray-dark bg-white">
       <header className="border-b border-lightGray-dark px-5 py-4">
-        <h3 className="font-display text-base text-primary">{t('catalogue.extractedTitle')}</h3>
+        <h3 className="font-heading text-base text-charcoal">{t('catalogue.extractedTitle')}</h3>
       </header>
 
       <ul className="divide-y divide-lightGray">

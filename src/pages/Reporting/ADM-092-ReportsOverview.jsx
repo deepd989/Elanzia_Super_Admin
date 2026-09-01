@@ -178,7 +178,7 @@ function FunnelPanel({ funnel, loading }) {
                   <span className="text-base text-charcoal">
                     {t(`reports.funnelStage.${stage.id}`)}
                   </span>
-                  <span className="shrink-0 font-body text-base font-medium tabular-nums text-primary">
+                  <span className="shrink-0 font-body text-base font-medium tabular-nums text-charcoal">
                     {formatNumber(stage.count)}
                   </span>
                 </div>

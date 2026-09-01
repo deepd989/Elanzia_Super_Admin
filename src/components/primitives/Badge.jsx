@@ -1,24 +1,24 @@
 import { cn } from '@/utils/cn';
 
-// A count or short tag. StatusPill carries lifecycle state; Badge carries a
-// number or a label with no status meaning.
+// A count or a short label. Status uses StatusPill instead - a badge carries
+// no meaning about how a thing is going.
 const TONES = {
-  neutral: 'bg-lightGray-dark text-charcoal',
-  primary: 'bg-primary text-white',
-  accent: 'bg-accent text-primary',
-  danger: 'bg-danger text-white',
-  outline: 'border border-lightGray-dark bg-white text-charcoal-light',
+  primary: 'bg-primary text-onAction',
+  accent: 'bg-accent text-accent-on',
+  danger: 'bg-danger-bg text-danger-fg',
+  neutral: 'bg-neutral-surface text-neutral border border-neutral-border',
 };
 
-export default function Badge({ tone = 'neutral', className, children }) {
+export default function Badge({ tone = 'neutral', className, children, ...rest }) {
   return (
     <span
       className={cn(
-        'inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full px-1.5',
-        'font-body text-xs font-semibold tabular-nums',
+        'inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5',
+        'font-body text-micro font-semibold tabular-nums',
         TONES[tone],
         className,
       )}
+      {...rest}
     >
       {children}
     </span>

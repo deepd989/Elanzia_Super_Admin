@@ -31,7 +31,7 @@ export default function MediaViewer({ items = [], initialIndex = 0, onDownload, 
 
   if (items.length === 0) {
     return (
-      <div className={cn('rounded-md border border-lightGray-dark bg-white', className)}>
+      <div className={cn('rounded-md border border-border bg-white', className)}>
         <EmptyState icon={ImageIcon} title={t('common.attachments')} body={t('states.emptyBody')} />
       </div>
     );
@@ -47,8 +47,8 @@ export default function MediaViewer({ items = [], initialIndex = 0, onDownload, 
   };
 
   return (
-    <div className={cn('flex flex-col overflow-hidden rounded-md border border-lightGray-dark bg-white shadow-sm', className)}>
-      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-lightGray-dark px-4 py-2.5">
+    <div className={cn('flex flex-col overflow-hidden rounded-md border border-border bg-white', className)}>
+      <header className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 py-2.5">
         <div className="flex min-w-0 items-center gap-2">
           <span className="truncate font-body text-base font-medium text-charcoal">{current.label}</span>
           {items.length > 1 ? (
@@ -96,18 +96,18 @@ export default function MediaViewer({ items = [], initialIndex = 0, onDownload, 
         </div>
       </header>
 
-      <div className="flex min-h-[24rem] items-center justify-center overflow-auto bg-lightGray p-6">
+      <div className="flex min-h-[24rem] items-center justify-center overflow-auto bg-surface-sunken p-6">
         <Surface item={current} zoom={zoom} rotation={rotation} />
       </div>
 
       {current.caption ? (
-        <p className="border-t border-lightGray-dark px-4 py-2.5 text-sm text-charcoal-light">
+        <p className="border-t border-border px-4 py-2.5 text-sm text-charcoal-light">
           {current.caption}
         </p>
       ) : null}
 
       {items.length > 1 ? (
-        <div className="flex gap-2 overflow-x-auto border-t border-lightGray-dark bg-white p-3">
+        <div className="flex gap-2 overflow-x-auto border-t border-border bg-white p-3">
           {items.map((item, itemIndex) => {
             const Icon = TYPE_ICONS[item.type] ?? FileText;
             const isActive = itemIndex === index;
@@ -120,7 +120,7 @@ export default function MediaViewer({ items = [], initialIndex = 0, onDownload, 
                 className={cn(
                   'flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded border-2',
                   'focus:outline-none focus-visible:shadow-focus',
-                  isActive ? 'border-accent' : 'border-lightGray-dark hover:border-charcoal-lighter',
+                  isActive ? 'border-accent' : 'border-border hover:border-charcoal-lighter',
                 )}
               >
                 {item.type === 'image' && item.url ? (
@@ -142,7 +142,7 @@ function Surface({ item, zoom, rotation }) {
 
   if (item.type === 'video') {
     return (
-      <video src={item.url} controls className="max-h-[32rem] max-w-full rounded shadow-md" style={style}>
+      <video src={item.url} controls className="max-h-[32rem] max-w-full rounded" style={style}>
         <track kind="captions" />
       </video>
     );
@@ -153,7 +153,7 @@ function Surface({ item, zoom, rotation }) {
       <img
         src={item.url}
         alt={item.label}
-        className="max-h-[32rem] max-w-full rounded shadow-md"
+        className="max-h-[32rem] max-w-full rounded"
         style={style}
       />
     );
@@ -162,7 +162,7 @@ function Surface({ item, zoom, rotation }) {
   // Documents render as a page surface. The real viewer swaps in here.
   return (
     <div
-      className="flex h-[28rem] w-[20rem] flex-col items-center justify-center gap-3 rounded bg-white shadow-md"
+      className="flex h-[28rem] w-[20rem] flex-col items-center justify-center gap-3 rounded bg-white"
       style={style}
     >
       <FileText size={40} className="text-charcoal-lighter" aria-hidden="true" />
@@ -181,7 +181,7 @@ function IconAction({ label, icon: Icon, disabled, onClick }) {
       onClick={onClick}
       className={cn(
         'flex h-8 w-8 items-center justify-center rounded text-charcoal',
-        'hover:bg-lightGray focus:outline-none focus-visible:shadow-focus',
+        'hover:bg-surface-sunken focus:outline-none focus-visible:shadow-focus',
         'disabled:cursor-not-allowed disabled:text-charcoal-lighter disabled:hover:bg-transparent',
       )}
     >

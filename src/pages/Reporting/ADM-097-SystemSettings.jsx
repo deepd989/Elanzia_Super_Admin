@@ -108,7 +108,7 @@ export default function SystemSettings() {
         />
       </Card>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError ? (
             <p className="mr-auto text-sm text-danger">
@@ -200,7 +200,7 @@ function SettingsSkeleton({ groups = 3 }) {
     <div className="flex flex-col gap-section">
       <div className="h-8 w-64 animate-pulse rounded-sm bg-lightGray-dark" />
       {Array.from({ length: groups }).map((_, index) => (
-        <div key={index} className="rounded-md border border-lightGray-dark bg-white p-5 shadow-sm">
+        <div key={index} className="rounded-md border border-lightGray-dark bg-white p-5">
           <div className="mb-4 h-4 w-40 animate-pulse rounded-sm bg-lightGray-dark" />
           <div className="grid grid-cols-1 gap-field md:grid-cols-2">
             {Array.from({ length: 4 }).map((__, field) => (

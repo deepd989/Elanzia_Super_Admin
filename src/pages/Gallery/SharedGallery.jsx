@@ -86,8 +86,8 @@ export default function SharedGallery() {
         </Row>
 
         {selected.length > 0 ? (
-          <div className="flex items-center gap-3 rounded-md border border-accent bg-accent-light/20 px-4 py-2.5">
-            <span className="text-base font-medium text-primary">
+          <div className="flex items-center gap-3 rounded-md border border-accent bg-warning-surface px-4 py-2.5">
+            <span className="text-base font-medium text-charcoal">
               {selected.length} {t('common.selected')}
             </span>
             <Button size="sm" variant="secondary">{t('common.approve')}</Button>

@@ -307,7 +307,7 @@ function SubmissionReview({ state, onBack }) {
           <MediaViewer items={submission.media} />
 
           <div className="rounded-md border border-lightGray-dark bg-white p-4">
-            <h3 className="font-display text-lg leading-tight">{submission.headline}</h3>
+            <h3 className="font-heading text-lg leading-tight">{submission.headline}</h3>
             <p className="mt-2 text-base text-charcoal">{submission.about}</p>
             <p className="mt-3 text-sm text-charcoal-light">{submission.changeSummary}</p>
           </div>
@@ -315,7 +315,7 @@ function SubmissionReview({ state, onBack }) {
           {/* Every featured piece, with its visibility stated. A private piece
               on a public page is the same breach as a private piece in search. */}
           <div className="rounded-md border border-lightGray-dark bg-white p-4">
-            <h3 className="mb-3 font-display text-lg leading-tight">{t('marketplace.featuredPieces')}</h3>
+            <h3 className="mb-3 font-heading text-lg leading-tight">{t('marketplace.featuredPieces')}</h3>
             <ul className="divide-y divide-lightGray">
               {featuredProducts.map((product) => (
                 <li key={product.id} className="flex items-center justify-between gap-3 py-2">

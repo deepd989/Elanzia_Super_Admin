@@ -403,7 +403,7 @@ function PreviewPanel({ preview, status, error, canRun, starting, actionError, o
 
       {preview.biggestMovers.length > 0 ? (
         <div className="mt-4">
-          <p className="mb-2 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-light">
+          <p className="mb-2 font-body text-label font-bold text-charcoal-light">
             {t('pricing.biggestMovers')}
           </p>
           <ul className="divide-y divide-lightGray">

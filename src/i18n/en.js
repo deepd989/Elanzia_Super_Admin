@@ -90,6 +90,9 @@ export const en = {
   nav: {
     collapse: 'Collapse navigation',
     expand: 'Expand navigation',
+    theme: 'Theme',
+    themeToLight: 'Switch to light',
+    themeToDark: 'Switch to dark',
     signOut: 'Sign out',
     account: 'Account',
     notifications: 'Notifications',
@@ -122,6 +125,11 @@ export const en = {
     total: 'Total',
     ratePerGram: 'Rate per gram',
     breakupTitle: 'Price breakup',
+    purity: 'Purity',
+    perTenGrams: 'Per 10 g',
+    rateBoardTitle: 'Metal rates',
+    // A rate is meaningless without its basis and the moment it was taken.
+    rateBasis: '{rate} / 10 g - {time} IST',
   },
 
   // Operations overview - ADM-010, ADM-011, ADM-012.

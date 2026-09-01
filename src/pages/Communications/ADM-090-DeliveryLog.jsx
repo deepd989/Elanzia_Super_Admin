@@ -96,7 +96,7 @@ export default function DeliveryLog() {
                     {t('communications.channelFailed')} {formatNumber(row.failed)} ·{' '}
                     {t('communications.channelSuppressed')} {formatNumber(row.suppressed)}
                   </span>
-                  <span className="shrink-0 font-body text-base font-medium tabular-nums text-primary">
+                  <span className="shrink-0 font-body text-base font-medium tabular-nums text-charcoal">
                     {formatPercent(row.deliveryRate)}
                   </span>
                 </li>

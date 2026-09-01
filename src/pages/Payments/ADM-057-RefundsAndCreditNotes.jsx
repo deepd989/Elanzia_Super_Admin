@@ -96,8 +96,8 @@ export default function RefundsAndCreditNotes() {
       {/* Rows sitting at awaiting verification are the NORMAL state of this
           queue, not a backlog. Saying so stops somebody "clearing" them. */}
       {isRefunds && awaitingCount > 0 ? (
-        <div className="flex items-start gap-3 rounded-md border border-info/40 bg-info-surface px-4 py-3">
-          <ShieldCheck size={18} className="mt-0.5 shrink-0 text-info" aria-hidden="true" />
+        <div className="flex items-start gap-3 rounded-md border border-neutral-border bg-neutral-surface px-4 py-3">
+          <ShieldCheck size={18} className="mt-0.5 shrink-0 text-neutral" aria-hidden="true" />
           <p className="text-base text-charcoal">{t('payments.awaitingCaption')}</p>
         </div>
       ) : null}

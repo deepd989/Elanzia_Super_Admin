@@ -19,28 +19,36 @@ export const chartColors = THEME.chartSeries;
 
 // Recharts axis and grid styling, spread onto the elements by the screen so
 // every chart in the portal shares one look.
+// Recharts axis and grid styling, spread onto the elements by the screen so
+// every chart in the portal shares one look.
+//
+// These are CSS variables rather than resolved hexes on purpose: SVG paint
+// attributes accept var(), so a chart follows the theme into dark mode
+// without re-rendering or a colour ever reaching a screen file.
 export const chartAxisProps = {
-  stroke: THEME.colors.charcoal.lighter,
-  tick: { fill: THEME.colors.charcoal.light, fontSize: 12 },
+  stroke: 'var(--border-strong)',
+  tick: { fill: 'var(--text-tertiary)', fontSize: 11 },
   tickLine: false,
-  axisLine: { stroke: THEME.colors.lightGray.dark },
+  axisLine: { stroke: 'var(--border-default)' },
 };
 
 export const chartGridProps = {
-  stroke: THEME.colors.lightGray.dark,
+  stroke: 'var(--border-subtle)',
   strokeDasharray: '3 3',
   vertical: false,
 };
 
 export const chartTooltipProps = {
   contentStyle: {
-    borderRadius: THEME.radii.DEFAULT,
-    border: `1px solid ${THEME.colors.lightGray.dark}`,
-    boxShadow: THEME.shadows.md,
+    borderRadius: THEME.radii.md,
+    border: '1px solid var(--border-default)',
+    background: 'var(--surface-raised)',
+    color: 'var(--text-primary)',
+    boxShadow: 'var(--shadow-dropdown)',
     fontFamily: THEME.fonts.body.join(', '),
     fontSize: 13,
   },
-  cursor: { fill: THEME.colors.lightGray.DEFAULT },
+  cursor: { fill: 'var(--surface-hover)' },
 };
 
 export default function ChartCard({
@@ -74,7 +82,7 @@ export default function ChartCard({
       </div>
 
       {legend && status === 'succeeded' ? (
-        <div className={cn('mt-4 flex flex-wrap gap-4 border-t border-lightGray pt-3')}>
+        <div className={cn('mt-4 flex flex-wrap gap-4 border-t border-border pt-3')}>
           {legend.map((entry) => (
             <span key={entry.label} className="flex items-center gap-2 text-sm text-charcoal-light">
               <span

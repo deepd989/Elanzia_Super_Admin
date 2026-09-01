@@ -27,7 +27,7 @@ export default function Input({
           disabled={disabled}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : help ? `${id}-help` : undefined}
-          className={cn(controlClasses(error, disabled), 'h-10', IconLeft && 'pl-9')}
+          className={cn(controlClasses(error, disabled), 'h-control', IconLeft && 'pl-9')}
           {...rest}
         />
       </div>

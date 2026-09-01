@@ -193,7 +193,7 @@ export default function BroadcastComposer() {
 
       {/* Sticky footer. Cancel on the left of the primary, always in this
           order, so muscle memory works across all 99 screens. */}
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           <Button variant="secondary" onClick={() => navigate('/communications/broadcasts')}>
@@ -256,7 +256,7 @@ function ReachPanel({ estimate, status, error, canEstimate, channelCount, onEsti
         <dl className="flex flex-col gap-3">
           <div className="flex items-baseline justify-between gap-4">
             <dt className="text-sm text-charcoal-light">{t('communications.reachTitle')}</dt>
-            <dd className="text-right font-display text-2xl text-primary">
+            <dd className="text-right font-heading text-2xl text-charcoal">
               {t('communications.reachMembers', { count: formatNumber(estimate.recipientCount) })}
             </dd>
           </div>

@@ -42,9 +42,9 @@ export default function Modal({
   if (!open) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-modal flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-primary-dark/50"
+        className="absolute inset-0 bg-[var(--scrim)]"
         aria-hidden="true"
         onClick={onClose}
       />
@@ -54,14 +54,15 @@ export default function Modal({
         aria-modal="true"
         aria-label={title}
         className={cn(
-          'relative flex max-h-[90vh] w-full flex-col rounded-lg bg-white shadow-lg',
+          'relative flex max-h-[90vh] w-full flex-col rounded-md bg-white shadow-modal',
+          'duration-overlay ease-spring',
           SIZES[size],
           className,
         )}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-lightGray-dark px-6 py-4">
+        <header className="flex items-start justify-between gap-4 border-b border-border px-6 py-4">
           <div className="min-w-0">
-            <h2 className="font-display text-lg leading-tight">{title}</h2>
+            <h2 className="font-heading text-h2 leading-tight">{title}</h2>
             {description ? (
               <p className="mt-1 text-sm text-charcoal-light">{description}</p>
             ) : null}
@@ -70,7 +71,7 @@ export default function Modal({
             type="button"
             onClick={onClose}
             aria-label={t('common.close')}
-            className="rounded p-1 text-charcoal-light hover:bg-lightGray hover:text-charcoal focus:outline-none focus-visible:shadow-focus"
+            className="rounded-sm p-1 text-charcoal-tertiary hover:bg-surface-hover hover:text-charcoal focus:outline-none focus-visible:shadow-focus"
           >
             <X size={18} />
           </button>
@@ -79,7 +80,7 @@ export default function Modal({
         <div className="flex-1 overflow-y-auto px-6 py-5">{children}</div>
 
         {footer ? (
-          <footer className="flex items-center justify-end gap-2 border-t border-lightGray-dark px-6 py-4">
+          <footer className="flex items-center justify-end gap-2 border-t border-border px-6 py-4">
             {footer}
           </footer>
         ) : null}

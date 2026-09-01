@@ -206,7 +206,7 @@ function AgeingPanel({ buckets }) {
               <span className="text-base text-charcoal">
                 {t(`reports.ageingBucket.${bucket.bucket}`)}
               </span>
-              <span className="shrink-0 tabular-nums text-base font-medium text-primary">
+              <span className="shrink-0 tabular-nums text-base font-medium text-charcoal">
                 {formatINR(bucket.amount)}
               </span>
             </div>
@@ -235,14 +235,14 @@ function GstPanel({ summary }) {
         {GST_ROWS.map((key) => (
           <div key={key}>
             <dt className="text-sm text-charcoal-light">{t(`reports.gst.${key}`)}</dt>
-            <dd className="mt-1 font-display text-xl leading-none text-primary num">
+            <dd className="mt-1 font-heading text-xl leading-none text-charcoal num">
               {formatINR(summary[key])}
             </dd>
           </div>
         ))}
         <div>
           <dt className="text-sm text-charcoal-light">{t('reports.gst.invoiceCount')}</dt>
-          <dd className="mt-1 font-display text-xl leading-none text-primary num">
+          <dd className="mt-1 font-heading text-xl leading-none text-charcoal num">
             {formatNumber(summary.invoiceCount)}
           </dd>
         </div>

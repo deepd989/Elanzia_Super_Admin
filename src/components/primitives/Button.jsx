@@ -1,20 +1,23 @@
 import { cn } from '@/utils/cn';
-import Spinner from './Spinner';
 
+// Four variants, and that is the whole set. A button is never a pill: radius
+// is the 8px work-layer step, the same one inputs and menu items use.
 const VARIANTS = {
-  primary: 'bg-primary text-white hover:bg-primary-dark disabled:bg-charcoal-lighter',
+  primary: 'bg-primary text-onAction hover:bg-primary-dark active:bg-primary-light',
   secondary:
-    'bg-white text-primary border border-lightGray-dark hover:bg-lightGray disabled:text-charcoal-lighter',
-  accent: 'bg-accent text-primary hover:bg-accent-dark disabled:bg-lightGray-darker',
-  danger: 'bg-danger text-white hover:opacity-90 disabled:bg-charcoal-lighter',
-  ghost: 'bg-transparent text-primary hover:bg-lightGray disabled:text-charcoal-lighter',
-  link: 'bg-transparent text-info underline underline-offset-2 hover:text-primary p-0 h-auto',
+    'bg-white text-link border-border-strong hover:bg-surface-hover hover:border-charcoal-lighter active:bg-surface-selected',
+  ghost: 'bg-transparent text-link hover:bg-surface-hover',
+  danger: 'bg-danger-bg text-danger-fg hover:bg-danger-bgHover',
 };
 
+// Height comes from the density variable, so the same button is 44px on the
+// Marketplace and 32px in this console without a call site changing. `lg`
+// buys horizontal weight, not height - a console stays on one control height.
 const SIZES = {
   sm: 'h-8 px-3 text-sm gap-1.5',
-  md: 'h-10 px-4 text-base gap-2',
-  lg: 'h-12 px-6 text-md gap-2',
+  md: 'h-control px-[18px] text-sm gap-2',
+  lg: 'h-control px-6 text-sm gap-2',
+  xl: 'h-control px-8 text-sm gap-2',
 };
 
 export default function Button({
@@ -36,20 +39,34 @@ export default function Button({
     <button
       type={type}
       disabled={isDisabled}
+      aria-busy={loading || undefined}
       className={cn(
-        'inline-flex items-center justify-center rounded font-body font-medium transition-colors',
-        'focus:outline-none focus-visible:shadow-focus disabled:cursor-not-allowed',
-        VARIANTS[variant],
-        variant !== 'link' && SIZES[size],
+        'relative inline-flex items-center justify-center whitespace-nowrap rounded-sm border border-transparent',
+        'font-body font-bold transition-colors duration-hover ease-standard',
+        'focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus',
+        // Disabled is a sunken surface, never a faded primary - a washed-out
+        // brand colour reads as a rendering fault.
+        'disabled:cursor-not-allowed disabled:border-border disabled:bg-surface-sunken disabled:text-charcoal-lighter',
+        VARIANTS[variant] ?? VARIANTS.primary,
+        SIZES[size] ?? SIZES.md,
         fullWidth && 'w-full',
+        loading && 'text-transparent',
         className,
       )}
       {...rest}
     >
-      {loading ? <Spinner size="sm" tone={variant === 'secondary' ? 'primary' : 'inverse'} /> : null}
-      {!loading && IconLeft ? <IconLeft size={16} aria-hidden="true" /> : null}
+      {loading ? (
+        <span
+          aria-hidden="true"
+          className={cn(
+            'absolute h-3.5 w-3.5 animate-spin rounded-full border-2 border-transparent',
+            variant === 'primary' ? 'border-t-onAction' : 'border-t-link',
+          )}
+        />
+      ) : null}
+      {!loading && IconLeft ? <IconLeft size={15} aria-hidden="true" /> : null}
       {children}
-      {IconRight ? <IconRight size={16} aria-hidden="true" /> : null}
+      {!loading && IconRight ? <IconRight size={15} aria-hidden="true" /> : null}
     </button>
   );
 }

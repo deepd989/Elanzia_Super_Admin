@@ -106,8 +106,8 @@ export default function ExportCentre() {
       ) : null}
 
       {lastDownload ? (
-        <div className="flex items-center gap-3 rounded-md border border-accent bg-accent-light/20 px-4 py-2.5">
-          <span className="text-base font-medium text-primary">{t('platform.downloadReady')}</span>
+        <div className="flex items-center gap-3 rounded-md border border-accent bg-warning-surface px-4 py-2.5">
+          <span className="text-base font-medium text-charcoal">{t('platform.downloadReady')}</span>
           <Button size="sm" variant="ghost" onClick={() => dispatch(dismissDownload())}>
             {t('common.close')}
           </Button>

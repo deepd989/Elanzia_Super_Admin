@@ -122,8 +122,8 @@ export default function IrnFailureQueue() {
       </div>
 
       {selectedIds.length > 0 ? (
-        <div className="flex flex-wrap items-center gap-3 rounded-md border border-accent bg-accent-light/20 px-4 py-2.5">
-          <span className="text-base font-medium text-primary">
+        <div className="flex flex-wrap items-center gap-3 rounded-md border border-accent bg-warning-surface px-4 py-2.5">
+          <span className="text-base font-medium text-charcoal">
             {t('common.selectedCount', { count: selectedIds.length })}
           </span>
           {selectedNeedingJeweller > 0 ? (

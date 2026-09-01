@@ -25,17 +25,17 @@ export default function SplitReviewLayout({
         <div className="min-w-0">{media}</div>
 
         <aside className="lg:sticky lg:top-6 lg:self-start">
-          <div className="flex max-h-[calc(100vh-6rem)] flex-col overflow-hidden rounded-md border border-lightGray-dark bg-white shadow-sm">
+          <div className="flex max-h-[calc(100vh-6rem)] flex-col overflow-hidden rounded-md border border-border bg-white">
             {decisionTitle ? (
-              <header className="border-b border-lightGray-dark px-5 py-4">
-                <h2 className="font-display text-lg leading-tight">{decisionTitle}</h2>
+              <header className="border-b border-border px-5 py-4">
+                <h2 className="font-heading text-lg leading-tight">{decisionTitle}</h2>
               </header>
             ) : null}
 
             <div className="flex-1 overflow-y-auto p-5">{decision}</div>
 
             {footer ? (
-              <footer className="border-t border-lightGray-dark bg-lightGray px-5 py-4">{footer}</footer>
+              <footer className="border-t border-border bg-surface-sunken px-5 py-4">{footer}</footer>
             ) : null}
           </div>
         </aside>

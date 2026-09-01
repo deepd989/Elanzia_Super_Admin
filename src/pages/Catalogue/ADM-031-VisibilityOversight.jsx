@@ -304,9 +304,9 @@ function SealPanel({ range, revealed, expiresAt, onUnseal, onReseal }) {
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-lightGray text-charcoal-light">
           <Lock size={22} aria-hidden="true" />
         </span>
-        <p className="font-display text-lg text-primary">{t('catalogue.sealedTitle')}</p>
+        <p className="font-heading text-lg text-charcoal">{t('catalogue.sealedTitle')}</p>
         <p className="text-sm text-charcoal-light">{t('catalogue.sealedBody')}</p>
-        <p className="font-display text-3xl text-primary">{formatNumber(range.pieceCount)}</p>
+        <p className="font-heading text-3xl text-charcoal">{formatNumber(range.pieceCount)}</p>
         <p className="text-xs text-charcoal-light">{t('catalogue.columnPieces')}</p>
 
         <Button variant="secondary" iconLeft={Unlock} className="mt-2" onClick={onUnseal}>

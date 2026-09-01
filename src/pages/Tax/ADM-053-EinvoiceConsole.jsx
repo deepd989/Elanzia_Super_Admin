@@ -342,7 +342,7 @@ function DocumentModal({ openId, current, currentState, actionStatus, actionErro
 
           {invoice.cancellable ? (
             <>
-              <p className="text-sm text-info">{t('tax.cancel.description')}</p>
+              <p className="text-sm text-neutral">{t('tax.cancel.description')}</p>
               <Select
                 id="cancel-reason"
                 label={t('tax.cancel.reason')}

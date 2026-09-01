@@ -149,7 +149,7 @@ function BackLink() {
   return (
     <Link
       to="/sign-in"
-      className="text-sm text-white/70 underline underline-offset-2 hover:text-white"
+      className="text-sm text-onInverse/70 underline underline-offset-2 hover:text-onInverse"
     >
       {t('access.backToSignIn')}
     </Link>

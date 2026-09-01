@@ -287,7 +287,7 @@ function CertificateDetailModal({ detail, onClose }) {
 
           {detail.relatedCertificates.length > 0 ? (
             <div>
-              <p className="mb-2 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-lighter">
+              <p className="mb-2 font-body text-label font-bold text-charcoal-lighter">
                 {t('trust.relatedCertificates')}
               </p>
               <ul className="flex flex-col gap-1.5">

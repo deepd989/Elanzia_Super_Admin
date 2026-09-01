@@ -127,7 +127,7 @@ export default function AttributeSets() {
         </Card>
       ))}
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           <span className="mr-auto text-xs text-charcoal-light">
@@ -170,7 +170,7 @@ function AttributeRow({ attribute, checked, locked, onToggle }) {
           <p className="text-xs text-charcoal-lighter">{t('catalogue.cannotRemove')}</p>
         ) : null}
       </div>
-      <span className="shrink-0 text-xs uppercase tracking-wide text-charcoal-lighter">
+      <span className="shrink-0 text-label font-bold text-charcoal-lighter">
         {attribute.type}
       </span>
     </li>

@@ -64,7 +64,7 @@ export default function AdminLogin() {
       footer={
         <Link
           to="/reset-password"
-          className="text-sm text-white/70 underline underline-offset-2 hover:text-white"
+          className="text-sm text-onInverse/70 underline underline-offset-2 hover:text-onInverse"
         >
           {t('access.forgotPassword')}
         </Link>
@@ -101,7 +101,7 @@ export default function AdminLogin() {
           {t('access.signIn')}
         </Button>
 
-        <Button type="button" variant="link" className="self-center" onClick={toggleMethod}>
+        <Button type="button" variant="ghost" className="self-center" onClick={toggleMethod}>
           {method === 'password' ? t('access.signInWithOtp') : t('access.signInWithPassword')}
         </Button>
       </form>
@@ -140,7 +140,7 @@ function DemoHint() {
 
   return (
     <div className="mt-6 rounded border border-lightGray-dark bg-lightGray p-3">
-      <p className="font-body text-xs font-semibold uppercase tracking-wide text-charcoal-light">
+      <p className="font-body text-label font-bold text-charcoal-light">
         {t('access.demoTitle')}
       </p>
       <dl className="mt-1.5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-xs">

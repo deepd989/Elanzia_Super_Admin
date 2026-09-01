@@ -88,8 +88,8 @@ export default function CommissionConfiguration() {
       {/* The permanence rule, said out loud on the screen that would otherwise
           look like it could reprice history. ordersAffected is always zero and
           it is shown rather than hidden. */}
-      <div className="flex items-start gap-3 rounded-md border border-info/40 bg-info-surface px-4 py-3">
-        <Lock size={18} className="mt-0.5 shrink-0 text-info" aria-hidden="true" />
+      <div className="flex items-start gap-3 rounded-md border border-neutral-border bg-neutral-surface px-4 py-3">
+        <Lock size={18} className="mt-0.5 shrink-0 text-neutral" aria-hidden="true" />
         <p className="text-base text-charcoal">
           {t('payments.commissionForward', {
             date: effectiveFrom ? formatDate(effectiveFrom) : '-',
@@ -173,7 +173,7 @@ export default function CommissionConfiguration() {
               </span>
               <span className="flex items-center gap-4">
                 <span className="text-xs text-charcoal-light">{formatINR(row.settledValue)}</span>
-                <span className="text-base font-medium tabular-nums text-primary">
+                <span className="text-base font-medium tabular-nums text-charcoal">
                   {formatPercent(row.percent, { decimals: 2 })}
                 </span>
               </span>
@@ -248,7 +248,7 @@ export default function CommissionConfiguration() {
 
       {/* Sticky footer. Cancel on the left of the primary, always in this
           order, so muscle memory works across all 99 screens. */}
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-3">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           {saveStatus === 'succeeded' && !dirty && !saveError ? (

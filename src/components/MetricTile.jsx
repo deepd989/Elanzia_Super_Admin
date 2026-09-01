@@ -27,13 +27,13 @@ export default function MetricTile({
       type={onClick ? 'button' : undefined}
       onClick={onClick}
       className={cn(
-        'flex w-full flex-col gap-2 rounded-md border border-lightGray-dark bg-white p-4 text-left shadow-sm',
-        onClick && 'transition-colors hover:border-accent focus:outline-none focus-visible:shadow-focus',
+        'flex w-full flex-col gap-2 rounded-md border border-border bg-white p-card text-left',
+        onClick && 'transition-colors duration-hover ease-standard hover:border-border-strong hover:bg-surface-hover focus:outline-none focus-visible:shadow-focus',
         className,
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="font-body text-sm font-medium text-charcoal-light">{label}</span>
+        <span className="font-body text-label font-bold text-charcoal-tertiary">{label}</span>
         {Icon ? <Icon size={16} className="shrink-0 text-charcoal-lighter" aria-hidden="true" /> : null}
       </div>
 
@@ -42,12 +42,12 @@ export default function MetricTile({
           <Spinner size="sm" />
         </div>
       ) : (
-        <span className="font-display text-2xl leading-none text-primary num">{value}</span>
+        <span className="font-heading text-h2 leading-none text-charcoal num">{value}</span>
       )}
 
       <div className="flex flex-wrap items-center gap-2">
         {trend && !loading ? <Trend trend={trend} invert={invertTrend} /> : null}
-        {caption ? <span className="text-xs text-charcoal-light">{caption}</span> : null}
+        {caption ? <span className="text-micro text-charcoal-light">{caption}</span> : null}
       </div>
     </Tag>
   );
@@ -63,8 +63,8 @@ function Trend({ trend, invert }) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-0.5 text-xs font-medium num',
-        isFlat ? 'text-charcoal-light' : isGood ? 'text-success' : 'text-danger',
+        'inline-flex items-center gap-0.5 text-micro font-semibold num',
+        isFlat ? 'text-charcoal-tertiary' : isGood ? 'text-success' : 'text-danger',
       )}
     >
       <Icon size={13} aria-hidden="true" />

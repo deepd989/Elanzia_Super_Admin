@@ -193,7 +193,7 @@ export default function AdminProfile() {
         </dl>
       </Card>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-3">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           {saveStatus === 'succeeded' && !saveError ? (

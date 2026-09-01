@@ -126,7 +126,7 @@ export default function MembershipPlans() {
             description={t(`payments.audience.${plan.audience}`)}
             action={<StatusPill tone={PLAN_TONES[plan.status]} label={t(`payments.planStatus.${plan.status}`)} />}
           >
-            <p className="text-xl font-semibold tabular-nums text-primary">
+            <p className="text-xl font-semibold tabular-nums text-charcoal">
               {plan.monthlyPrice === 0
                 ? t('payments.freePlan')
                 : t('payments.perMonth', { value: formatINR(plan.monthlyPrice) })}

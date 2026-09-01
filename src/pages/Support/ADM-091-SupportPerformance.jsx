@@ -88,7 +88,7 @@ export default function SupportPerformance() {
       {/* Closing fast and closing properly are different things, so the reopen
           rate sits beside the resolution time rather than three screens away. */}
       <Card title={t('support.tileReopenRate')} description={t('support.reopenRateHelp')}>
-        <p className="font-display text-3xl text-primary">
+        <p className="font-heading text-3xl text-charcoal">
           {formatPercent(metrics?.reopenRatePercent ?? 0)}
         </p>
       </Card>

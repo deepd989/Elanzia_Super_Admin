@@ -280,7 +280,7 @@ function Fact({ label, value, emphasis = false }) {
       <dd
         className={
           emphasis
-            ? 'mt-0.5 text-xl font-semibold tabular-nums text-primary'
+            ? 'mt-0.5 text-xl font-semibold tabular-nums text-charcoal'
             : 'mt-0.5 text-base tabular-nums text-charcoal'
         }
       >

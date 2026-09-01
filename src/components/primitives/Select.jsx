@@ -23,7 +23,7 @@ export default function Select({
           disabled={disabled}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : help ? `${id}-help` : undefined}
-          className={cn(controlClasses(error, disabled), 'h-10 appearance-none pr-9')}
+          className={cn(controlClasses(error, disabled), 'h-control appearance-none pr-9')}
           {...rest}
         >
           {placeholder ? <option value="">{placeholder}</option> : null}

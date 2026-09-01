@@ -218,7 +218,7 @@ function RateRow({ rate }) {
 function Banner({ tone, title, children }) {
   const tones = {
     warning: 'border-warning/40 bg-warning-surface text-warning',
-    info: 'border-info/30 bg-info-surface text-info',
+    info: 'border-neutral-border bg-neutral-surface text-neutral',
     danger: 'border-danger/30 bg-danger-surface text-danger',
   };
 

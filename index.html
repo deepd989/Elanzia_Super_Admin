@@ -1,9 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-density="condensed">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Elanzia Trade - Super Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Ethic Serif is licensed and self-hosted where present; Playfair
+         Display is the fallback in the heading stack. Anek Devanagari and
+         Anek Gujarati carry Indic script in names and addresses. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Playfair+Display:wght@400..800&family=Anek+Devanagari:wdth,wght@75..125,100..800&family=Anek+Gujarati:wdth,wght@75..125,100..800&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Applied before first paint so an explicitly chosen theme never flashes
+      // the other one. Unset means follow the system preference.
+      (function () {
+        try {
+          var saved = localStorage.getItem('elanzia.theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {
+          /* storage blocked - the system preference still applies */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

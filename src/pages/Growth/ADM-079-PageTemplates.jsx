@@ -219,7 +219,7 @@ export default function PageTemplates() {
         </aside>
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError && saveError.code !== 'pattern_missing_placeholder' ? (
             <p className="mr-auto text-sm text-danger">{saveError.message}</p>
@@ -241,7 +241,7 @@ function Stat({ label, value, emphasis = false }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
       <span className="text-sm text-charcoal-light">{label}</span>
-      <span className={`text-right ${emphasis ? 'font-display text-2xl text-primary' : 'text-base text-charcoal'}`}>
+      <span className={`text-right ${emphasis ? 'font-heading text-2xl text-charcoal' : 'text-base text-charcoal'}`}>
         {value}
       </span>
     </div>

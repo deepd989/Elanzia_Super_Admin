@@ -109,7 +109,7 @@ export default function DisputeDetail() {
             {linkedReturn ? (
               <Link
                 to="/returns"
-                className="flex items-start gap-2 rounded border border-info/30 bg-info-surface px-3 py-2.5 text-sm text-info"
+                className="flex items-start gap-2 rounded border border-neutral-border bg-neutral-surface px-3 py-2.5 text-sm text-neutral"
               >
                 <Scale size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
                 {t('trust.linkedReturnLabel', { id: linkedReturn })}
@@ -222,7 +222,7 @@ function MessageHistory({ messages, internalNotes, jewellerName }) {
 
       {internalNotes.length > 0 ? (
         <div className="border-t border-lightGray-dark bg-lightGray px-5 py-3">
-          <p className="mb-2 flex items-center gap-1.5 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-light">
+          <p className="mb-2 flex items-center gap-1.5 font-body text-label font-bold text-charcoal-light">
             <Lock size={12} aria-hidden="true" />
             {t('trust.internalNotesCard')}
           </p>
@@ -243,7 +243,7 @@ function MessageHistory({ messages, internalNotes, jewellerName }) {
 function Timeline({ events }) {
   return (
     <div>
-      <p className="mb-2 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-lighter">
+      <p className="mb-2 font-body text-label font-bold text-charcoal-lighter">
         {t('common.history')}
       </p>
       <ol className="flex flex-col gap-2">

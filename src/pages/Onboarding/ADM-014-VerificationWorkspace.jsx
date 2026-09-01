@@ -39,7 +39,7 @@ const CHECK_ICONS = { pass: Check, fail: X, pending: Clock };
 const CHECK_ICON_COLOURS = {
   pass: 'text-success',
   fail: 'text-danger',
-  pending: 'text-info',
+  pending: 'text-neutral',
 };
 
 const DECISION_OPTIONS = [
@@ -183,7 +183,7 @@ export default function VerificationWorkspace() {
           <CheckList checks={checks} />
 
           {isDecided ? (
-            <p className="rounded border border-info bg-info-surface px-3 py-2 text-xs text-charcoal">
+            <p className="rounded border border-neutral-border bg-neutral-surface px-3 py-2 text-xs text-charcoal">
               {t('onboarding.decidedBody')}
             </p>
           ) : null}
@@ -267,7 +267,7 @@ function MetaRow({ label, value, mono = false }) {
 function CheckList({ checks }) {
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="font-display text-base text-primary">{t('onboarding.checksTitle')}</h3>
+      <h3 className="font-heading text-base text-charcoal">{t('onboarding.checksTitle')}</h3>
       <ul className="flex flex-col gap-1.5">
         {checks.map((check) => {
           const Icon = CHECK_ICONS[check.state];
@@ -307,7 +307,7 @@ function MissingDocuments({ documents }) {
 
   return (
     <section className="rounded-md border border-warning bg-warning-surface px-5 py-4">
-      <h3 className="flex items-center gap-2 font-display text-base text-primary">
+      <h3 className="flex items-center gap-2 font-heading text-base text-charcoal">
         <FileWarning size={16} aria-hidden="true" />
         {t('onboarding.approvalBlockedTitle')}
       </h3>
@@ -326,7 +326,7 @@ function Timeline({ entries }) {
   return (
     <section className="rounded-md border border-lightGray-dark bg-white">
       <header className="border-b border-lightGray-dark px-5 py-4">
-        <h3 className="font-display text-base text-primary">{t('onboarding.timelineTitle')}</h3>
+        <h3 className="font-heading text-base text-charcoal">{t('onboarding.timelineTitle')}</h3>
       </header>
       <ul className="divide-y divide-lightGray">
         {entries.map((entry) => (

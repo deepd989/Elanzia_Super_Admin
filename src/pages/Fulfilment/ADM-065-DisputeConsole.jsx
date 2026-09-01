@@ -108,8 +108,8 @@ export default function DisputeConsole() {
       </div>
 
       {selectedIds.length > 0 && canResolve ? (
-        <div className="flex flex-wrap items-end gap-3 rounded-md border border-accent bg-accent-light/20 px-4 py-3">
-          <span className="pb-2.5 text-base font-medium text-primary">
+        <div className="flex flex-wrap items-end gap-3 rounded-md border border-accent bg-warning-surface px-4 py-3">
+          <span className="pb-2.5 text-base font-medium text-charcoal">
             {t('common.selectedCount', { count: selectedIds.length })}
           </span>
           <Select

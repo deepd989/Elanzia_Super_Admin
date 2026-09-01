@@ -171,7 +171,7 @@ export default function CmsPages() {
                       type="button"
                       onClick={() => navigate(`/growth/pages/${page.id}`)}
                       className={`flex w-full flex-col gap-0.5 px-4 py-3 text-left transition hover:bg-lightGray ${
-                        draft?.id === page.id ? 'bg-accent-light/20' : ''
+                        draft?.id === page.id ? 'bg-warning-surface' : ''
                       }`}
                     >
                       <span className="flex items-center gap-2 text-base text-charcoal">
@@ -286,7 +286,7 @@ export default function CmsPages() {
       </div>
 
       {draft ? (
-        <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+        <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
           <div className="flex items-center justify-end gap-2">
             {saveError && !['slug_taken', 'reserved_slug'].includes(saveError.code) ? (
               <p className="mr-auto text-sm text-danger">{saveError.message}</p>

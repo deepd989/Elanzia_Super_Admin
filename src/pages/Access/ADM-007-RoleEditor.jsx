@@ -139,7 +139,7 @@ export default function RoleEditor() {
       />
 
       {isSystem ? (
-        <p className="flex items-start gap-2 rounded-md border border-info/30 bg-info-surface px-4 py-3 text-base text-info">
+        <p className="flex items-start gap-2 rounded-md border border-neutral-border bg-neutral-surface px-4 py-3 text-base text-neutral">
           <Lock size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
           {t('access.systemRoleReadonly')}
         </p>
@@ -193,7 +193,7 @@ export default function RoleEditor() {
         />
       ))}
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-3">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           <Button variant="secondary" onClick={() => navigate('/access/users')}>
@@ -299,9 +299,9 @@ function PermissionGroup({
                 <p className="text-xs text-charcoal-light">{t(permission.description)}</p>
 
                 {implied ? (
-                  <p className="mt-1 text-xs text-info">{t('access.impliedNote')}</p>
+                  <p className="mt-1 text-xs text-neutral">{t('access.impliedNote')}</p>
                 ) : holders.length > 0 ? (
-                  <p className="mt-1 text-xs text-info">
+                  <p className="mt-1 text-xs text-neutral">
                     {t('access.impliedBy', {
                       permissions: holders.map((id) => t(permissionById[id].label)).join(', '),
                     })}

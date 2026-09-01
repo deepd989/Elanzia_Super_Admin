@@ -6,9 +6,11 @@ import {
   ChevronRight,
   ExternalLink,
   LogOut,
+  Moon,
   PanelLeftClose,
   PanelLeftOpen,
   Search,
+  Sun,
   UserCog,
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
@@ -18,6 +20,7 @@ import { endImpersonation, selectShellSession, signOut } from '@/store/slices/ac
 import { formatRelativeTime } from '@/utils/format';
 import Badge from '@/components/primitives/Badge';
 import Button from '@/components/primitives/Button';
+import useThemePreference from '@/theme/useThemePreference';
 
 // Top bar, collapsible left nav, breadcrumb and the content slot every screen
 // renders into. It owns no feature state: the nav comes entirely from
@@ -34,7 +37,7 @@ export default function AdminShell() {
   const breadcrumb = breadcrumbFor(location.pathname);
 
   return (
-    <div className="flex min-h-screen flex-col bg-lightGray">
+    <div className="flex min-h-screen flex-col bg-surface-page">
       <TopBar currentUser={currentUser} role={role} />
 
       {activeImpersonation ? <ImpersonationBanner session={activeImpersonation} /> : null}
@@ -62,6 +65,7 @@ function TopBar({ currentUser, role }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { resolved: theme, toggle: toggleTheme } = useThemePreference();
 
   const handleSignOut = async () => {
     setMenuOpen(false);
@@ -70,29 +74,38 @@ function TopBar({ currentUser, role }) {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-topBarHeight shrink-0 items-center gap-4 bg-primary px-gutter text-white">
+    <header className="sticky top-0 z-sticky flex h-topBarHeight shrink-0 items-center gap-4 border-b border-border bg-surface-page px-gutter">
       <Link to="/" className="flex items-baseline gap-2 focus:outline-none focus-visible:shadow-focus">
-        <span className="font-display text-lg leading-none">{t('app.name')}</span>
-        <span className="font-body text-xs uppercase tracking-widest text-accent">
+        <span className="font-heading text-h3 leading-none text-link">{t('app.name')}</span>
+        <span className="font-body text-micro font-semibold text-charcoal-tertiary">
           {t('app.portal')}
         </span>
       </Link>
 
-      <div className="ml-6 hidden max-w-md flex-1 items-center gap-2 rounded bg-white/10 px-3 py-1.5 md:flex">
-        <Search size={15} className="shrink-0 text-white/60" aria-hidden="true" />
+      <div className="ml-6 hidden h-control max-w-md flex-1 items-center gap-2 rounded-sm border border-border-strong bg-white px-3 focus-within:border-border-focus focus-within:shadow-focus md:flex">
+        <Search size={15} className="shrink-0 text-charcoal-tertiary" aria-hidden="true" />
         <input
           type="search"
           placeholder={t('common.search')}
           aria-label={t('common.search')}
-          className="w-full bg-transparent text-base text-white placeholder:text-white/50 focus:outline-none"
+          className="w-full bg-transparent text-body text-charcoal placeholder:text-charcoal-lighter focus:outline-none"
         />
       </div>
 
       <div className="ml-auto flex items-center gap-1">
         <button
           type="button"
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? t('nav.themeToLight') : t('nav.themeToDark')}
+          className="rounded-sm p-2 text-charcoal-light hover:bg-surface-hover hover:text-charcoal focus:outline-none focus-visible:shadow-focus"
+        >
+          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+        </button>
+
+        <button
+          type="button"
           aria-label={t('nav.notifications')}
-          className="relative rounded p-2 hover:bg-white/10 focus:outline-none focus-visible:shadow-focus"
+          className="relative rounded-sm p-2 text-charcoal-light hover:bg-surface-hover hover:text-charcoal focus:outline-none focus-visible:shadow-focus"
         >
           <Bell size={17} />
           <span className="absolute right-1 top-1">
@@ -106,23 +119,23 @@ function TopBar({ currentUser, role }) {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={t('nav.account')}
             aria-expanded={menuOpen}
-            className="flex items-center gap-2 rounded p-1.5 hover:bg-white/10 focus:outline-none focus-visible:shadow-focus"
+            className="flex items-center gap-2 rounded-sm p-1.5 hover:bg-surface-hover focus:outline-none focus-visible:shadow-focus"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent font-body text-xs font-semibold text-primary">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent font-body text-micro font-bold text-accent-on">
               {initialsOf(currentUser?.name)}
             </span>
             <span className="hidden text-left md:block">
-              <span className="block text-sm leading-tight">{currentUser?.name ?? '-'}</span>
-              <span className="block text-xs leading-tight text-white/60">{role?.name ?? '-'}</span>
+              <span className="block text-sm leading-tight text-charcoal">{currentUser?.name ?? '-'}</span>
+              <span className="block text-micro leading-tight text-charcoal-tertiary">{role?.name ?? '-'}</span>
             </span>
           </button>
 
           {menuOpen ? (
-            <div className="absolute right-0 top-full mt-1 w-56 overflow-hidden rounded-md border border-lightGray-dark bg-white shadow-lg">
+            <div className="absolute right-0 top-full z-dropdown mt-1 w-56 overflow-hidden rounded-md border border-border bg-white shadow-dropdown">
               <Link
                 to="/settings/profile"
                 onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-2 px-4 py-2.5 text-base text-charcoal hover:bg-lightGray"
+                className="flex items-center gap-2 px-4 py-2.5 text-body text-charcoal hover:bg-surface-hover"
               >
                 <UserCog size={15} aria-hidden="true" />
                 {t('access.profileTitle')}
@@ -130,7 +143,7 @@ function TopBar({ currentUser, role }) {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="flex w-full items-center gap-2 border-t border-lightGray-dark px-4 py-2.5 text-left text-base text-danger hover:bg-lightGray"
+                className="flex w-full items-center gap-2 border-t border-border px-4 py-2.5 text-left text-body text-danger hover:bg-surface-hover"
               >
                 <LogOut size={15} aria-hidden="true" />
                 {t('nav.signOut')}
@@ -149,14 +162,14 @@ function ImpersonationBanner({ session }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="sticky top-topBarHeight z-20 flex flex-wrap items-center gap-3 border-b border-warning/40 bg-warning-surface px-gutter py-2.5">
+    <div className="sticky top-topBarHeight z-sticky flex flex-wrap items-center gap-3 border-b border-warning-border bg-warning-surface px-gutter py-2.5">
       <UserCog size={17} className="shrink-0 text-warning" aria-hidden="true" />
 
       <div className="min-w-0 flex-1">
-        <p className="font-body text-base font-semibold text-warning">
+        <p className="font-body text-body font-bold text-warning">
           {t('access.activeBannerTitle', { business: session.targetName })}
         </p>
-        <p className="truncate text-xs text-charcoal-light">
+        <p className="truncate text-micro text-charcoal-light">
           {t('access.activeBannerBody', {
             when: formatRelativeTime(session.startedAt),
             reason: session.reason,
@@ -180,14 +193,14 @@ function SideNav({ sections, collapsed, onToggle }) {
       aria-label={t('app.portal')}
       className={cn(
         'sticky top-topBarHeight flex h-[calc(100vh-3.5rem)] shrink-0 flex-col',
-        'border-r border-lightGray-dark bg-white transition-[width] duration-150',
+        'border-r border-border bg-surface-page transition-[width] duration-state ease-standard',
         collapsed ? 'w-navWidthCollapsed' : 'w-navWidth',
       )}
     >
       <div className="flex-1 overflow-y-auto py-3">
         {sections.length === 0 ? (
           !collapsed ? (
-            <p className="px-4 py-3 text-xs leading-relaxed text-charcoal-lighter">
+            <p className="px-4 py-3 text-micro leading-relaxed text-charcoal-lighter">
               {t('nav.noSectionsForRole')}
             </p>
           ) : null
@@ -195,7 +208,7 @@ function SideNav({ sections, collapsed, onToggle }) {
           sections.map((section) => (
             <div key={section.id} className="mb-4">
               {!collapsed ? (
-                <p className="px-4 pb-1.5 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-lighter">
+                <p className="px-4 pb-1 pt-3 font-body text-micro font-bold text-charcoal-lighter">
                   {t(section.label)}
                 </p>
               ) : null}
@@ -217,8 +230,8 @@ function SideNav({ sections, collapsed, onToggle }) {
         onClick={onToggle}
         aria-label={collapsed ? t('nav.expand') : t('nav.collapse')}
         className={cn(
-          'flex h-11 items-center gap-3 border-t border-lightGray-dark px-4',
-          'text-charcoal-light hover:bg-lightGray focus:outline-none focus-visible:shadow-focus',
+          'flex h-11 items-center gap-3 border-t border-border px-4',
+          'text-charcoal-light hover:bg-surface-hover hover:text-charcoal focus:outline-none focus-visible:shadow-focus',
         )}
       >
         {collapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}
@@ -237,11 +250,11 @@ function NavItem({ item, collapsed }) {
       title={collapsed ? t(item.label) : undefined}
       className={({ isActive }) =>
         cn(
-          'flex h-9 items-center gap-3 border-l-2 px-4 font-body text-base transition-colors',
+          'flex items-center gap-3 border-l-2 px-4 py-1.5 font-body text-sm font-medium transition-colors duration-hover ease-standard',
           'focus:outline-none focus-visible:shadow-focus',
           isActive
-            ? 'border-accent bg-accent-light/20 font-medium text-primary'
-            : 'border-transparent text-charcoal-light hover:bg-lightGray hover:text-charcoal',
+            ? 'border-primary bg-surface-selected font-bold text-link'
+            : 'border-transparent text-charcoal-light hover:bg-surface-hover hover:text-charcoal',
           collapsed && 'justify-center px-0',
         )
       }

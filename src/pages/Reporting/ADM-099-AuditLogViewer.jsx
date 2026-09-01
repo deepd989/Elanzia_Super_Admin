@@ -248,7 +248,7 @@ function EntryDetail({ state, entry, error }) {
       <p className="text-base text-charcoal">{entry.summary}</p>
 
       <div>
-        <h4 className="mb-2 font-display text-base text-primary">{t('reports.changesTitle')}</h4>
+        <h4 className="mb-2 font-heading text-base text-charcoal">{t('reports.changesTitle')}</h4>
         {entry.changes.length === 0 ? (
           <p className="text-sm text-charcoal-light">{t('reports.noChanges')}</p>
         ) : (

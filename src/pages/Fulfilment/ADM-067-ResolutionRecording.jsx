@@ -108,10 +108,10 @@ export default function ResolutionRecording() {
                     </StatusPill>
                   </p>
                   {selectedOutcome.opensInsuranceClaim ? (
-                    <p className="text-sm text-info">{t('trust.opensClaim')}</p>
+                    <p className="text-sm text-neutral">{t('trust.opensClaim')}</p>
                   ) : null}
                   {selectedOutcome.issuesReplacement ? (
-                    <p className="text-sm text-info">{t('trust.issuesReplacement')}</p>
+                    <p className="text-sm text-neutral">{t('trust.issuesReplacement')}</p>
                   ) : null}
                 </div>
               ) : null}
@@ -169,7 +169,7 @@ export default function ResolutionRecording() {
         </aside>
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-3">
           {needsAmount && !canRecord ? (
             <p className="mr-auto text-sm text-charcoal-light">{t('trust.amountRequired')}</p>
@@ -227,7 +227,7 @@ function Line({ label, value, muted = false, emphasis = false }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
       <dt className={`text-sm ${muted ? 'text-charcoal-lighter' : 'text-charcoal-light'}`}>{label}</dt>
-      <dd className={`num text-base ${emphasis ? 'font-semibold text-primary' : 'text-charcoal'}`}>
+      <dd className={`num text-base ${emphasis ? 'font-semibold text-charcoal' : 'text-charcoal'}`}>
         {formatINR(value)}
       </dd>
     </div>

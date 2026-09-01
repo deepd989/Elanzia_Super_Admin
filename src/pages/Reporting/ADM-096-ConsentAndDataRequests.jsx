@@ -422,7 +422,7 @@ function DecisionForm({ request, draft, error, onChange }) {
           refusal something a member can be told rather than just given. */}
       {request.retainedRecords.length > 0 ? (
         <div>
-          <h4 className="font-display text-base text-primary">{t('platform.retainedTitle')}</h4>
+          <h4 className="font-heading text-base text-charcoal">{t('platform.retainedTitle')}</h4>
           <p className="mb-2 text-xs text-charcoal-light">{t('platform.retainedHelp')}</p>
           <ul className="flex flex-col gap-1">
             {request.retainedRecords.map((record) => (

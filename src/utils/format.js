@@ -26,7 +26,16 @@ function isBlank(value) {
 // trade invoices quote paise, list screens do not.
 export function formatINR(amount, { paise = false } = {}) {
   if (isBlank(amount)) return EMPTY;
-  return paise ? INR_PAISE.format(amount) : INR.format(amount);
+  const formatted = paise ? INR_PAISE.format(amount) : INR.format(amount);
+  // The design system sets money as the symbol, a space, then the figure.
+  // Intl runs them together, so the space is put back here rather than in 99
+  // screens.
+  return withRupeeSpace(formatted);
+}
+
+// The rupee sign is followed by a space wherever money is shown.
+function withRupeeSpace(formatted) {
+  return formatted.replace(/^(-?)\u20B9\s*/, '$1\u20B9 ');
 }
 
 // Money without the symbol, for table columns that carry a header unit.
@@ -40,9 +49,9 @@ export function formatAmount(amount) {
 export function formatINRCompact(amount) {
   if (isBlank(amount)) return EMPTY;
   const abs = Math.abs(amount);
-  if (abs >= 1e7) return `₹${(amount / 1e7).toFixed(2)} Cr`;
-  if (abs >= 1e5) return `₹${(amount / 1e5).toFixed(2)} L`;
-  if (abs >= 1e3) return `₹${(amount / 1e3).toFixed(1)} K`;
+  if (abs >= 1e7) return `₹ ${(amount / 1e7).toFixed(2)} Cr`;
+  if (abs >= 1e5) return `₹ ${(amount / 1e5).toFixed(2)} L`;
+  if (abs >= 1e3) return `₹ ${(amount / 1e3).toFixed(1)} K`;
   return formatINR(amount);
 }
 
@@ -141,9 +150,12 @@ export function formatPhone(phone) {
 }
 
 // snake_case status keys into Title Case for any place without a mapped label.
+// Turns a status key into a label: under_review becomes "Under review".
+// Sentence case, not title case - the design system uses sentence case
+// everywhere, chips and buttons included. Proper nouns and initialisms have
+// to come from i18n rather than from a status key.
 export function humanise(value) {
   if (isBlank(value)) return EMPTY;
-  return String(value)
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  const words = String(value).replace(/[_-]+/g, ' ').trim();
+  return words.charAt(0).toUpperCase() + words.slice(1).toLowerCase();
 }

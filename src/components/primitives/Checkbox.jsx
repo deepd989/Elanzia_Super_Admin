@@ -1,5 +1,6 @@
 import { cn } from '@/utils/cn';
 
+// Radius 4 - a checkbox is a stamp, not a pill. Radios and toggles are pills.
 export default function Checkbox({
   id,
   label,
@@ -19,7 +20,7 @@ export default function Checkbox({
           if (node) node.indeterminate = indeterminate;
         }}
         className={cn(
-          'mt-0.5 h-4 w-4 shrink-0 rounded-sm border border-lightGray-dark accent-primary',
+          'mt-0.5 h-4 w-4 shrink-0 rounded-xs border border-border-strong accent-primary',
           'focus:outline-none focus-visible:shadow-focus',
           disabled && 'cursor-not-allowed opacity-50',
         )}
@@ -30,13 +31,13 @@ export default function Checkbox({
           <label
             htmlFor={id}
             className={cn(
-              'font-body text-base leading-tight text-charcoal',
+              'font-body text-body leading-tight text-charcoal',
               disabled ? 'cursor-not-allowed text-charcoal-lighter' : 'cursor-pointer',
             )}
           >
             {label}
           </label>
-          {help ? <span className="text-xs text-charcoal-light">{help}</span> : null}
+          {help ? <span className="text-micro text-charcoal-tertiary">{help}</span> : null}
         </div>
       ) : null}
     </div>

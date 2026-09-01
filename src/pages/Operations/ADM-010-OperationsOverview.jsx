@@ -228,7 +228,7 @@ function WorkQueueStrip({ queues, loading }) {
               <Link
                 key={queue.id}
                 to={`/operations/alerts?category=${queue.category}`}
-                className="flex flex-col items-start gap-1 rounded-md border border-lightGray-dark bg-white px-4 py-3 text-left transition hover:border-accent hover:shadow-sm"
+                className="flex flex-col items-start gap-1 rounded-md border border-lightGray-dark bg-white px-4 py-3 text-left transition hover:border-accent"
               >
                 <span className="text-sm text-charcoal-light">
                   {t(`operations.category.${queue.category}`)}

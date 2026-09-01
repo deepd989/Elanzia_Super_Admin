@@ -167,7 +167,7 @@ function PermissionPanel({ role, grantedPermissions }) {
       <div className="flex flex-col gap-4">
         {modules.map((module) => (
           <div key={module.id}>
-            <p className="mb-1.5 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-lighter">
+            <p className="mb-1.5 font-body text-label font-bold text-charcoal-lighter">
               {t(module.label)}
             </p>
             <ul className="flex flex-col gap-1">

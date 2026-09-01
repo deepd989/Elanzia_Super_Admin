@@ -20,7 +20,7 @@ export default function Textarea({
         disabled={disabled}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : help ? `${id}-help` : undefined}
-        className={cn(controlClasses(error, disabled), 'resize-y py-2')}
+        className={cn(controlClasses(error, disabled), 'min-h-[84px] resize-y py-2.5 leading-normal')}
         {...rest}
       />
     </Field>

@@ -9,7 +9,7 @@ const SIZES = {
 const TONES = {
   primary: 'border-primary/25 border-t-primary',
   accent: 'border-accent/30 border-t-accent',
-  inverse: 'border-white/30 border-t-white',
+  inverse: 'border-onAction/30 border-t-onAction',
 };
 
 export default function Spinner({ size = 'md', tone = 'primary', label = 'Loading', className }) {

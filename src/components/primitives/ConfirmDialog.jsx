@@ -38,7 +38,7 @@ export default function ConfirmDialog({
         {tone === 'danger' ? (
           <AlertTriangle size={20} className="mt-0.5 shrink-0 text-danger" aria-hidden="true" />
         ) : null}
-        <div className="text-base text-charcoal-light">
+        <div className="text-body text-charcoal-light">
           {body ? <p>{body}</p> : null}
           {children}
         </div>

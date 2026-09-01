@@ -401,7 +401,7 @@ function AttributionModal({ attribution, state, onClose }) {
           <p className="text-xs text-charcoal-light">{t('growth.attributionRateHelp')}</p>
 
           <div>
-            <h4 className="mb-2 font-display text-base text-primary">
+            <h4 className="mb-2 font-heading text-base text-charcoal">
               {t('growth.attributionLedger')}
             </h4>
             {attribution.ledger.length === 0 ? (
@@ -437,7 +437,7 @@ function Fact({ label, value, emphasis = false }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
       <dt className="shrink-0 text-sm text-charcoal-light">{label}</dt>
-      <dd className={`text-right text-base ${emphasis ? 'font-semibold text-primary' : 'text-charcoal'}`}>
+      <dd className={`text-right text-base ${emphasis ? 'font-semibold text-charcoal' : 'text-charcoal'}`}>
         {value}
       </dd>
     </div>

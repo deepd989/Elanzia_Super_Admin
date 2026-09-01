@@ -348,7 +348,7 @@ function MetaRow({ label, value, mono = false, emphasis = false }) {
         className={[
           'text-right tabular-nums',
           mono ? 'font-mono text-xs' : 'text-base',
-          emphasis ? 'font-semibold text-primary' : 'text-charcoal',
+          emphasis ? 'font-semibold text-charcoal' : 'text-charcoal',
         ].join(' ')}
       >
         {value ?? '-'}

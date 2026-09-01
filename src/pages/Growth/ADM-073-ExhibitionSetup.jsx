@@ -158,7 +158,7 @@ export default function ExhibitionSetup() {
           {/* A closed show is a historical record. Its numbers were reported to
               the workshops that paid for the stalls, so nothing here moves. */}
           {readOnly ? (
-            <p className="rounded border border-info bg-info-surface px-4 py-3 text-sm text-charcoal">
+            <p className="rounded border border-neutral-border bg-neutral-surface px-4 py-3 text-sm text-charcoal">
               {t('growth.showClosedNotice')}
             </p>
           ) : null}
@@ -284,7 +284,7 @@ function Stat({ label, value }) {
   return (
     <div>
       <dt className="text-xs text-charcoal-light">{label}</dt>
-      <dd className="font-display text-lg text-primary">{value}</dd>
+      <dd className="font-heading text-lg text-charcoal">{value}</dd>
     </div>
   );
 }

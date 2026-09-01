@@ -4,10 +4,10 @@ import { cn } from '@/utils/cn';
 import { t } from '@/i18n/en';
 
 const TONES = {
-  success: { icon: CheckCircle2, classes: 'border-success/30 bg-success-surface text-success' },
-  warning: { icon: AlertTriangle, classes: 'border-warning/30 bg-warning-surface text-warning' },
-  danger: { icon: XCircle, classes: 'border-danger/30 bg-danger-surface text-danger' },
-  info: { icon: Info, classes: 'border-info/30 bg-info-surface text-info' },
+  success: { icon: CheckCircle2, classes: 'border-success-border bg-success-surface text-success' },
+  warning: { icon: AlertTriangle, classes: 'border-warning-border bg-warning-surface text-warning' },
+  danger: { icon: XCircle, classes: 'border-danger-border bg-danger-surface text-danger' },
+  info: { icon: Info, classes: 'border-neutral-border bg-neutral-surface text-neutral' },
 };
 
 export function Toast({ tone = 'info', title, body, onDismiss, autoDismissMs = 5000, className }) {
@@ -22,7 +22,7 @@ export function Toast({ tone = 'info', title, body, onDismiss, autoDismissMs = 5
   return (
     <div
       role="status"
-      className={cn('flex w-80 items-start gap-3 rounded-md border p-3 shadow-md', classes, className)}
+      className={cn('flex w-80 items-start gap-3 rounded-md border p-3 shadow-toast duration-overlay ease-spring', classes, className)}
     >
       <Icon size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
       <div className="min-w-0 flex-1">
@@ -34,7 +34,7 @@ export function Toast({ tone = 'info', title, body, onDismiss, autoDismissMs = 5
           type="button"
           onClick={onDismiss}
           aria-label={t('common.close')}
-          className="shrink-0 rounded p-0.5 opacity-60 hover:opacity-100 focus:outline-none focus-visible:shadow-focus"
+          className="shrink-0 rounded-sm p-0.5 opacity-60 hover:opacity-100 focus:outline-none focus-visible:shadow-focus"
         >
           <X size={16} />
         </button>
@@ -48,7 +48,7 @@ export function ToastStack({ toasts = [], onDismiss }) {
   if (toasts.length === 0) return null;
 
   return (
-    <div className="pointer-events-none fixed bottom-6 right-6 z-50 flex flex-col gap-2">
+    <div className="pointer-events-none fixed bottom-6 right-6 z-toast flex flex-col gap-2">
       {toasts.map((toast) => (
         <div key={toast.id} className="pointer-events-auto">
           <Toast {...toast} onDismiss={() => onDismiss?.(toast.id)} />

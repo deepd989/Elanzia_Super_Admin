@@ -193,7 +193,7 @@ export default function ProductEdit() {
               {t('catalogue.netDerivedHelp')}
             </span>
           </dt>
-          <dd className="shrink-0 font-display text-xl text-primary">
+          <dd className="shrink-0 font-heading text-xl text-charcoal">
             {weightsValid ? formatGrams(derivedNetWeight) : '-'}
           </dd>
         </dl>
@@ -290,7 +290,7 @@ export default function ProductEdit() {
 
       {/* Sticky footer. Cancel to the left of the primary, always in this
           order, so muscle memory works across all 99 screens. */}
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError && saveError.code !== 'edit_reason_required' ? (
             <p className="mr-auto text-sm text-danger">{saveError.message}</p>

@@ -21,12 +21,12 @@ import Select from './primitives/Select';
 
 export default function TableShell({ footer, maxHeight = '32rem', className, children }) {
   return (
-    <div className={cn('overflow-hidden rounded-md border border-lightGray-dark bg-white shadow-sm', className)}>
+    <div className={cn('overflow-hidden rounded-md border border-border bg-white', className)}>
       <div className="overflow-auto" style={{ maxHeight }}>
         <table className="w-full border-collapse text-left">{children}</table>
       </div>
       {footer ? (
-        <div className="border-t border-lightGray-dark bg-white px-4 py-3">{footer}</div>
+        <div className="border-t border-border bg-white px-cellX py-2">{footer}</div>
       ) : null}
     </div>
   );
@@ -34,8 +34,8 @@ export default function TableShell({ footer, maxHeight = '32rem', className, chi
 
 function Head({ className, children }) {
   return (
-    <thead className={cn('sticky top-0 z-10 bg-lightGray', className)}>
-      <tr className="border-b border-lightGray-dark">{children}</tr>
+    <thead className={cn('sticky top-0 z-sticky bg-white', className)}>
+      <tr className="border-b-2 border-border-strong">{children}</tr>
     </thead>
   );
 }
@@ -47,7 +47,7 @@ function HeadCell({ align = 'left', width, className, children }) {
       scope="col"
       style={width ? { width } : undefined}
       className={cn(
-        'px-cell py-2.5 font-body text-xs font-semibold uppercase tracking-wide text-charcoal-light',
+        'whitespace-nowrap px-cellX py-cellY font-body text-label font-bold text-charcoal-tertiary',
         align === 'right' && 'text-right',
         align === 'center' && 'text-center',
         className,
@@ -70,7 +70,7 @@ function SortableHeadCell({ align = 'left', width, direction = null, onSort, cla
         onClick={onSort}
         aria-sort={direction === 'asc' ? 'ascending' : direction === 'desc' ? 'descending' : 'none'}
         className={cn(
-          'flex w-full items-center gap-1.5 px-cell py-2.5 uppercase tracking-wide',
+          'flex w-full items-center gap-1.5 px-cellX py-cellY',
           'hover:text-charcoal focus:outline-none focus-visible:shadow-focus',
           align === 'right' && 'justify-end',
           align === 'center' && 'justify-center',
@@ -85,7 +85,7 @@ function SortableHeadCell({ align = 'left', width, direction = null, onSort, cla
 }
 
 function Body({ className, children }) {
-  return <tbody className={cn('divide-y divide-lightGray-dark', className)}>{children}</tbody>;
+  return <tbody className={cn('divide-y divide-border [&>tr:last-child]:border-b-0', className)}>{children}</tbody>;
 }
 
 function Row({ selected = false, onClick, className, children }) {
@@ -93,8 +93,10 @@ function Row({ selected = false, onClick, className, children }) {
     <tr
       onClick={onClick}
       className={cn(
-        'h-rowHeight transition-colors',
-        selected ? 'bg-accent-light/20' : 'bg-white hover:bg-lightGray',
+        'h-row transition-colors duration-hover ease-standard',
+        selected
+          ? 'bg-surface-selected shadow-[inset_0_1px_0_var(--status-positive-br)]'
+          : 'bg-white hover:bg-surface-hover',
         onClick && 'cursor-pointer',
         className,
       )}
@@ -108,7 +110,7 @@ function Cell({ align = 'left', numeric = false, className, children, ...rest })
   return (
     <td
       className={cn(
-        'px-cell py-2 align-middle text-base text-charcoal',
+        'px-cellX py-cellY align-middle text-body text-charcoal',
         align === 'right' && 'text-right',
         align === 'center' && 'text-center',
         numeric && 'num',
@@ -127,7 +129,7 @@ function SelectCell({ header = false, className, children }) {
   return (
     <Tag
       scope={header ? 'col' : undefined}
-      className={cn('w-10 px-cell py-2 align-middle', className)}
+      className={cn('w-11 px-cellX py-cellY align-middle', className)}
       onClick={(event) => event.stopPropagation()}
     >
       {children}
@@ -139,7 +141,7 @@ function SelectCell({ header = false, className, children }) {
 function ActionsCell({ className, children }) {
   return (
     <td
-      className={cn('w-px whitespace-nowrap px-cell py-2 text-right align-middle', className)}
+      className={cn('w-px whitespace-nowrap px-cellX py-cellY text-right align-middle', className)}
       onClick={(event) => event.stopPropagation()}
     >
       <div className="flex items-center justify-end gap-1">{children}</div>
@@ -155,6 +157,37 @@ function StateRow({ colSpan, children }) {
         {children}
       </td>
     </tr>
+  );
+}
+
+// Sits directly above the header when rows are selected. It is the only
+// place the selected surface appears outside a row.
+function BulkBar({ count, children, className }) {
+  if (!count) return null;
+
+  return (
+    <div
+      className={cn(
+        'flex flex-wrap items-center gap-3.5 border-b border-success-border bg-surface-selected',
+        'px-cellX py-cellY text-sm',
+        className,
+      )}
+    >
+      <span className="font-bold text-link num">{t('common.selectedCount', { count })}</span>
+      {children}
+    </div>
+  );
+}
+
+// The table's own empty state. Never a bare spinner, and never "No data yet" -
+// say what would appear here and what would widen the result.
+function Empty({ title, body, children, className }) {
+  return (
+    <div className={cn('border-t border-border px-5 py-12 text-center', className)}>
+      {title ? <p className="font-heading text-h3 text-charcoal">{title}</p> : null}
+      {body ? <p className="mt-1.5 text-body text-charcoal-light">{body}</p> : null}
+      {children}
+    </div>
   );
 }
 
@@ -215,9 +248,10 @@ function PageButton({ label, icon: Icon, disabled, onClick }) {
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'flex h-8 w-8 items-center justify-center rounded border border-lightGray-dark bg-white',
-        'text-charcoal hover:bg-lightGray focus:outline-none focus-visible:shadow-focus',
-        'disabled:cursor-not-allowed disabled:text-charcoal-lighter disabled:hover:bg-white',
+        'flex h-control w-control items-center justify-center rounded-sm border border-border-strong bg-white',
+        'text-charcoal-light hover:border-charcoal-lighter hover:bg-surface-hover hover:text-charcoal',
+        'focus:outline-none focus-visible:shadow-focus',
+        'disabled:cursor-not-allowed disabled:border-border disabled:bg-surface-sunken disabled:text-charcoal-lighter',
       )}
     >
       <Icon size={16} />
@@ -234,4 +268,6 @@ TableShell.Cell = Cell;
 TableShell.SelectCell = SelectCell;
 TableShell.ActionsCell = ActionsCell;
 TableShell.StateRow = StateRow;
+TableShell.BulkBar = BulkBar;
+TableShell.Empty = Empty;
 TableShell.Pagination = Pagination;

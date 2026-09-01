@@ -86,10 +86,10 @@ export default function PurityFactors() {
         }
       />
 
-      <div className="flex items-start gap-3 rounded-md border border-info/30 bg-info-surface px-4 py-3">
-        <Info size={17} className="mt-0.5 shrink-0 text-info" aria-hidden="true" />
+      <div className="flex items-start gap-3 rounded-md border border-neutral-border bg-neutral-surface px-4 py-3">
+        <Info size={17} className="mt-0.5 shrink-0 text-neutral" aria-hidden="true" />
         <div>
-          <p className="font-body text-base font-semibold text-info">
+          <p className="font-body text-base font-semibold text-neutral">
             {t('pricing.factorsExplainerTitle')}
           </p>
           <p className="mt-0.5 text-sm text-charcoal-light">{t('pricing.factorsExplainerBody')}</p>
@@ -102,7 +102,7 @@ export default function PurityFactors() {
           title={`${reference.metalLabel} ${reference.purityLabel}`}
           description={t('pricing.referenceRow')}
         >
-          <p className="font-display text-2xl text-primary num">
+          <p className="font-heading text-2xl text-charcoal num">
             {formatINR(reference.ratePerGram, { paise: reference.metal === 'silver' })}
           </p>
           <div className="mt-4 flex flex-col gap-3">
@@ -120,7 +120,7 @@ export default function PurityFactors() {
         </Card>
       ))}
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-3">
           {saveError ? <p className="mr-auto text-sm text-danger">{saveError.message}</p> : null}
           {saveStatus === 'succeeded' && !dirty && !saveError ? (

@@ -187,7 +187,7 @@ function ListingMixPanel({ counts }) {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">
         {LISTING_KEYS.map((key) => (
           <div key={key}>
-            <p className="font-display text-xl leading-none text-primary num">
+            <p className="font-heading text-xl leading-none text-charcoal num">
               {formatNumber(counts[key])}
             </p>
             <p className="mt-1 text-sm text-charcoal-light">{t(`reports.listing.${key}`)}</p>

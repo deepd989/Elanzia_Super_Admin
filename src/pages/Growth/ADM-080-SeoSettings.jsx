@@ -210,7 +210,7 @@ export default function SeoSettings() {
         </aside>
       </div>
 
-      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+      <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
         <div className="flex items-center justify-end gap-2">
           {saveError && !['canonical_host_required', 'validation_failed'].includes(saveError.code) ? (
             <p className="mr-auto text-sm text-danger">{saveError.message}</p>
@@ -255,7 +255,7 @@ function SitemapPanel({ sitemap, state, withheld, withheldCount, onRetry }) {
           : t('growth.sitemapNeverBuilt')
       }
     >
-      <p className="font-display text-3xl text-primary">
+      <p className="font-heading text-3xl text-charcoal">
         {t('growth.sitemapUrls', { count: formatNumber(sitemap.totalUrls) })}
       </p>
 

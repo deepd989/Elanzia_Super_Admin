@@ -108,7 +108,7 @@ export default function ReconciliationConsole() {
             It should be zero, and saying so out loud is the point of the card:
             a number that is normally zero is one people notice when it is not. */}
         <Card title={t('payments.unreconciledGap')}>
-          <p className="text-2xl font-semibold tabular-nums text-primary">{formatINR(unreconciledGap)}</p>
+          <p className="text-2xl font-semibold tabular-nums text-charcoal">{formatINR(unreconciledGap)}</p>
           <p className="mt-2 text-base text-charcoal-light">
             {unreconciledGap === 0
               ? t('payments.gapClean')
@@ -284,7 +284,7 @@ function MetaRow({ label, value, emphasis = false }) {
       <dd
         className={
           emphasis
-            ? 'text-right text-lg font-semibold tabular-nums text-primary'
+            ? 'text-right text-lg font-semibold tabular-nums text-charcoal'
             : 'text-right text-base tabular-nums text-charcoal'
         }
       >

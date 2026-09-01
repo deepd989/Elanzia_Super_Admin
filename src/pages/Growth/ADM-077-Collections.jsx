@@ -161,7 +161,7 @@ export default function Collections() {
                       type="button"
                       onClick={() => dispatch(fetchCollection(row.id))}
                       className={`flex w-full flex-col gap-0.5 px-4 py-3 text-left transition hover:bg-lightGray ${
-                        draft?.id === row.id ? 'bg-accent-light/20' : ''
+                        draft?.id === row.id ? 'bg-warning-surface' : ''
                       }`}
                     >
                       <span className="flex items-center gap-2 text-base text-charcoal">
@@ -297,7 +297,7 @@ export default function Collections() {
       </div>
 
       {draft ? (
-        <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3 shadow-md">
+        <footer className="fixed bottom-0 left-0 right-0 border-t border-lightGray-dark bg-white px-gutter py-3">
           <div className="flex items-center justify-end gap-2">
             {saveError && saveError.code !== 'slug_taken' ? (
               <p className="mr-auto text-sm text-danger">{saveError.message}</p>

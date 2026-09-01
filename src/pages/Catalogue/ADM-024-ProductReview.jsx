@@ -163,7 +163,7 @@ export default function ProductReview() {
           <FlagList flags={flags} />
 
           {lockedByOrder ? (
-            <p className="flex items-start gap-2 rounded border border-info bg-info-surface px-3 py-2 text-xs text-charcoal">
+            <p className="flex items-start gap-2 rounded border border-neutral-border bg-neutral-surface px-3 py-2 text-xs text-charcoal">
               <Lock size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
               {t('catalogue.lockedByOrderHelp')}
             </p>
@@ -271,7 +271,7 @@ function AuditPanel({ audit }) {
   return (
     <section className="rounded-md border border-lightGray-dark bg-white">
       <header className="border-b border-lightGray-dark px-5 py-4">
-        <h3 className="font-display text-base text-primary">{t('catalogue.auditTitle')}</h3>
+        <h3 className="font-heading text-base text-charcoal">{t('catalogue.auditTitle')}</h3>
       </header>
       <ul className="divide-y divide-lightGray">
         {audit.map((entry) => (

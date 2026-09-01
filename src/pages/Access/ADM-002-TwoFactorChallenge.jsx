@@ -81,8 +81,8 @@ export default function TwoFactorChallenge() {
       subtitle={subtitle}
       footer={
         <Button
-          variant="link"
-          className="text-white/70"
+          variant="ghost"
+          className="text-onInverse/70"
           onClick={() => {
             dispatch(resetSignIn());
             navigate('/sign-in');
@@ -135,7 +135,7 @@ export default function TwoFactorChallenge() {
         {isOtpStage || twoFactorMethod === 'sms' ? (
           <Button
             type="button"
-            variant="link"
+            variant="ghost"
             className="self-center"
             disabled={!expired && secondsLeft > 0}
             onClick={() => dispatch(resendOtp({ challengeId }))}

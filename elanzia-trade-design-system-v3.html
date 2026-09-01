@@ -1,0 +1,1851 @@
+<!doctype html>
+<html lang="en" data-density="regular" data-theme="light" data-surfaces="glass">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Elanzia Trade · Design System v3.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Playfair+Display:wght@400..800&family=Anek+Devanagari:wdth,wght@75..125,100..800&family=Anek+Gujarati:wdth,wght@75..125,100..800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════════
+   ELANZIA TRADE · DESIGN TOKENS v3.0
+   Two layers. Layer 1 is the ramp: 45 fixed values that never change.
+   Layer 2 is the alias: 40 names that are remapped for dark mode.
+   Components read layer 2 only. Never write var(--emerald-600) in a
+   component; write var(--action-bg). That single rule is what makes
+   dark mode a 40-line file instead of a rewrite.
+   Lift both blocks unchanged.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ╔═══════════════════════════════════════════════════════════════════╗
+   ║ LAYER 1 · THE RAMPS · fixed. Identical in light and dark.         ║
+   ║ Every family is normalised: step N carries the same contrast      ║
+   ║ ratio in every family, measured on Pearl White.                   ║
+   ║ 50 1.05 · 100 1.42 · 200 1.93 · 300 2.62 · 400 3.55 · 500 4.81    ║
+   ║ 600 6.52 · 700 8.83 · 800 11.97 · 900 16.23 · 950 19.20           ║
+   ║ So emerald-600, gold-600, neutral-600 and danger-600 are equally   ║
+   ║ legible. Swap a family and nothing needs re-checking.             ║
+   ╚═══════════════════════════════════════════════════════════════════╝ */
+:root{
+/* 1 · EMERALD · the brand. emerald-600 is Emerald Green #006A58 exactly. */
+--emerald-50:#E9FDF7;  --emerald-100:#A9E4D3; --emerald-200:#78C9B4;
+--emerald-300:#4FAF99; --emerald-400:#259880; --emerald-500:#0E816C;
+--emerald-600:#006A58; --emerald-700:#045445; --emerald-800:#003E33;
+--emerald-900:#002A28; --emerald-950:#00100C;
+
+/* 2 · GOLD · the ramp is the readable one. The brand gold is separate. */
+--gold-50:#FFF8EA;  --gold-100:#F4D397; --gold-200:#DFB35E;
+--gold-300:#C99729; --gold-400:#AE8009; --gold-500:#926B02;
+--gold-600:#785803; --gold-700:#604604; --gold-800:#483200;
+--gold-900:#2C1E01; --gold-950:#150C00;
+--gold-brand:#E2AA28;  /* Champagne Gold. 2.08:1 on white, so never text.
+                          A fill that carries Onyx at 9.38:1. */
+
+/* 3 · NEUTRAL · Pearl White to Onyx Black, tinted 176° so it sits with emerald. */
+--neutral-0:#FEFEFF;
+--neutral-50:#F7F9F8;  --neutral-100:#D3D9D8; --neutral-200:#B3BCBA;
+--neutral-300:#98A1A0; --neutral-400:#7F8987; --neutral-500:#697471;
+--neutral-600:#555F5E; --neutral-700:#424B4A; --neutral-800:#2F3836;
+--neutral-900:#1A2120; --neutral-950:#070C0E;
+
+/* 4 · DANGER */
+--danger-50:#FFF7F5;  --danger-100:#FFCBC3; --danger-200:#FEA293;
+--danger-300:#F37D6C; --danger-400:#DE6050; --danger-500:#C64536;
+--danger-600:#AF2C20; --danger-700:#960E06; --danger-800:#730301;
+--danger-900:#470201; --danger-950:#260000;
+}
+
+/* ╔═══════════════════════════════════════════════════════════════════╗
+   ║ LAYER 2 · THE ALIASES · 40 names. This is what components use.    ║
+   ║ Light is the default and the only mode the Marketplace ships.     ║
+   ╚═══════════════════════════════════════════════════════════════════╝ */
+:root,[data-theme="light"]{
+/* surface */
+--surface-page:#FEFEFF;     --surface-raised:#FEFEFF;    --surface-sunken:#F7F9F8;
+--surface-hover:#EFF3F2;    --surface-selected:#E9F6F2;  --surface-inverse:#002A28;
+--text-on-inverse:#FEFEFF;  --scrim:rgba(7,12,14,.46);
+/* text */
+--text-primary:#070C0E;     --text-secondary:#424B4A;    --text-tertiary:#555F5E;
+--text-disabled:#7F8987;    --text-link:#045445;
+/* border */
+--border-subtle:#EDF0EF;    --border-default:#E1E6E5;    --border-strong:#CBD2D1;
+--border-focus:#006A58;     --border-inverse:rgba(254,254,255,.22);
+/* action */
+--action-bg:#006A58;        --action-bg-hover:#045445;   --action-bg-active:#003E33;
+--action-fg:#FEFEFF;
+--danger-bg:#AF2C20;        --danger-bg-hover:#960E06;   --danger-fg:#FEFEFF;
+/* accent */
+--accent-fill:#E2AA28;      --accent-on-fill:#070C0E;    --accent-rule:#C99729;
+/* status */
+--status-positive-fg:#006A58;  --status-positive-bg:#E9FDF7;  --status-positive-br:#A9E4D3;
+--status-attention-fg:#604604; --status-attention-bg:#FFF8EA; --status-attention-br:#F4D397;
+--status-negative-fg:#AF2C20;  --status-negative-bg:#FFF7F5;  --status-negative-br:#FFCBC3;
+--status-neutral-fg:#555F5E;   --status-neutral-bg:#F7F9F8;   --status-neutral-br:#D3D9D8;
+/* focus and glass */
+--focus-ring:0 0 0 3px rgba(0,106,88,.24);
+--focus-ring-error:0 0 0 3px rgba(175,44,32,.20);
+--glass-base:255,255,255;
+/* shadow · four floating layers. Nothing else casts a shadow. */
+--shadow-dropdown:0 4px 14px rgba(7,12,14,.10),0 1px 3px rgba(7,12,14,.07);
+--shadow-modal:0 20px 56px rgba(7,12,14,.20);
+--shadow-toast:0 6px 22px rgba(7,12,14,.14);
+--shadow-sheet:0 -8px 30px rgba(7,12,14,.16);
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+  --surface-page:#0A0F0E;     --surface-raised:#141A19;    --surface-sunken:#070C0E;
+  --surface-hover:#1D2423;    --surface-selected:#0A2E29;  --surface-inverse:#E9FDF7;
+  --text-on-inverse:#070C0E;  --scrim:rgba(0,0,0,.62);
+  --text-primary:#F7F9F8;     --text-secondary:#B3BCBA;    --text-tertiary:#98A1A0;
+  --text-disabled:#697471;    --text-link:#4FAF99;
+  --border-subtle:#1A211F;    --border-default:#2A3230;    --border-strong:#3B4442;
+  --border-focus:#4FAF99;     --border-inverse:rgba(7,12,14,.30);
+  --action-bg:#259880;        --action-bg-hover:#4FAF99;   --action-bg-active:#78C9B4;
+  --action-fg:#070C0E;
+  --danger-bg:#DE6050;        --danger-bg-hover:#F37D6C;   --danger-fg:#070C0E;
+  --status-positive-fg:#4FAF99;  --status-positive-bg:#0A2A24;  --status-positive-br:#045445;
+  --status-attention-fg:#C99729; --status-attention-bg:#241A02; --status-attention-br:#604604;
+  --status-negative-fg:#F37D6C;  --status-negative-bg:#2C0B08;  --status-negative-br:#960E06;
+  --status-neutral-fg:#98A1A0;   --status-neutral-bg:#181E1D;   --status-neutral-br:#2F3836;
+  --focus-ring:0 0 0 3px rgba(79,175,153,.30);
+  --focus-ring-error:0 0 0 3px rgba(222,96,80,.26);
+  --glass-base:20,26,25;
+  --shadow-dropdown:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.34);
+  --shadow-modal:0 20px 56px rgba(0,0,0,.58);
+  --shadow-toast:0 6px 22px rgba(0,0,0,.46);
+  --shadow-sheet:0 -8px 30px rgba(0,0,0,.50);
+  }
+}
+/* DARK · the two admin consoles and Vendor mobile. Same 40 names, new values.
+   Not an inversion: the page is emerald-tinted charcoal, the action steps
+   up the ramp to emerald-400 and takes an Onyx label, and every status
+   foreground lands within 0.1 of its light-mode ratio. */
+[data-theme="dark"]{
+--surface-page:#0A0F0E;     --surface-raised:#141A19;    --surface-sunken:#070C0E;
+--surface-hover:#1D2423;    --surface-selected:#0A2E29;  --surface-inverse:#E9FDF7;
+--text-on-inverse:#070C0E;  --scrim:rgba(0,0,0,.62);
+--text-primary:#F7F9F8;     --text-secondary:#B3BCBA;    --text-tertiary:#98A1A0;
+--text-disabled:#697471;    --text-link:#4FAF99;
+--border-subtle:#1A211F;    --border-default:#2A3230;    --border-strong:#3B4442;
+--border-focus:#4FAF99;     --border-inverse:rgba(7,12,14,.30);
+--action-bg:#259880;        --action-bg-hover:#4FAF99;   --action-bg-active:#78C9B4;
+--action-fg:#070C0E;
+--danger-bg:#DE6050;        --danger-bg-hover:#F37D6C;   --danger-fg:#070C0E;
+--accent-fill:#E2AA28;      --accent-on-fill:#070C0E;    --accent-rule:#C99729;
+--status-positive-fg:#4FAF99;  --status-positive-bg:#0A2A24;  --status-positive-br:#045445;
+--status-attention-fg:#C99729; --status-attention-bg:#241A02; --status-attention-br:#604604;
+--status-negative-fg:#F37D6C;  --status-negative-bg:#2C0B08;  --status-negative-br:#960E06;
+--status-neutral-fg:#98A1A0;   --status-neutral-bg:#181E1D;   --status-neutral-br:#2F3836;
+--focus-ring:0 0 0 3px rgba(79,175,153,.30);
+--focus-ring-error:0 0 0 3px rgba(222,96,80,.26);
+--glass-base:20,26,25;
+--shadow-dropdown:0 4px 14px rgba(0,0,0,.44),0 1px 3px rgba(0,0,0,.34);
+--shadow-modal:0 20px 56px rgba(0,0,0,.58);
+--shadow-toast:0 6px 22px rgba(0,0,0,.46);
+--shadow-sheet:0 -8px 30px rgba(0,0,0,.50);
+}
+
+:root{
+/* ═══ TYPOGRAPHY ═══ */
+--font-heading:"Ethic Serif","Playfair Display",Georgia,serif;
+--font-body:"Figtree","Anek Devanagari",system-ui,sans-serif;
+--font-deva:"Anek Devanagari",sans-serif;
+--font-gujr:"Anek Gujarati",sans-serif;
+--font-mono:"IBM Plex Mono",ui-monospace,monospace;
+--fs-display:44px; --fs-h1:30px; --fs-h2:22px; --fs-h3:17px;
+--fs-body:15px; --fs-sm:13px; --fs-label:11.5px; --fs-micro:10px;
+--fw-regular:400; --fw-medium:500; --fw-semibold:600; --fw-bold:700; --fw-black:800;
+--lh-tight:1.12; --lh-heading:1.25; --lh-body:1.55; --lh-deva:1.45; --lh-gujr:1.42;
+--tracking-display:-.03em; --tracking-heading:-.015em; --tracking-body:0;
+
+/* ═══ SPACE · 4px base ═══ */
+--space-0:0;    --space-1:2px;  --space-2:4px;  --space-3:6px;
+--space-4:8px;  --space-5:12px; --space-6:16px; --space-7:20px;
+--space-8:24px; --space-9:32px; --space-10:44px; --space-11:64px; --space-12:96px;
+
+/* ═══ RADIUS · rounding says what a thing is, not how modern it looks ═══ */
+--radius-none:0;        /* documents: price breakup, invoice, hallmark, rate board, plate, photographs */
+--radius-xs:4px;        /* checkbox, stamp, progress bar, thumbnail */
+--radius-sm:8px;        /* work layer: button, input, select, segmented control, menu item */
+--radius-md:12px;       /* conversation layer: card, panel, banner, modal, drawer, dropdown, toast */
+--radius-showcase:16px; /* showcase layer: Marketplace product and maker cards ONLY */
+--radius-full:999px;    /* pills: status chip, filter chip, count badge, avatar, toggle track */
+
+/* ═══ BORDER WIDTH ═══ */
+--border-w:1px; --border-w-2:1.5px; --border-w-3:2px;
+
+/* ═══ MOTION · named for what they do, not how long they take ═══ */
+--dur-press:90ms;    /* a button taking the press */
+--dur-hover:150ms;   /* hover and colour change */
+--dur-state:220ms;   /* a control changing state: toggle, tab, accordion */
+--dur-overlay:280ms; /* modal, drawer, sheet, toast entering or leaving */
+--dur-enter:700ms;   /* a page region arriving once, on first paint */
+--ease-standard:cubic-bezier(.2,0,.15,1);
+--ease-out:cubic-bezier(0,0,.2,1);
+--ease-spring:cubic-bezier(.22,.9,.24,1);
+
+/* ═══ GLASS · Marketplace only. Four named surfaces. See the Glass section. ═══ */
+--glass-blur:20px; --glass-sat:1.6; --glass-tint:.62; --glass-rim:.9;
+
+/* ═══ LAYERS ═══ */
+--z-sticky:100; --z-dropdown:400; --z-drawer:500; --z-modal:600; --z-toast:700; --z-tooltip:800;
+
+/* ═══ DENSITY · relaxed · Marketplace web ═══ */
+--d-body:15px; --d-lh:1.55; --d-sm:13px; --d-label:11.5px;
+--d-control:44px; --d-row:56px; --d-cy:14px; --d-cx:16px; --d-card:24px; --d-gap:16px;
+}
+/* DENSITY · regular · both mobile apps. Touch target holds at 44px. */
+[data-density="regular"]{--d-body:14.5px;--d-lh:1.5;--d-sm:12.5px;--d-label:11px;
+  --d-control:44px;--d-row:48px;--d-cy:11px;--d-cx:14px;--d-card:18px;--d-gap:14px}
+/* DENSITY · condensed · the two admin consoles. Pointer only. */
+[data-density="condensed"]{--d-body:13.5px;--d-lh:1.45;--d-sm:12px;--d-label:10.5px;
+  --d-control:32px;--d-row:36px;--d-cy:6px;--d-cx:11px;--d-card:14px;--d-gap:10px}
+
+/* ═══════════════════ BASE ═══════════════════ */
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;overflow-x:clip;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-body);
+  font-size:var(--d-body);line-height:var(--d-lh);letter-spacing:0;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,dl,dd,ul,table{margin:0}
+button,input,select,textarea{font-family:inherit}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"ss02" 1;font-weight:500}
+.id{font-family:var(--font-mono);font-size:.92em;letter-spacing:-.02em}
+.dsp{font-family:var(--font-heading);font-size:var(--fs-display);font-weight:500;line-height:1.08;letter-spacing:-.02em}
+.h1{font-family:var(--font-heading);font-size:var(--fs-h1);font-weight:500;line-height:1.2;letter-spacing:-.015em}
+.h2{font-family:var(--font-heading);font-size:var(--fs-h2);font-weight:500;line-height:1.28;letter-spacing:-.008em}
+.h3{font-size:var(--fs-h3);font-weight:var(--fw-bold);line-height:1.35;letter-spacing:-.008em}
+.lb{font-size:var(--d-label);font-weight:var(--fw-bold);color:var(--text-tertiary);line-height:1.35}
+.mi{font-size:var(--fs-micro);font-weight:var(--fw-semibold);line-height:1.3}
+.sm{font-size:var(--d-sm);line-height:1.5}
+.i2{color:var(--text-secondary)} .i3{color:var(--text-tertiary)} .i4{color:var(--text-disabled)}
+
+/* ═══════════════════ CHROME ═══════════════════ */
+.shell{display:grid;grid-template-columns:210px minmax(0,1fr)}
+nav.side{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;
+  border-right:var(--border-w) solid var(--border-default);padding:18px 0 40px;background:var(--surface-page);z-index:var(--z-sticky)}
+.brand{padding:0 18px 14px;border-bottom:var(--border-w) solid var(--border-default);margin-bottom:10px}
+.brand .n{font-family:var(--font-heading);font-size:19px;font-weight:500;letter-spacing:-.01em;color:var(--text-link)}
+.brand .v{font-size:10.5px;font-weight:600;color:var(--text-tertiary);margin-top:2px}
+.ng{font-size:10px;font-weight:700;color:var(--text-disabled);padding:14px 18px 4px}
+nav.side a{display:block;padding:6px 18px;text-decoration:none;color:var(--text-secondary);font-size:12.5px;
+  font-weight:500;border-left:2px solid transparent}
+nav.side a:hover{background:var(--surface-hover);color:var(--text-primary)}
+nav.side a.on{background:var(--surface-selected);color:var(--text-link);font-weight:700;border-left-color:var(--action-bg)}
+.top{position:sticky;top:0;z-index:var(--z-sticky);background:var(--surface-page);
+  border-bottom:var(--border-w) solid var(--border-default);display:flex;align-items:center;
+  justify-content:space-between;gap:12px;padding:0 24px;height:52px;flex-wrap:wrap}
+.tt{font-size:11.5px;font-weight:600;color:var(--text-tertiary)}
+main{min-width:0;padding:0 24px 120px}
+section{padding-top:46px;scroll-margin-top:52px}
+.sh{border-top:var(--border-w-3) solid var(--border-strong);padding-top:11px;margin-bottom:18px;
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sh .sp{font-size:11px;font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.bh{font-size:13.5px;font-weight:700;color:var(--text-primary);padding-bottom:7px;
+  border-bottom:var(--border-w) solid var(--border-strong);margin:28px 0 14px}
+.figt{font-size:13.5px;font-weight:700;color:var(--text-primary);margin-bottom:10px}
+.note{max-width:78ch;color:var(--text-secondary);font-size:var(--d-sm);margin-top:8px}
+.lab{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);
+  padding:var(--d-card);display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.lab.col{flex-direction:column;align-items:stretch}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  border:var(--border-w) solid var(--border-default);border-top:0;
+  border-radius:0 0 var(--radius-md) var(--radius-md);overflow:hidden}
+.sc{padding:13px;border-left:var(--border-w) solid var(--border-default);
+  border-top:var(--border-w) solid var(--border-default);display:flex;flex-direction:column-reverse;
+  gap:9px;align-items:flex-start;min-height:88px;justify-content:flex-end}
+.sc:first-child{border-left:0}
+.sl{font-size:var(--fs-micro);font-weight:700;color:var(--text-tertiary)}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+table.spec{width:100%;border-collapse:collapse;font-size:var(--d-sm)}
+table.spec th{text-align:left;font-size:var(--d-label);font-weight:700;color:var(--text-tertiary);
+  padding:0 12px 6px 0;border-bottom:var(--border-w) solid var(--border-strong)}
+table.spec td{padding:8px 12px 8px 0;border-bottom:var(--border-w) solid var(--border-default);vertical-align:top}
+table.spec td:first-child,table.spec th:first-child{padding-left:0}
+table.spec .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.spec .k{font-weight:600;color:var(--text-primary)}
+.seg{display:inline-flex;border:var(--border-w) solid var(--border-strong);
+  border-radius:var(--radius-sm);overflow:hidden;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:var(--surface-raised);cursor:pointer;font-size:12px;
+  font-weight:600;color:var(--text-secondary);padding:0 13px;height:30px}
+.seg button+button{border-left:var(--border-w) solid var(--border-strong)}
+.seg button[aria-pressed="true"]{background:var(--action-bg);color:var(--action-fg)}
+.seg button:focus-visible{outline:2px solid var(--border-focus);outline-offset:-2px}
+
+/* ═══ TOKEN SPECIMENS ═══ */
+.rstrip{display:flex;align-items:center;gap:0;margin-bottom:8px}
+.rstrip .rn{width:74px;font-size:11px;font-weight:700;color:var(--text-secondary);flex:0 0 74px;text-transform:capitalize}
+.rstrip .rc{height:26px;flex:1;min-width:0}
+.rstrip .rc:first-of-type{border-radius:var(--radius-xs) 0 0 var(--radius-xs)}
+.rstrip .rc:last-of-type{border-radius:0 var(--radius-xs) var(--radius-xs) 0}
+.rstrip .rk{display:none}
+.rscale{display:flex;gap:0;margin:2px 0 0 74px}
+.rscale span{flex:1;font-size:9px;color:var(--text-disabled);text-align:center;font-family:var(--font-mono)}
+.ramp{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:7px}
+.ramp>div{border-left:var(--border-w) solid var(--border-default)}
+.ramp>div:first-child{border-left:0}
+.ramp .c{height:56px}
+.ramp .m{padding:6px 5px 8px;font-size:9px;line-height:1.35;font-variant-numeric:tabular-nums;
+  color:var(--text-tertiary);border-top:var(--border-w) solid var(--border-default);text-align:center}
+.ramp .m b{display:block;color:var(--text-primary);font-family:var(--font-mono);font-size:8.5px;font-weight:600}
+.tok{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:var(--border-w) solid var(--border-default);font-size:12px}
+.tok .sw{width:26px;height:26px;border-radius:var(--radius-xs);flex:0 0 26px;border:var(--border-w) solid var(--border-default)}
+.tok code{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);flex:1}
+.tok .v{font-family:var(--font-mono);font-size:11px;color:var(--text-tertiary)}
+.radbox{height:64px;border:var(--border-w) solid var(--border-strong);display:flex;align-items:center;
+  justify-content:center;font-size:11.5px;font-weight:700;color:var(--text-secondary);font-variant-numeric:tabular-nums;
+  background:var(--surface-raised)}
+.elev{height:70px;border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);
+  background:var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:11.5px;
+  font-weight:700;color:var(--text-secondary)}
+.tsp{display:grid;grid-template-columns:148px 1fr;gap:16px;padding:13px 0;
+  border-bottom:var(--border-w) solid var(--border-default);align-items:baseline}
+.tsp .m{font-size:10px;color:var(--text-tertiary);font-weight:600;font-variant-numeric:tabular-nums;line-height:1.6}
+.tsp .m b{display:block;color:var(--text-primary);font-size:10.5px;font-family:var(--font-mono);font-weight:600}
+.deva{font-family:var(--font-deva);font-size:16px;line-height:var(--lh-deva)}
+.gujr{font-family:var(--font-gujr);font-size:16px;line-height:var(--lh-gujr)}
+
+/* ═══ BUTTON ═══ */
+.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-size:var(--d-sm);font-weight:700;height:var(--d-control);padding:0 18px;
+  border-radius:var(--radius-sm);border:var(--border-w) solid transparent;cursor:pointer;
+  white-space:nowrap;position:relative;
+  transition:background var(--dur-hover) var(--ease-standard),border-color var(--dur-hover) var(--ease-standard)}
+.btn:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+.b-pri{background:var(--action-bg);color:var(--action-fg)}
+.b-pri:hover,.b-pri.h{background:var(--action-bg-hover)}
+.b-pri:active,.b-pri.a{background:var(--action-bg-active)}
+.b-sec{background:var(--surface-raised);color:var(--text-link);border-color:var(--border-strong)}
+.b-sec:hover,.b-sec.h{background:var(--surface-hover);border-color:var(--text-disabled)}
+.b-sec:active,.b-sec.a{background:var(--surface-selected)}
+.b-gho{background:transparent;color:var(--text-link)}
+.b-gho:hover,.b-gho.h{background:var(--surface-hover)}
+.b-dan{background:var(--danger-bg);color:var(--danger-fg)}
+.b-dan:hover,.b-dan.h{background:var(--danger-bg-hover)}
+.b-sm{height:32px;padding:0 13px;font-size:12px}
+.btn[disabled]{background:var(--surface-sunken);color:var(--text-disabled);border-color:var(--border-default);cursor:not-allowed}
+.btn.f{outline:2px solid var(--border-focus);outline-offset:2px}
+.btn.ld{color:transparent;pointer-events:none}
+.btn.ld::after{content:"";position:absolute;width:14px;height:14px;border-radius:var(--radius-full);
+  border:2px solid rgba(255,255,255,.35);border-top-color:var(--action-fg);animation:sp 620ms linear infinite}
+.b-sec.ld::after{border-color:var(--border-default);border-top-color:var(--text-link)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ibtn{appearance:none;width:var(--d-control);height:var(--d-control);display:inline-grid;place-content:center;
+  background:var(--surface-raised);border:var(--border-w) solid var(--border-strong);
+  border-radius:var(--radius-sm);cursor:pointer;color:var(--text-secondary)}
+.ibtn:hover{background:var(--surface-hover);color:var(--text-primary);border-color:var(--text-disabled)}
+.ibtn:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+.ibtn[disabled]{background:var(--surface-sunken);color:var(--text-disabled);cursor:not-allowed}
+
+/* ═══ FIELD ═══ */
+.fld{display:flex;flex-direction:column;gap:6px;min-width:190px;flex:1}
+.fld>label{font-size:var(--d-label);font-weight:700}
+.inp{font-size:var(--d-body);color:var(--text-primary);height:var(--d-control);padding:0 12px;
+  background:var(--surface-raised);border:var(--border-w) solid var(--border-strong);
+  border-radius:var(--radius-sm);width:100%;
+  transition:border-color var(--dur-hover) var(--ease-standard),box-shadow var(--dur-hover) var(--ease-standard)}
+.inp::placeholder{color:var(--text-disabled)}
+.inp:hover,.inp.h{border-color:var(--text-disabled)}
+.inp:focus,.inp.f{outline:0;border-color:var(--border-focus);box-shadow:var(--focus-ring)}
+.inp[disabled]{background:var(--surface-sunken);color:var(--text-disabled);border-color:var(--border-default);cursor:not-allowed}
+.inp.err{border-color:var(--status-negative-fg);box-shadow:var(--focus-ring-error)}
+.inp.ok{border-color:var(--status-positive-fg)}
+textarea.inp{height:auto;min-height:84px;padding:10px 12px;line-height:1.5;resize:vertical}
+.msg{font-size:var(--fs-micro);font-weight:600;color:var(--text-tertiary)}
+.msg.e{color:var(--status-negative-fg)} .msg.o{color:var(--status-positive-fg)}
+.nin{text-align:right;font-variant-numeric:tabular-nums}
+.afx{display:flex;align-items:stretch;border:var(--border-w) solid var(--border-strong);
+  border-radius:var(--radius-sm);background:var(--surface-raised);overflow:hidden}
+.afx:focus-within{border-color:var(--border-focus);box-shadow:var(--focus-ring)}
+.afx .p,.afx .s{display:flex;align-items:center;padding:0 11px;font-size:var(--d-sm);font-weight:700;
+  color:var(--text-tertiary);background:var(--surface-sunken)}
+.afx .p{border-right:var(--border-w) solid var(--border-default)}
+.afx .s{border-left:var(--border-w) solid var(--border-default)}
+.afx input{border:0;outline:0;height:var(--d-control);padding:0 12px;width:100%;font-size:var(--d-body);
+  font-variant-numeric:tabular-nums;text-align:right;background:transparent;color:var(--text-primary)}
+
+input[type=checkbox],input[type=radio]{appearance:none;-webkit-appearance:none;margin:0;width:17px;height:17px;
+  flex:0 0 17px;border:var(--border-w-2) solid var(--border-strong);background:var(--surface-raised);cursor:pointer;
+  display:inline-grid;place-content:center;transition:background var(--dur-hover) var(--ease-standard)}
+input[type=checkbox]{border-radius:var(--radius-xs)} input[type=radio]{border-radius:var(--radius-full)}
+[data-density="condensed"] input[type=checkbox],[data-density="condensed"] input[type=radio]{width:15px;height:15px;flex-basis:15px}
+input[type=checkbox]:hover,input[type=radio]:hover{border-color:var(--text-disabled)}
+input[type=checkbox]:checked,input[type=radio]:checked{background:var(--action-bg);border-color:var(--action-bg)}
+input[type=checkbox]:checked::after{content:"";width:8px;height:4px;border-left:2px solid var(--action-fg);
+  border-bottom:2px solid var(--action-fg);transform:rotate(-45deg) translate(1px,-1px)}
+input[type=checkbox]:indeterminate{background:var(--action-bg);border-color:var(--action-bg)}
+input[type=checkbox]:indeterminate::after{content:"";width:8px;height:0;border-bottom:2px solid var(--action-fg);transform:none}
+input[type=radio]:checked::after{content:"";width:6px;height:6px;border-radius:var(--radius-full);background:var(--action-fg)}
+input[type=checkbox]:focus-visible,input[type=radio]:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+input[type=checkbox][disabled],input[type=radio][disabled]{background:var(--surface-sunken);border-color:var(--border-default);cursor:not-allowed}
+.opt{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:var(--d-sm)}
+.opt span small{display:block;font-size:var(--fs-micro);color:var(--text-tertiary);font-weight:600;margin-top:1px}
+.opt.dis{color:var(--text-disabled);cursor:not-allowed}
+input[type=checkbox].sw2{appearance:none;-webkit-appearance:none;position:relative;display:block;
+  width:40px;height:23px;flex:0 0 40px;border:0;border-radius:var(--radius-full);
+  background:var(--border-strong);cursor:pointer;transition:background var(--dur-state) var(--ease-standard)}
+input[type=checkbox].sw2::after,input[type=checkbox].sw2:checked::after,
+input[type=checkbox].sw2:indeterminate::after{content:"";position:absolute;top:3px;left:3px;
+  width:17px;height:17px;border:0;border-radius:var(--radius-full);background:var(--surface-raised);
+  transform:none;transition:transform var(--dur-state) var(--ease-standard)}
+input[type=checkbox].sw2:checked{background:var(--action-bg);border:0}
+input[type=checkbox].sw2:checked::after{transform:translateX(17px)}
+input[type=checkbox].sw2:hover{border:0}
+input[type=checkbox].sw2:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+input[type=checkbox].sw2[disabled]{background:var(--border-strong);cursor:not-allowed}
+
+.sel{position:relative;min-width:190px}
+.sbtn{width:100%;height:var(--d-control);padding:0 34px 0 12px;background:var(--surface-raised);
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-sm);text-align:left;
+  font-size:var(--d-body);color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.sbtn:hover{border-color:var(--text-disabled)}
+.sbtn[aria-expanded="true"]{border-color:var(--border-focus);box-shadow:var(--focus-ring)}
+.sbtn:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+.sbtn[disabled]{background:var(--surface-sunken);color:var(--text-disabled);cursor:not-allowed}
+.sbtn .cv{color:var(--text-disabled)}
+.sar{position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--text-tertiary)}
+.slist{position:absolute;top:calc(100% + 5px);left:0;right:0;background:var(--surface-raised);
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-dropdown);z-index:var(--z-dropdown);padding:5px;max-height:230px;overflow-y:auto;display:none}
+.slist.open{display:block}
+.slist li{list-style:none;padding:9px 11px;border-radius:var(--radius-sm);font-size:var(--d-sm);cursor:pointer;
+  display:flex;justify-content:space-between;gap:10px}
+.slist li:hover{background:var(--surface-hover)}
+.slist li[aria-selected="true"]{background:var(--surface-selected);font-weight:700;color:var(--text-link)}
+.slist li .k{font-variant-numeric:tabular-nums;color:var(--text-tertiary);font-weight:600}
+.menu{position:absolute;top:calc(100% + 5px);right:0;min-width:214px;background:var(--surface-raised);
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-dropdown);z-index:var(--z-dropdown);padding:5px;display:none}
+.menu.open{display:block}
+.menu button{width:100%;text-align:left;border:0;background:transparent;padding:9px 11px;
+  border-radius:var(--radius-sm);font-size:var(--d-sm);color:var(--text-primary);cursor:pointer;
+  display:flex;justify-content:space-between;gap:12px}
+.menu button:hover{background:var(--surface-hover)}
+.menu button.dg{color:var(--status-negative-fg)}
+.menu button[disabled]{color:var(--text-disabled);cursor:not-allowed}
+.menu hr{border:0;border-top:var(--border-w) solid var(--border-default);margin:5px 0}
+.menu .k{color:var(--text-disabled);font-size:11px;font-family:var(--font-mono)}
+.cal{position:absolute;top:calc(100% + 5px);left:0;width:264px;background:var(--surface-raised);
+  border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-dropdown);z-index:var(--z-dropdown);padding:12px;display:none}
+.cal.open{display:block}
+.calh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.calh .m{font-size:var(--d-sm);font-weight:700}
+.calg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.calg .dh{font-size:9.5px;font-weight:700;color:var(--text-tertiary);text-align:center;padding:4px 0}
+.calg button{height:32px;border:0;background:transparent;border-radius:var(--radius-xs);font-size:12px;
+  font-weight:600;color:var(--text-primary);cursor:pointer;font-variant-numeric:tabular-nums}
+.calg button:hover{background:var(--surface-hover)}
+.calg button.td{box-shadow:inset 0 0 0 1px var(--border-strong)}
+.calg button.sel{background:var(--action-bg);color:var(--action-fg)}
+.calg button[disabled]{color:var(--text-disabled);cursor:not-allowed}
+
+.srch{position:relative;min-width:280px;flex:1}
+.srch .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-tertiary);pointer-events:none}
+.srch input{padding-left:36px}
+.srch .clr{position:absolute;right:9px;top:50%;transform:translateY(-50%);width:26px;height:26px;border:0;
+  background:transparent;border-radius:var(--radius-full);cursor:pointer;color:var(--text-tertiary);display:none;place-content:center}
+.srch.has .clr{display:grid}
+.srch .clr:hover{background:var(--surface-hover);color:var(--text-primary)}
+.res{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);margin-top:8px;overflow:hidden}
+.res .r{padding:11px 13px;border-top:var(--border-w) solid var(--border-default);display:flex;
+  justify-content:space-between;gap:12px;font-size:var(--d-sm);cursor:pointer}
+.res .r:first-child{border-top:0}
+.res .r:hover{background:var(--surface-hover)}
+.res .empty{padding:28px 14px;text-align:center}
+.drop{border:1.5px dashed var(--border-strong);border-radius:var(--radius-md);padding:24px 18px;
+  text-align:center;background:var(--surface-raised);cursor:pointer;
+  transition:border-color var(--dur-hover) var(--ease-standard),background var(--dur-hover) var(--ease-standard)}
+.drop:hover,.drop.over{border-color:var(--action-bg);background:var(--surface-selected)}
+.frow{display:flex;align-items:center;gap:12px;padding:11px 13px;border:var(--border-w) solid var(--border-default);
+  border-radius:var(--radius-md);background:var(--surface-raised);margin-top:8px}
+.frow .fn{flex:1;min-width:0;font-size:var(--d-sm);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frow .fs{font-size:var(--fs-micro);font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums}
+.bar{height:4px;background:var(--border-default);border-radius:var(--radius-full);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--action-bg);width:0;border-radius:var(--radius-full);transition:width 150ms linear}
+.thm{width:32px;height:40px;border:var(--border-w) solid var(--border-default);border-radius:var(--radius-xs);
+  flex:0 0 32px;display:grid;place-content:center;font-size:8px;font-weight:700;color:var(--text-tertiary);font-family:var(--font-mono)}
+
+.tabs{display:flex;border-bottom:var(--border-w) solid var(--border-strong);overflow-x:auto}
+.tabs button{appearance:none;border:0;background:transparent;padding:0 16px;height:40px;font-size:var(--d-sm);
+  font-weight:700;color:var(--text-tertiary);cursor:pointer;white-space:nowrap;
+  border-bottom:var(--border-w-3) solid transparent;margin-bottom:-1px}
+.tabs button:hover{color:var(--text-primary)}
+.tabs button[aria-selected="true"]{color:var(--text-link);border-bottom-color:var(--action-bg)}
+.tabs button[disabled]{color:var(--text-disabled);cursor:not-allowed}
+.tabs .c{font-variant-numeric:tabular-nums;color:var(--text-disabled);margin-left:6px;font-weight:600}
+
+/* pills */
+.chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 11px;border-radius:var(--radius-full);
+  border:var(--border-w) solid;font-size:var(--fs-micro);font-weight:700;white-space:nowrap}
+.chip .d{width:5px;height:5px;border-radius:var(--radius-full);background:currentColor}
+.c-pos{color:var(--status-positive-fg);background:var(--status-positive-bg);border-color:var(--status-positive-br)}
+.c-att{color:var(--status-attention-fg);background:var(--status-attention-bg);border-color:var(--status-attention-br)}
+.c-neg{color:var(--status-negative-fg);background:var(--status-negative-bg);border-color:var(--status-negative-br)}
+.c-neu{color:var(--status-neutral-fg);background:var(--status-neutral-bg);border-color:var(--status-neutral-br)}
+.fchip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:var(--radius-full);
+  border:var(--border-w) solid var(--border-strong);background:var(--surface-raised);font-size:12px;
+  font-weight:600;color:var(--text-secondary);cursor:pointer}
+.fchip:hover{border-color:var(--text-disabled);background:var(--surface-hover)}
+.fchip[aria-pressed="true"]{background:var(--action-bg);border-color:var(--action-bg);color:var(--action-fg)}
+.fchip:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+.fchip[disabled]{color:var(--text-disabled);cursor:not-allowed;background:var(--surface-sunken)}
+.cnt{display:inline-grid;place-content:center;min-width:19px;height:19px;padding:0 6px;
+  border-radius:var(--radius-full);background:var(--action-bg);color:var(--action-fg);font-size:10px;
+  font-weight:700;font-variant-numeric:tabular-nums}
+.cnt.o{background:var(--status-negative-fg)}
+.av{width:36px;height:36px;border-radius:var(--radius-full);background:var(--action-bg);color:var(--action-fg);
+  display:grid;place-content:center;font-size:13px;font-weight:700;flex:0 0 36px}
+.av.g{background:var(--accent-fill);color:var(--accent-on-fill)}
+
+/* THE STAMP · no rotation. A bordered mark that always carries a date. */
+.stamp{display:inline-flex;align-items:center;gap:8px;padding:5px 10px;
+  border:var(--border-w-2) solid currentColor;border-radius:var(--radius-xs);
+  font-size:var(--fs-micro);font-weight:700;color:var(--text-link);background:var(--surface-raised)}
+.stamp.pos{color:var(--status-positive-fg)} .stamp.att{color:var(--status-attention-fg)}
+.stamp.neg{color:var(--status-negative-fg)}
+.stamp .dt{font-weight:600;opacity:.75;font-variant-numeric:tabular-nums}
+
+.ban{border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-md);
+  background:var(--surface-raised);padding:15px 17px;display:flex;gap:14px;align-items:flex-start;width:100%}
+.ban .bt{font-size:var(--d-sm);font-weight:700}
+.ban .bb{font-size:var(--d-sm);color:var(--text-secondary);margin-top:3px}
+.ban .x{border:0;background:transparent;cursor:pointer;color:var(--text-tertiary);width:26px;height:26px;
+  border-radius:var(--radius-full);display:grid;place-content:center;flex:0 0 26px}
+.ban .x:hover{background:var(--surface-hover);color:var(--text-primary)}
+
+#toasts{position:fixed;right:18px;bottom:18px;z-index:var(--z-toast);display:flex;flex-direction:column;
+  gap:9px;width:334px;max-width:calc(100vw - 36px)}
+.toast{background:var(--surface-raised);border:var(--border-w) solid var(--border-strong);
+  border-radius:var(--radius-md);box-shadow:var(--shadow-toast);padding:13px 14px;display:flex;
+  gap:11px;align-items:flex-start;animation:ti var(--dur-overlay) var(--ease-standard)}
+.toast.out{animation:to var(--dur-state) var(--ease-out) forwards}
+.toast .th{font-size:var(--d-sm);font-weight:700} .toast .tb{font-size:12px;color:var(--text-secondary);margin-top:2px}
+.toast .x{margin-left:auto;border:0;background:transparent;cursor:pointer;color:var(--text-tertiary);flex:0 0 18px}
+@keyframes ti{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes to{to{opacity:0;transform:translateY(6px)}}
+.scrim{position:fixed;inset:0;background:var(--scrim);opacity:0;pointer-events:none;
+  transition:opacity var(--dur-state) var(--ease-standard);z-index:var(--z-modal)}
+.scrim.open{opacity:1;pointer-events:auto}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-47%);width:460px;max-width:calc(100vw - 28px);
+  background:var(--surface-raised);border-radius:var(--radius-md);box-shadow:var(--shadow-modal);
+  z-index:calc(var(--z-modal) + 1);opacity:0;pointer-events:none;
+  transition:opacity var(--dur-state) var(--ease-standard),transform var(--dur-state) var(--ease-standard)}
+.modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.mh{padding:19px 21px 14px;border-bottom:var(--border-w) solid var(--border-default);
+  display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.mb{padding:18px 21px;font-size:var(--d-sm);color:var(--text-secondary)}
+.mf{padding:14px 21px;border-top:var(--border-w) solid var(--border-default);display:flex;
+  gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:412px;max-width:100vw;background:var(--surface-raised);
+  box-shadow:var(--shadow-modal);z-index:calc(var(--z-drawer) + 1);transform:translateX(100%);
+  transition:transform var(--dur-overlay) var(--ease-standard);display:flex;flex-direction:column;
+  border-radius:var(--radius-md) 0 0 var(--radius-md)}
+.drawer.open{transform:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--surface-raised);
+  border-radius:var(--radius-md) var(--radius-md) 0 0;box-shadow:var(--shadow-sheet);
+  z-index:calc(var(--z-drawer) + 1);transform:translateY(100%);
+  transition:transform var(--dur-overlay) var(--ease-standard);max-height:82vh;overflow-y:auto}
+.sheet.open{transform:none}
+.grab{width:36px;height:4px;border-radius:var(--radius-full);background:var(--border-strong);margin:11px auto 4px}
+.tw{position:relative;display:inline-flex}
+.tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface-inverse);
+  color:var(--text-on-inverse);font-size:11.5px;font-weight:600;padding:7px 11px;border-radius:var(--radius-sm);white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity var(--dur-hover) var(--ease-standard);z-index:var(--z-tooltip)}
+.tw:hover .tip,.tw:focus-within .tip{opacity:1}
+.sk{height:10px;background:var(--border-default);border-radius:var(--radius-xs);animation:pl 1150ms ease-in-out infinite}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* ═══ TABLE ═══ */
+.tf{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);overflow:hidden;width:100%}
+.tsc{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:var(--d-body)}
+table.tbl thead th{background:var(--surface-raised);text-align:left;font-size:var(--d-label);font-weight:700;
+  color:var(--text-tertiary);padding:var(--d-cy) var(--d-cx);
+  border-bottom:var(--border-w) solid var(--border-strong);white-space:nowrap;position:sticky;top:0}
+table.tbl tbody td{padding:var(--d-cy) var(--d-cx);border-bottom:var(--border-w) solid var(--border-default);
+  height:var(--d-row);vertical-align:middle}
+table.tbl tbody tr:last-child td{border-bottom:0}
+table.tbl .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tbl th.r{text-align:right}
+table.tbl .fold{border-right:var(--border-w) solid var(--border-strong)}
+table.tbl .selc{width:44px}
+table.tbl tbody tr:hover td{background:var(--surface-hover)}
+table.tbl tbody tr.on td{background:var(--surface-selected);border-bottom-color:var(--status-positive-br);
+  box-shadow:inset 0 1px 0 var(--status-positive-br)}
+.sku{font-family:var(--font-mono);font-size:calc(var(--d-sm) * .95);font-weight:600;color:var(--text-link)}
+.vend{font-size:var(--fs-micro);color:var(--text-tertiary);font-weight:600;margin-top:1px}
+.basis{font-size:var(--fs-micro);font-weight:600;color:var(--text-tertiary)}
+.sortb{display:inline-flex;align-items:center;gap:5px;border:0;background:transparent;cursor:pointer;font:inherit;color:inherit;padding:0}
+.sortb .ar{opacity:0} .sortb:hover .ar{opacity:.5} .sortb[aria-sort] .ar{opacity:1}
+.sortb[aria-sort="descending"] .ar{transform:rotate(180deg)}
+.bulk{display:flex;align-items:center;gap:14px;padding:var(--d-cy) var(--d-cx);background:var(--surface-selected);
+  border-bottom:var(--border-w) solid var(--status-positive-br);font-size:var(--d-sm);flex-wrap:wrap}
+.bulk .c{font-weight:700;color:var(--text-link);font-variant-numeric:tabular-nums}
+.tempty{padding:48px 20px;text-align:center;border-top:var(--border-w) solid var(--border-default)}
+
+/* ═══ DOCUMENTS · radius 0, always ═══ */
+.doc{border:var(--border-w-2) solid var(--text-primary);border-radius:var(--radius-none);background:var(--surface-raised)}
+.doch{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:13px 16px;
+  border-bottom:var(--border-w) solid var(--border-strong)}
+.docs{font-size:var(--fs-micro);font-weight:600;color:var(--text-tertiary);font-variant-numeric:tabular-nums;text-align:right}
+.slipb{padding:6px 16px 12px}
+.slr{display:flex;justify-content:space-between;gap:14px;padding:5px 0;font-size:var(--d-sm)}
+.slr .k{color:var(--text-secondary)}
+.slr .v{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.slr.fold{border-top:var(--border-w) solid var(--border-default);margin-top:5px;padding-top:8px;font-weight:700}
+.slr.fold .k{color:var(--text-primary)}
+.slt{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:13px 16px;
+  border-top:var(--border-w-3) solid var(--text-primary)}
+.slt .v{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.slt .v.soft{color:var(--text-tertiary);font-weight:500}
+.slf{padding:0 16px 13px;font-size:var(--fs-micro);color:var(--text-tertiary);font-weight:500;line-height:1.5}
+.hm{display:inline-flex;border:var(--border-w-2) solid var(--text-primary);border-radius:var(--radius-none);
+  overflow:hidden;background:var(--surface-raised)}
+.hm>div{padding:9px 13px;text-align:center;min-width:72px}
+.hm>div+div{border-left:var(--border-w) solid var(--border-strong)}
+.hm .l{font-size:9px;font-weight:700;color:var(--text-tertiary);line-height:1}
+.hm .v{font-size:13px;font-weight:700;margin-top:4px;line-height:1;font-family:var(--font-mono)}
+.board{border:var(--border-w-2) solid var(--text-primary);border-radius:var(--radius-none);
+  background:var(--surface-raised);max-width:340px}
+.board .bh2{display:flex;justify-content:space-between;align-items:baseline;padding:11px 15px;
+  border-bottom:var(--border-w-2) solid var(--text-primary)}
+.board table{width:100%;border-collapse:collapse}
+.board th{font-size:var(--fs-micro);font-weight:700;color:var(--text-tertiary);text-align:right;
+  padding:7px 15px 5px;border-bottom:var(--border-w) solid var(--border-default)}
+.board th:first-child{text-align:left}
+.board td{padding:6px 15px;border-bottom:var(--border-w) solid var(--border-subtle);font-size:var(--d-sm);
+  text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+.board td:first-child{text-align:left;font-weight:700;font-family:var(--font-mono)}
+.board tr:last-child td{border-bottom:0}
+.board .bf{padding:9px 15px;border-top:var(--border-w) solid var(--border-default);font-size:9.5px;
+  font-weight:600;color:var(--text-tertiary)}
+.plate{aspect-ratio:4/5;border:var(--border-w) solid var(--border-strong);border-radius:var(--radius-none);
+  padding:14px;display:flex;flex-direction:column;background:var(--surface-raised)}
+.plate .pc{font-family:var(--font-mono);font-size:10.5px;font-weight:600;color:var(--text-link)}
+.plate .pcat{font-size:10px;font-weight:600;color:var(--text-tertiary);margin-top:3px}
+.plate .prl{height:1px;background:var(--border-default);margin:11px 0 3px}
+.plate .pr{display:flex;justify-content:space-between;font-size:10px;padding:3px 0}
+.plate .pr dt{color:var(--text-tertiary);font-weight:600}
+.plate .pr dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.plate .pf{margin-top:auto;font-size:9px;font-weight:600;color:var(--text-disabled);
+  border-top:var(--border-w) solid var(--border-subtle);padding-top:8px}
+.card{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);
+  background:var(--surface-raised);width:228px;overflow:hidden}
+.card .cb{padding:14px}
+.card .cn{font-family:var(--font-heading);font-size:18px;font-weight:500;line-height:1.22;letter-spacing:-.008em}
+.card .cm{font-size:10px;font-weight:600;color:var(--text-tertiary);margin-top:3px}
+.card .cr{margin-top:12px;padding-top:11px;border-top:var(--border-w) solid var(--border-default)}
+.card .cbig{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.card.on{box-shadow:inset 0 0 0 2px var(--action-bg)}
+
+.vs{display:flex;flex-direction:column;gap:9px;width:100%}
+.rowg{display:flex;gap:11px;flex-wrap:wrap;align-items:center}
+@media (max-width:1024px){
+  .shell{grid-template-columns:1fr}
+  nav.side{position:static;height:auto;border-right:0;border-bottom:var(--border-w) solid var(--border-default)}
+  nav.side a{display:inline-block;border-left:0;border-bottom:2px solid transparent}
+  nav.side a.on{border-left:0;border-bottom-color:var(--action-bg)}
+  .ng{padding:10px 18px 2px}
+  main,.top{padding-left:14px;padding-right:14px}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .ramp{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .spec{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .tabs,.rowg{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .top{height:auto;min-height:52px;padding:9px 16px;row-gap:9px;align-items:flex-start}
+  .topc{width:100%}
+  section{scroll-margin-top:150px}
+  .spec thead,.spec tbody,.spec tr{width:max-content;min-width:100%}
+  .topc{gap:7px}
+  .drawer{width:100%;border-radius:0}
+}
+
+/* ═══════════════════ v3 CHROME ═══════════════════ */
+.topc{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.tgl{display:flex;align-items:center;gap:6px;cursor:pointer}
+.filt{margin-top:10px;width:100%;height:28px;border:var(--border-w) solid var(--border-default);
+  border-radius:var(--radius-sm);background:var(--surface-sunken);color:var(--text-primary);
+  padding:0 9px;font-size:11.5px;font-family:inherit}
+.filt:focus-visible{outline:2px solid var(--border-focus);outline-offset:1px}
+nav.side a.hid{display:none}
+.tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:var(--radius-full);
+  border:var(--border-w) solid var(--status-neutral-br);background:var(--status-neutral-bg);color:var(--status-neutral-fg)}
+.tag.ok{border-color:var(--status-positive-br);background:var(--status-positive-bg);color:var(--status-positive-fg)}
+.tag.mk{border-color:var(--status-attention-br);background:var(--status-attention-bg);color:var(--status-attention-fg)}
+
+/* ═══════════════════ SWATCHES ═══════════════════ */
+.sw{border:0;padding:0;font:inherit;text-align:left;cursor:pointer;background:none;width:100%}
+.sw .cap{height:44px;border-radius:var(--radius-xs);border:var(--border-w) solid var(--border-default);
+  position:relative;transition:transform var(--dur-hover) var(--ease-standard)}
+.sw:hover .cap{transform:translateY(-2px)}
+.sw:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px;border-radius:var(--radius-xs)}
+.sw .st{font-family:var(--font-mono);font-size:9.5px;color:var(--text-tertiary);margin-top:4px;line-height:1.45;
+  font-variant-numeric:tabular-nums}
+.sw .st b{color:var(--text-secondary);font-weight:600}
+.sw.cp .cap::after{content:"copied";position:absolute;inset:0;display:grid;place-items:center;
+  background:var(--surface-inverse);color:var(--text-on-inverse);font-size:9.5px;font-weight:700;
+  border-radius:var(--radius-xs)}
+
+/* ═══════════════════ GLASS · Marketplace only ═══════════════════ */
+.gl{background:rgba(var(--glass-base),var(--glass-tint));
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border:var(--border-w) solid rgba(var(--glass-base),var(--glass-rim));
+  box-shadow:0 1px 0 rgba(var(--glass-base),.5) inset,0 4px 18px rgba(7,12,14,.09)}
+html[data-surfaces="solid"] .gl,
+[data-theme="dark"] .gl{background:var(--surface-raised);backdrop-filter:none;-webkit-backdrop-filter:none;
+  border-color:var(--border-default);box-shadow:var(--shadow-dropdown)}
+@media (prefers-reduced-transparency:reduce){
+  .gl{background:var(--surface-raised);backdrop-filter:none;-webkit-backdrop-filter:none;
+    border-color:var(--border-default);box-shadow:var(--shadow-dropdown)}
+}
+html[data-motion="reduce"] *{animation-duration:.001ms!important;transition-duration:.001ms!important;
+  animation-iteration-count:1!important}
+.gdemo{position:relative;border-radius:var(--radius-md);overflow:hidden;height:230px;
+  background-size:cover;background-position:center}
+.gdemo .gl{position:absolute;left:12px;right:12px;border-radius:var(--radius-sm);padding:9px 11px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gdemo .t{top:12px} .gdemo .b{bottom:12px}
+.tint{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.tint input[type=range]{accent-color:var(--action-bg);width:190px}
+
+/* ═══════════════════ THEME SPLIT ═══════════════════ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:var(--border-w) solid var(--border-default);
+  border-radius:var(--radius-md);overflow:hidden}
+.split>div{padding:18px}
+.split .lt{background:#FEFEFF;color:#070C0E}
+.split .dk{background:#0A0F0E;color:#F7F9F8;border-left:var(--border-w) solid var(--border-default)}
+.split .lb2{font-size:10px;font-weight:700;margin-bottom:11px;opacity:.7}
+@media (max-width:760px){.split{grid-template-columns:1fr}.split .dk{border-left:0;border-top:var(--border-w) solid var(--border-default)}}
+
+/* ═══════════════════ v3 EXAMPLE BOXES, CODE, MOTION ═══════════════════ */
+.ex{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-md);
+  padding:13px 14px;background:var(--surface-raised)}
+.ex.ok{border-color:var(--status-positive-br);background:var(--status-positive-bg)}
+.ex.no{border-color:var(--status-negative-br);background:var(--status-negative-bg)}
+.exl{font-size:10px;font-weight:700;margin-bottom:8px;color:var(--text-tertiary)}
+.ex.ok .exl{color:var(--status-positive-fg)} .ex.no .exl{color:var(--status-negative-fg)}
+.code{border:var(--border-w) solid var(--border-default);border-radius:var(--radius-sm);
+  background:var(--surface-sunken);padding:13px 15px;overflow-x:auto}
+.code pre{margin:0;font-family:var(--font-mono);font-size:11.5px;line-height:1.75;color:var(--text-secondary)}
+.mv{height:22px;background:var(--surface-sunken);border:var(--border-w) solid var(--border-default);
+  border-radius:var(--radius-full);position:relative;overflow:hidden;width:190px;cursor:pointer}
+.mv i{position:absolute;top:3px;left:3px;width:16px;height:14px;border-radius:var(--radius-full);
+  background:var(--action-bg);transition:transform var(--dm) var(--dc)}
+.mv:hover i,.mv.go i{transform:translateX(164px)}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="side" aria-label="Contents">
+  <div class="brand"><div class="n">Elanzia Trade</div><div class="v">Design system · v3.0</div>
+    <input class="filt" id="filt" type="search" placeholder="Filter sections" aria-label="Filter sections"></div>
+  <div class="ng">Tokens</div>
+  <a href="#colour" class="on">Colour</a><a href="#type">Typography</a><a href="#space">Space, radius, shadow</a><a href="#motion">Motion</a><a href="#density">Density</a><a href="#theme">Light and dark</a><a href="#glass">Glass</a>
+  <div class="ng">Components</div>
+  <a href="#actions">Actions</a><a href="#form">Form</a><a href="#choice">Choice</a>
+  <a href="#feedback">Feedback</a><a href="#overlay">Overlays</a>
+  <div class="ng">Patterns</div>
+  <a href="#objects">Trade objects</a><a href="#table">Data table</a><a href="#price">Price states</a><a href="#states">Universal states</a>
+  <div class="ng">Rules</div>
+  <a href="#rules">Copy and never do this</a>
+</nav>
+
+<main>
+  <div class="top">
+    <div class="tt">Design system v3.0 · everything below is live</div>
+    <div class="topc">
+      <span class="tt">Density</span>
+      <div class="seg" role="group" aria-label="Density">
+        <button type="button" data-d="relaxed" aria-pressed="false">Relaxed</button>
+        <button type="button" data-d="regular" aria-pressed="true">Regular</button>
+        <button type="button" data-d="condensed" aria-pressed="false">Condensed</button>
+      </div>
+      <span class="tt">Theme</span>
+      <div class="seg" role="group" aria-label="Theme">
+        <button type="button" data-t="light" aria-pressed="true">Light</button>
+        <button type="button" data-t="dark" aria-pressed="false">Dark</button>
+      </div>
+      <label class="tgl"><input type="checkbox" class="sw2" id="rm"><span class="tt">Reduce motion</span></label>
+      <label class="tgl"><input type="checkbox" class="sw2" id="ss"><span class="tt">Solid surfaces</span></label>
+    </div>
+  </div>
+
+  <div style="padding-top:36px">
+    <div class="dsp" style="max-width:15ch">Elanzia Trade</div>
+    <p class="note" style="font-size:16px;margin-top:14px;max-width:66ch">Tokens, components, patterns, rules. Every value on this page is a CSS variable and every component is live.</p>
+  </div>
+
+  <!-- ═══════════ COLOUR ═══════════ -->
+  <section id="colour">
+    <div class="sh"><h2 class="h1">Colour</h2>
+      <span class="sp">4 ramps · 40 aliases · 4 statuses</span><span class="tag ok">Live in both themes</span></div>
+
+    <p class="note" style="margin-bottom:18px;max-width:78ch"><b>Two layers.</b> Layer 1 is the ramp: 45 fixed
+    values that are the same in light and dark. Layer 2 is the alias: 40 names that get new values in dark.
+    A component never names a ramp step. It names a role. Write <code class="id">var(--action-bg)</code>,
+    never <code class="id">var(--emerald-600)</code>. Break that rule once and dark mode stops working.</p>
+
+    <div class="bh">The 40 aliases, and what each one is for</div>
+    <table class="spec">
+      <thead><tr><th style="width:18%">Alias</th><th style="width:11%">Light</th><th style="width:11%">Dark</th>
+        <th class="r" style="width:9%">Ratio</th><th>Applied to</th></tr></thead>
+      <tbody id="aliastb"></tbody>
+    </table>
+    <p class="note">Ratio is measured against the surface each token actually sits on, in the theme now
+    showing. Switch the theme in the bar above and every number in this table is recomputed against the
+    new values. Nothing in this system is a claim; it is all arithmetic.</p>
+
+    <div class="bh">Gold has one job</div>
+    <p class="note" style="max-width:78ch">Champagne Gold <code class="id">#E2AA28</code> measures 2.08:1 on
+    Pearl White, so it can never be text on a light background. It is legal as a fill carrying Onyx at
+    9.38:1, as a 1px rule, or as type on emerald-900 at 7.35:1. Because the ratio forbids it, no one has to
+    remember the rule. Where a gold-coloured <i>word</i> is needed, that is the attention status below,
+    which is gold-700 at 8.36:1. Gold does not appear in dark mode as anything but a fill.</p>
+    <div class="g3" style="margin-top:12px">
+      <div class="ex ok"><div class="exl">Do</div>
+        <span class="stamp">Hallmark 916</span>
+        <div class="mi i3" style="margin-top:8px">Gold fill, Onyx type. 9.38:1.</div></div>
+      <div class="ex ok"><div class="exl">Do</div>
+        <div style="height:2px;background:var(--accent-fill);width:56px"></div>
+        <div class="mi i3" style="margin-top:8px">Gold as a rule under a section that is genuinely about gold.</div></div>
+      <div class="ex no"><div class="exl">Never</div>
+        <div style="color:#E2AA28;font-weight:700;font-size:15px">₹1,46,280</div>
+        <div class="mi i3" style="margin-top:8px">Gold type on white. 2.08:1. Illegible at any size.</div></div>
+    </div>
+
+    <div class="bh">Statuses</div>
+    <div class="g4" id="statgrid"></div>
+    <p class="note">Four statuses, each with a foreground, a background and a border. Nothing else in the
+    interface is coloured. Both themes hold every status foreground above 5.7:1 on its own tint.</p>
+
+    <div class="bh">The ramps</div>
+    <p class="note" style="margin-bottom:12px;max-width:78ch">Every family is normalised. Step 600 measures
+    6.52:1 on Pearl White whether it is emerald, gold, neutral or danger, so the four families are
+    interchangeable at any step and a colour swap needs no re-checking. The numbers under each swatch are
+    its contrast on Pearl White and on Onyx Black. Click any swatch to copy its hex.</p>
+    <div id="ramps"></div>
+    <p class="note">Steps that do not appear in the alias table exist for tints and future use. Do not put
+    one into a component without giving it an alias first.</p>
+  </section>
+  <!-- ═══════════ TYPE ═══════════ -->
+  <section id="type">
+    <div class="sh"><h2 class="h1">Typography</h2>
+      <span class="sp">Ethic Serif for headings · Figtree for body and UI</span></div>
+    <table class="spec" style="margin-bottom:22px">
+      <thead><tr><th style="width:22%">Token</th><th style="width:26%">Family</th><th>Carries</th></tr></thead>
+      <tbody>
+        <tr><td class="k">--font-heading</td><td class="id">Ethic Serif</td><td>Display, h1 and h2, card titles, modal titles. Licensed. Playfair Display is the fallback until the files are supplied: it carries the same high-contrast Didone axis and ships every weight from Google Fonts, so a screen built on the fallback needs no relayout when Ethic Serif arrives.</td></tr><tr><td class="k">--font-body</td><td class="id">Figtree</td><td>All body, UI and interface text at 17px and below, and every figure at every size.</td></tr>
+        <tr><td class="k">--font-deva</td><td class="id">Anek Devanagari</td><td>Hindi and Marathi. Line height 1.45.</td></tr>
+        <tr><td class="k">--font-gujr</td><td class="id">Anek Gujarati</td><td>Gujarati. Line height 1.42.</td></tr>
+        <tr><td class="k">--font-mono</td><td class="id">IBM Plex Mono</td><td>Identifiers only: design codes, HUID, GSTIN, invoice numbers. Never money.</td></tr>
+      </tbody>
+    </table>
+    <div class="tsp"><div class="m"><b>--fs-display</b>44 / 1.08 / -.02em<br>Ethic Serif 500</div><div class="dsp">Zaveri Bazaar</div></div>
+    <div class="tsp"><div class="m"><b>--fs-h1</b>30 / 1.20 / -.015em<br>Ethic Serif 500</div><div class="h1">Vadakkan Gold &amp; Diamonds</div></div>
+    <div class="tsp"><div class="m"><b>--fs-h2</b>22 / 1.28 / -.008em<br>Ethic Serif 500</div><div class="h2">Quotation QT-2026-0884</div></div>
+    <div class="tsp"><div class="m"><b>--fs-h3</b>17 / 1.35<br>Figtree 700</div><div class="h3">Price breakup and rate lock</div></div>
+    <div class="tsp"><div class="m"><b>--fs-body</b>15 / 14.5 / 13.5<br>Figtree 400</div><div>Kemp-set temple necklace in 22K 916, hand-finished in Thrissur. Net weight 55.270 g against a gross of 58.420 g.</div></div>
+    <div class="tsp"><div class="m"><b>--fs-label</b>11.5 / 11 / 10.5<br>Figtree 700</div><div class="lb">Net weight</div></div>
+    <div class="tsp"><div class="m"><b>--font-mono</b>identifiers</div><div><span class="id">ELZ-TH-4471</span> · <span class="id">A1B2C3</span> · <span class="id">32AABCV1234K1ZX</span></div></div>
+    <div class="tsp"><div class="m"><b>--lh-deva</b>1.45</div><div class="deva">श्री हरिओम ऑर्नामेंट्स, राजकोट · मंदिर हार, 22K 916, शुद्ध वज़न 55.270 ग्राम</div></div>
+    <div class="tsp"><div class="m"><b>--lh-gujr</b>1.42</div><div class="gujr">શ્રી હરિઓમ ઓર્નામેન્ટ્સ, રાજકોટ · મંદિર હાર, 22K 916, ચોખ્ખું વજન 55.270 ગ્રામ</div></div>
+    <p class="note"><b>Tracking is 0 for body and negative for headings.</b> No positive letter-spacing and no uppercase labels.</p>
+  </section>
+
+  <!-- ═══════════ SPACE / RADIUS / SHADOW ═══════════ -->
+  <section id="space">
+    <div class="sh"><h2 class="h1">Space, radius, shadow</h2>
+      <span class="sp">13 spacing steps · 6 radii · 4 shadows</span></div>
+
+    <div class="bh">Radius · what each step is for</div>
+    <div class="g3" style="gap:14px">
+      <div><div class="radbox" style="border-radius:0">0</div>
+        <p class="note" style="margin-top:7px"><b>--radius-none</b><br>Documents only: price breakup, invoice, hallmark, rate board, specification plate, and every photograph. Paper has square corners.</p></div>
+      <div><div class="radbox" style="border-radius:4px">4px</div>
+        <p class="note" style="margin-top:7px"><b>--radius-xs</b><br>Checkbox, stamp, progress bar, thumbnail.</p></div>
+      <div><div class="radbox" style="border-radius:8px">8px</div>
+        <p class="note" style="margin-top:7px"><b>--radius-sm</b><br>Button, input, select, segmented control, menu item, tooltip.</p></div>
+      <div><div class="radbox" style="border-radius:12px">12px</div>
+        <p class="note" style="margin-top:7px"><b>--radius-md</b><br>The conversation layer: card, panel, banner, table frame, dropdown, toast, modal, drawer, bottom sheet.</p></div>
+      <div><div class="radbox" style="border-radius:16px">16px</div>
+        <p class="note" style="margin-top:7px"><b>--radius-showcase</b><br>Marketplace product and maker cards only. Nothing in an admin console is ever 16.</p></div>
+      <div><div class="radbox" style="border-radius:999px">999px</div>
+        <p class="note" style="margin-top:7px"><b>--radius-full</b><br>Pills only: status chip, filter chip, count badge, avatar, toggle track.</p></div>
+    </div>
+    <div class="lab col" style="margin-top:18px">
+      <div><b style="font-size:var(--d-sm)">Pills are for tags, not actions.</b>
+        <p class="note" style="margin-top:6px">Status chips, filter chips, count badges, avatars and the toggle track are pills. <b>Buttons are not.</b> A filter chip and a button sit side by side in the same toolbar, so buttons take 8px and stay distinguishable from a tag.</p>
+        <p class="note"><b>Documents stay at 0.</b> Everything the user manipulates is rounded. Everything that represents paper is square.</p></div>
+      <div class="rowg" style="margin-top:8px;align-items:flex-end">
+        <button class="btn b-pri">Button · 8px</button>
+        <button class="fchip" aria-pressed="true">Filter chip · pill</button>
+        <span class="chip c-pos"><span class="d"></span>Status chip · pill</span>
+        <span class="cnt">14</span><div class="av">VG</div>
+      </div>
+    </div>
+
+    <div class="bh">Spacing · 4px base</div>
+    <div class="lab" style="align-items:flex-end;gap:10px" id="sp-demo"></div>
+
+    <div class="bh">Shadow · four floating layers, and one focus ring</div>
+    <div class="g4">
+      <div><div class="elev" style="box-shadow:var(--shadow-dropdown)">Dropdown</div></div>
+      <div><div class="elev" style="box-shadow:var(--shadow-modal)">Modal</div></div>
+      <div><div class="elev" style="box-shadow:var(--shadow-toast)">Toast</div></div>
+      <div><div class="elev" style="box-shadow:var(--shadow-sheet)">Bottom sheet</div></div>
+    </div>
+    <p class="note">Cards, panels, banners and tables sit on a 1px border and cast nothing. Shadows are pure
+    Onyx alpha, never tinted. In dark mode the same four tokens carry heavier alpha, because a shadow on a
+    dark ground has to work harder to separate two surfaces that are already close in lightness.</p>
+
+    <div class="lab col" style="margin-top:16px">
+      <div><b style="font-size:var(--d-sm)">Rounding says what a thing is.</b>
+        <p class="note" style="margin-top:6px">Four layers, and a developer can place any new component by
+        asking which one it belongs to. <b>0</b> is paper. <b>8</b> is the work layer, the things a user
+        operates. <b>12</b> is the conversation layer, the things that hold a message or a group. <b>16</b>
+        is the showcase layer and exists in the Marketplace alone. <b>999</b> is a tag, never an action.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ DENSITY ═══════════ -->
+  <section id="density">
+    <div class="sh"><h2 class="h1">Density</h2>
+      <span class="sp">3 modes · 10 tokens · switch it in the bar above</span></div>
+    <table class="spec">
+      <thead><tr><th style="width:24%">Token</th><th class="r">Relaxed</th><th class="r">Regular</th><th class="r">Condensed</th><th style="width:32%">Portal</th></tr></thead>
+      <tbody>
+        <tr><td class="k">--d-body</td><td class="r num">15</td><td class="r num">14.5</td><td class="r num">13.5</td>
+          <td rowspan="6" style="vertical-align:top;font-size:var(--d-sm);color:var(--text-secondary)">
+            <b>Relaxed</b> · Marketplace web, 97 screens<br><br>
+            <b>Regular</b> · Marketplace mobile 89, Vendor mobile 85. Control height holds at 44px so the touch target survives.<br><br>
+            <b>Condensed</b> · Super Admin 99, Vendor Admin 149. Pointer only.</td></tr>
+        <tr><td class="k">--d-control</td><td class="r num">44</td><td class="r num">44</td><td class="r num">32</td></tr>
+        <tr><td class="k">--d-row</td><td class="r num">56</td><td class="r num">48</td><td class="r num">36</td></tr>
+        <tr><td class="k">--d-cy / --d-cx</td><td class="r num">14 / 16</td><td class="r num">11 / 14</td><td class="r num">6 / 11</td></tr>
+        <tr><td class="k">--d-card</td><td class="r num">24</td><td class="r num">18</td><td class="r num">14</td></tr>
+        <tr><td class="k">--d-gap</td><td class="r num">16</td><td class="r num">14</td><td class="r num">10</td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>Density changes only the ten tokens above.</b> It never touches colour, radius, border width, shadow or the display sizes.</p>
+  </section>
+
+
+  <!-- ═══════════ MOTION ═══════════ -->
+  <section id="motion">
+    <div class="sh"><h2 class="h1">Motion</h2>
+      <span class="sp">5 durations · 3 curves</span><span class="tag ok">Hover any row</span></div>
+    <p class="note" style="max-width:78ch;margin-bottom:14px">Durations are named for what they do, not how
+    long they take, so a developer picks one by answering a question rather than guessing a number. Everything
+    on a trade screen is either a press, a hover, a state change or an overlay. If a movement is not one of
+    those four, it should not be moving.</p>
+    <table class="spec">
+      <thead><tr><th style="width:16%">Token</th><th style="width:9%">Value</th><th style="width:26%">Use</th><th>Try it</th></tr></thead>
+      <tbody>
+        <tr><td class="id">--dur-press</td><td class="num">90ms</td><td>A control taking the press. Scale or fill only.</td>
+          <td><div class="mv" style="--dm:90ms;--dc:var(--ease-standard)"><i></i></div></td></tr>
+        <tr><td class="id">--dur-hover</td><td class="num">150ms</td><td>Hover, colour, border and shadow change.</td>
+          <td><div class="mv" style="--dm:150ms;--dc:var(--ease-standard)"><i></i></div></td></tr>
+        <tr><td class="id">--dur-state</td><td class="num">220ms</td><td>A control changing state: toggle, tab, accordion, checkbox.</td>
+          <td><div class="mv" style="--dm:220ms;--dc:var(--ease-spring)"><i></i></div></td></tr>
+        <tr><td class="id">--dur-overlay</td><td class="num">280ms</td><td>Modal, drawer, sheet and toast entering or leaving.</td>
+          <td><div class="mv" style="--dm:280ms;--dc:var(--ease-out)"><i></i></div></td></tr>
+        <tr><td class="id">--dur-enter</td><td class="num">700ms</td><td>A page region arriving once, on first paint. Never on a repeat action.</td>
+          <td><div class="mv" style="--dm:700ms;--dc:var(--ease-out)"><i></i></div></td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="margin-top:16px">
+      <div class="ex"><div class="exl">--ease-standard</div><code class="id">cubic-bezier(.2,0,.15,1)</code>
+        <div class="mi i3" style="margin-top:7px">The default. Leaves fast, lands soft. Use unless there is a reason not to.</div></div>
+      <div class="ex"><div class="exl">--ease-out</div><code class="id">cubic-bezier(0,0,.2,1)</code>
+        <div class="mi i3" style="margin-top:7px">Things arriving from off screen: drawer, sheet, toast.</div></div>
+      <div class="ex"><div class="exl">--ease-spring</div><code class="id">cubic-bezier(.22,.9,.24,1)</code>
+        <div class="mi i3" style="margin-top:7px">A small physical thing that snaps: the toggle knob. Nothing larger than 24px.</div></div>
+    </div>
+    <p class="note"><b>No motion carries meaning on its own.</b> Every animation in this system has a static
+    equivalent that says the same thing, because <code class="id">prefers-reduced-motion</code> and the
+    Reduce motion switch above both turn all of it off. Nothing becomes ambiguous when they do.</p>
+  </section>
+
+  <!-- ═══════════ LIGHT AND DARK ═══════════ -->
+  <section id="theme">
+    <div class="sh"><h2 class="h1">Light and dark</h2>
+      <span class="sp">40 aliases remapped · 0 component changes</span><span class="tag mk">Marketplace ships light only</span></div>
+
+    <p class="note" style="max-width:78ch;margin-bottom:16px"><b>Who gets which.</b> The Marketplace, web and
+    mobile, ships light only: it sells photographed jewellery, and a dark page changes how gold and stone read
+    on screen. Elanzia Super Admin, Vendor Admin and Vendor Admin mobile ship both and follow
+    <code class="id">prefers-color-scheme</code> with a manual override that persists per user. That is a
+    product decision, not a technical one, and it costs nothing to reverse.</p>
+
+    <div class="split">
+      <div class="lt"><div class="lb2">LIGHT · #FEFEFF</div>
+        <div style="font-family:var(--font-heading);font-size:20px;font-weight:500">Quotation QT-2026-0884</div>
+        <div style="font-size:12.5px;color:#424B4A;margin-top:5px">Kalyani Ornaments, Rajkot · 8 lines · valid 48 hours</div>
+        <div style="display:flex;gap:7px;margin-top:12px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#E9FDF7;color:#006A58;border:1px solid #A9E4D3">Accepted</span>
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#FFF8EA;color:#604604;border:1px solid #F4D397">Expires in 6h</span>
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#FFF7F5;color:#AF2C20;border:1px solid #FFCBC3">1 line short</span></div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <span style="background:#006A58;color:#FEFEFF;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px">Confirm order</span>
+          <span style="background:#FEFEFF;color:#045445;border:1px solid #CBD2D1;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px">Amend</span></div>
+        <div style="font-family:var(--font-mono);font-size:9.5px;color:#555F5E;margin-top:14px;line-height:1.7">
+          text-primary 19.5:1 · text-tertiary 6.5:1<br>action label on action 6.5:1</div>
+      </div>
+      <div class="dk"><div class="lb2">DARK · #0A0F0E</div>
+        <div style="font-family:var(--font-heading);font-size:20px;font-weight:500">Quotation QT-2026-0884</div>
+        <div style="font-size:12.5px;color:#B3BCBA;margin-top:5px">Kalyani Ornaments, Rajkot · 8 lines · valid 48 hours</div>
+        <div style="display:flex;gap:7px;margin-top:12px;align-items:center;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#0A2A24;color:#4FAF99;border:1px solid #045445">Accepted</span>
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#241A02;color:#C99729;border:1px solid #604604">Expires in 6h</span>
+          <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:#2C0B08;color:#F37D6C;border:1px solid #960E06">1 line short</span></div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <span style="background:#259880;color:#070C0E;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px">Confirm order</span>
+          <span style="background:#141A19;color:#4FAF99;border:1px solid #3B4442;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px">Amend</span></div>
+        <div style="font-family:var(--font-mono);font-size:9.5px;color:#98A1A0;margin-top:14px;line-height:1.7">
+          text-primary 18.3:1 · text-tertiary 7.3:1<br>action label on action 5.5:1</div>
+      </div>
+    </div>
+
+    <div class="bh">The five rules that make dark mode arithmetic</div>
+    <table class="spec">
+      <thead><tr><th style="width:26%">Rule</th><th>Why, and what breaks without it</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Dark is not an inversion</td><td>The page is <code class="id">#0A0F0E</code>, an emerald-tinted charcoal, and the raised surface is <b>lighter</b> at <code class="id">#141A19</code>. Light mode raises with shadow; dark mode raises with lightness. Inverting the light values gives a grey that fights the brand.</td></tr>
+        <tr><td class="k">The action climbs the ramp</td><td>Primary action moves from emerald-600 to emerald-400 and its label flips from Pearl White to Onyx. White on emerald-600 measures 2.9:1 against a dark page frame and reads as a hole; emerald-400 with an Onyx label measures 5.5:1 and reads as a button.</td></tr>
+        <tr><td class="k">Text stops three steps early</td><td>The tertiary floor in dark is neutral-300 at 7.3:1. neutral-600, the light-mode floor, measures 2.9:1 on a dark page and fails. Every text alias is re-solved against the new ground, never carried over.</td></tr>
+        <tr><td class="k">Status tints get their own values</td><td>A light-mode tint at 5% opacity turns to mud on charcoal. Dark tints are separate hexes, each solved so its foreground lands within 0.1 of the light-mode ratio. Positive reads 6.20 light and 5.79 dark.</td></tr>
+        <tr><td class="k">Glass does not cross over</td><td>There is no dark glass. Every glass surface falls back to <code class="id">--surface-raised</code> plus <code class="id">--shadow-dropdown</code> in dark. A blurred translucent panel on a dark page has no reliable contrast floor.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bh">Implementation</div>
+    <div class="code"><pre>&lt;html data-theme="light"&gt;   &lt;!-- or "dark", or absent to follow the OS --&gt;
+
+/* the only thing dark mode changes */
+[data-theme="dark"]{ --surface-page:#0A0F0E; --action-bg:#259880; ... 40 names }
+
+/* a component never knows which theme it is in */
+.btn-primary{ background:var(--action-bg); color:var(--action-fg) }</pre></div>
+    <p class="note">Set the attribute on <code class="id">&lt;html&gt;</code> before first paint, from
+    <code class="id">localStorage</code>, or the page flashes. Add
+    <code class="id">&lt;meta name="color-scheme" content="light dark"&gt;</code> so form controls and
+    scrollbars follow. If a component needs a value that is not in the 40, add an alias to both themes.
+    Never reach past the alias layer into the ramp.</p>
+  </section>
+
+  <!-- ═══════════ GLASS ═══════════ -->
+  <section id="glass">
+    <div class="sh"><h2 class="h1">Glass</h2>
+      <span class="sp">Marketplace only · 4 named surfaces · light only</span><span class="tag mk">Drag the tint</span></div>
+
+    <p class="note" style="max-width:78ch;margin-bottom:14px"><b>Glass is a tray, never a label.</b> Text on a
+    translucent surface changes contrast with whatever is scrolling behind it. Measured across one 900px
+    panel, a single line of secondary text ran from 6.7:1 to 17.8:1 depending on the photograph underneath.
+    That is not a value anyone can certify. So glass carries controls that have their own opaque fill, and
+    primary ink only. Never secondary text, never a figure, never a status.</p>
+
+    <div class="g2">
+      <div>
+        <div class="gdemo" id="gd" style="background:
+   radial-gradient(circle at 18% 26%, #C9992E 0 14%, transparent 46%),
+   radial-gradient(circle at 74% 18%, #F2D89A 0 10%, transparent 40%),
+   radial-gradient(circle at 58% 78%, #6E4A12 0 18%, transparent 52%),
+   radial-gradient(circle at 92% 62%, #2A1B06 0 22%, transparent 58%),
+   linear-gradient(128deg,#8E6A1E 0%,#E0BE6C 34%,#3A2A0C 68%,#A98430 100%)">
+          <div class="gl t"><span style="font-weight:700;font-size:12.5px">Bridal sets · 412</span>
+            <span class="btn b-pri" style="height:30px;padding:0 12px;font-size:11.5px;margin-left:auto">Sort</span>
+            <span class="btn b-sec" style="height:30px;padding:0 12px;font-size:11.5px">Filter</span></div>
+          <div class="gl b"><span class="fchip" aria-pressed="true">22K</span><span class="fchip">Kundan</span>
+            <span class="fchip">Under 40g</span></div>
+        </div>
+        <div class="tint">
+          <span class="tt">Tint</span><input type="range" id="tsl" min="30" max="95" value="62" aria-label="Glass tint">
+          <span class="id num" id="tvl">0.62</span>
+          <span class="tag" id="tvr">Onyx on glass 9.4:1</span>
+        </div>
+        <p class="note" style="margin-top:8px">Below 0.55 the panel stops being certifiable against a dark
+        photograph. The shipped value is 0.62 and the floor is 0.55. Drag it down and watch the rim disappear
+        before the text does.</p>
+      </div>
+      <div>
+        <div class="bh" style="margin-top:0">The four surfaces, and nothing else</div>
+        <table class="spec">
+          <thead><tr><th style="width:40%">Surface</th><th>Sits over</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Sticky masthead</td><td>The Marketplace hero and listing scroll</td></tr>
+            <tr><td class="k">Filter bar</td><td>The listing grid, while it scrolls under</td></tr>
+            <tr><td class="k">Gallery controls</td><td>A product photograph, full bleed</td></tr>
+            <tr><td class="k">Bottom sheet handle</td><td>The mobile listing, behind the sheet</td></tr>
+          </tbody>
+        </table>
+        <div class="ex no" style="margin-top:14px"><div class="exl">Never glass</div>
+          <div class="mi i3">Over a table, a price breakup, a form, a specification plate, an invoice or a
+          hallmark. Inside a scrolling list. More than four instances on one screen. In any admin console.
+          In dark mode. On anything a user reads a number from.</div></div>
+        <p class="note"><b>Three escape hatches, all automatic.</b>
+        <code class="id">prefers-reduced-transparency</code>, the Solid surfaces switch in the bar above, and
+        <code class="id">data-theme="dark"</code> each replace every glass panel with
+        <code class="id">--surface-raised</code> and a dropdown shadow. The layout does not move when they do,
+        because the panel keeps its box.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ACTIONS ═══════════ -->
+  <section id="actions">
+    <div class="sh"><h2 class="h1">Actions</h2><span class="sp">44 / 44 / 32 px · radius 8</span></div>
+    <div class="lab">
+      <button class="btn b-pri">Request quotation</button>
+      <button class="btn b-sec">Add to enquiry</button>
+      <button class="btn b-gho">View breakup</button>
+      <button class="btn b-dan">Reject listing</button>
+      <button class="btn b-pri" data-load>Click to load</button>
+      <button class="ibtn" aria-label="Filter"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M4 8h8M6.5 12h3" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <div style="position:relative">
+        <button class="btn b-sec" id="mt" aria-haspopup="true" aria-expanded="false">Row actions
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        <div class="menu" id="ml" role="menu">
+          <button role="menuitem">Open listing<span class="k">O</span></button>
+          <button role="menuitem">Duplicate as new code</button>
+          <button role="menuitem">Move to jangad</button>
+          <button role="menuitem" disabled>Edit weight <span class="k">locked</span></button>
+          <hr><button role="menuitem" class="dg">Withdraw from marketplace</button>
+        </div>
+      </div>
+    </div>
+    <div class="strip">
+      <div class="sc"><span class="sl">Default</span><button class="btn b-pri">Label</button></div>
+      <div class="sc"><span class="sl">Hover</span><button class="btn b-pri h">Label</button></div>
+      <div class="sc"><span class="sl">Focus</span><button class="btn b-pri f">Label</button></div>
+      <div class="sc"><span class="sl">Active</span><button class="btn b-pri a">Label</button></div>
+      <div class="sc"><span class="sl">Disabled</span><button class="btn b-pri" disabled>Label</button></div>
+      <div class="sc"><span class="sl">Loading</span><button class="btn b-pri ld">Label</button></div>
+      <div class="sc"><span class="sl">Secondary</span><button class="btn b-sec">Label</button></div>
+      <div class="sc"><span class="sl">Secondary hover</span><button class="btn b-sec h">Label</button></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FORM ═══════════ -->
+  <section id="form">
+    <div class="sh"><h2 class="h1">Form</h2>
+      <span class="sp">persistent labels · never placeholder-as-label</span></div>
+    <div class="lab">
+      <div class="fld"><label for="f1">Piece name</label><input class="inp" id="f1" value="Antique temple necklace, kemp set"><div class="msg">Shown to buyers exactly as typed</div></div>
+      <div class="fld"><label for="f2">Net weight</label>
+        <div class="afx"><input id="f2" class="nin" value="55.270" inputmode="decimal"><span class="s">g</span></div>
+        <div class="msg">Grams, three decimals</div></div>
+      <div class="fld"><label for="f3">Making charge</label>
+        <div class="afx"><span class="p">₹</span><input id="f3" class="nin" value="1,450" inputmode="numeric"><span class="s">/ g</span></div>
+        <div class="msg">Per gram of net weight</div></div>
+    </div>
+    <div class="strip">
+      <div class="sc"><span class="sl">Default</span><input class="inp nin" value="55.270"></div>
+      <div class="sc"><span class="sl">Hover</span><input class="inp nin h" value="55.270"></div>
+      <div class="sc"><span class="sl">Focus</span><input class="inp nin f" value="55.270"></div>
+      <div class="sc"><span class="sl">Valid</span><input class="inp nin ok" value="55.270"><span class="msg o">Matches certificate</span></div>
+      <div class="sc"><span class="sl">Disabled</span><input class="inp nin" value="55.270" disabled><span class="msg">Locked after hallmarking</span></div>
+      <div class="sc"><span class="sl">Empty</span><input class="inp nin" placeholder="0.000"></div>
+      <div class="sc" style="grid-column:span 2"><span class="sl">Error</span><input class="inp nin err" value="55.720">
+        <span class="msg e">Net weight exceeds gross 58.420 g less stone 3.150 g. Enter 55.270 g or correct the gross.</span></div>
+    </div>
+    <div class="lab col" style="margin-top:16px">
+      <div class="rowg">
+        <div class="fld" style="max-width:230px"><label>Purity</label>
+          <div class="sel" data-sel>
+            <button class="sbtn" aria-expanded="false" aria-haspopup="listbox"><span class="v">22K 916</span>
+              <svg class="sar" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5"/></svg></button>
+            <ul class="slist" role="listbox">
+              <li role="option" aria-selected="false">24K 999<span class="k">₹1,59,578</span></li>
+              <li role="option" aria-selected="true">22K 916<span class="k">₹1,46,280</span></li>
+              <li role="option" aria-selected="false">18K 750<span class="k">₹1,19,684</span></li>
+              <li role="option" aria-selected="false">14K 585<span class="k">₹93,353</span></li>
+            </ul></div></div>
+        <div class="fld" style="max-width:230px"><label>Required by</label>
+          <div style="position:relative">
+            <button class="sbtn" id="dt2" aria-expanded="false"><span id="dv" class="cv">Choose a date</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2.2" y="3.2" width="11.6" height="10.6" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.4h11.6M5.4 1.8v2.6M10.6 1.8v2.6" stroke="currentColor" stroke-width="1.3"/></svg></button>
+            <div class="cal" id="cal"></div></div></div>
+      </div>
+      <div class="srch" id="srch">
+        <svg class="si" width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.6" stroke="currentColor" stroke-width="1.5"/><path d="M10.4 10.4L14 14" stroke="currentColor" stroke-width="1.5"/></svg>
+        <input class="inp" placeholder="Search by piece, design code or maker" aria-label="Search">
+        <button class="clr" aria-label="Clear"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </div>
+      <div id="sres"></div>
+      <div class="drop" id="drop" tabindex="0" role="button">
+        <div style="font-size:var(--d-sm);font-weight:700">Drop photographs and certificates here</div>
+        <div class="msg" style="margin-top:5px">JPG, PNG or PDF · up to 12 MB each</div>
+        <button class="btn b-sec b-sm" style="margin-top:12px" type="button">Choose files</button>
+      </div>
+      <div id="flist"></div>
+    </div>
+    <p class="note">Search: type <b>tem</b> for results, <b>zzz</b> for the empty state. Upload: click or drag; the third file fails on purpose.</p>
+  </section>
+
+  <!-- ═══════════ CHOICE ═══════════ -->
+  <section id="choice">
+    <div class="sh"><h2 class="h1">Choice</h2><span class="sp">checkbox radius 4 · radio and toggle are pills</span></div>
+    <div class="lab" style="gap:34px">
+      <div class="vs" style="width:auto">
+        <label class="opt"><input type="checkbox" id="cbA"><span>Select all on this page<small>6 pieces</small></span></label>
+        <label class="opt"><input type="checkbox" class="cbi" checked><span>BIS hallmarked</span></label>
+        <label class="opt"><input type="checkbox" class="cbi"><span>Ready stock only</span></label>
+        <label class="opt dis"><input type="checkbox" disabled><span>Certified stones<small>Not available for this maker</small></span></label>
+      </div>
+      <div class="vs" style="width:auto">
+        <label class="opt"><input type="radio" name="pay" checked><span>Advance 25 per cent<small>Balance on despatch</small></span></label>
+        <label class="opt"><input type="radio" name="pay"><span>Advance 50 per cent</span></label>
+        <label class="opt dis"><input type="radio" name="pay" disabled><span>30 day credit<small>After 3 fulfilled orders</small></span></label>
+      </div>
+      <div class="vs" style="width:auto">
+        <label class="opt" style="align-items:center"><input type="checkbox" class="sw2" checked><span>Show indicative prices</span></label>
+        <label class="opt" style="align-items:center"><input type="checkbox" class="sw2"><span>Auto-accept repeat orders</span></label>
+        <label class="opt dis" style="align-items:center"><input type="checkbox" class="sw2" disabled><span>Publish to Super Admin feed</span></label>
+      </div>
+    </div>
+    <div class="lab" style="margin-top:14px">
+      <button class="fchip" aria-pressed="true">40 to 60 g <svg width="9" height="9" viewBox="0 0 9 9"><path d="M1.5 1.5l6 6M7.5 1.5l-6 6" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button class="fchip" aria-pressed="true">22K 916 <svg width="9" height="9" viewBox="0 0 9 9"><path d="M1.5 1.5l6 6M7.5 1.5l-6 6" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button class="fchip" aria-pressed="false">Thrissur</button>
+      <button class="fchip" aria-pressed="false">Ready stock</button>
+      <button class="fchip" aria-pressed="false">Polki</button>
+      <button class="fchip" disabled>Certified stones</button>
+      <button class="btn b-gho b-sm">Clear all</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEEDBACK ═══════════ -->
+  <section id="feedback">
+    <div class="sh"><h2 class="h1">Feedback</h2>
+      <span class="sp">stamp · chips · banner · toast · tabs · tooltip</span></div>
+    <div class="lab">
+      <span class="stamp"><span>Rate locked</span><span class="dt">01 Sep, 11:04</span></span>
+      <span class="stamp pos"><span>Advance received</span><span class="dt">30 Aug 2026</span></span>
+      <span class="stamp att"><span>On jangad</span><span class="dt">11 days</span></span>
+      <span class="stamp neg"><span>Balance overdue</span><span class="dt">6 days</span></span>
+      <span class="stamp pos"><span>GSTIN verified</span><span class="dt">14 Mar 2026</span></span>
+    </div>
+    <p class="note"><b>Every stamp carries a date.</b> Never ship a bare "Verified" badge; state what was checked and when.</p>
+
+    <div class="bh">Status chips and counts · pills</div>
+    <div class="lab">
+      <span class="chip c-pos"><span class="d"></span>Live</span>
+      <span class="chip c-pos"><span class="d"></span>Ready stock · 6</span>
+      <span class="chip c-pos"><span class="d"></span>Despatched</span>
+      <span class="chip c-att"><span class="d"></span>On jangad · 11 days</span>
+      <span class="chip c-att"><span class="d"></span>Made to order · 21 days</span>
+      <span class="chip c-att"><span class="d"></span>Balance due 04 Sep</span>
+      <span class="chip c-neg"><span class="d"></span>Rejected</span>
+      <span class="chip c-neg"><span class="d"></span>Overdue 6 days</span>
+      <span class="chip c-neu"><span class="d"></span>Draft</span>
+      <span class="chip c-neu"><span class="d"></span>In review</span>
+      <span class="rowg" style="gap:8px;font-size:var(--d-sm);font-weight:600">Enquiries <span class="cnt">14</span></span>
+      <span class="rowg" style="gap:8px;font-size:var(--d-sm);font-weight:600">Overdue <span class="cnt o">3</span></span>
+    </div>
+
+    <div class="bh">Banner and tabs</div>
+    <div class="lab col">
+      <div class="ban"><div style="flex:1"><div class="bt">Quotation QT-2026-0884 expires at 11:04 IST tomorrow</div>
+        <div class="bb">Rate held at ₹1,46,280 per 10 g from 29 Aug, 16:20 IST. After expiry the order reprices at the live rate.</div>
+        <div style="margin-top:11px"><span class="stamp att"><span>Expiring</span><span class="dt">in 6 hours</span></span></div></div>
+        <button class="x" aria-label="Dismiss"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+      <div class="ban"><div style="flex:1"><div class="bt">Listing rejected by Elanzia review</div>
+        <div class="bb">Net weight on the certificate reads 55.270 g. The listing states 55.720 g. Correct one of the two and resubmit.</div>
+        <div style="margin-top:11px"><span class="stamp neg"><span>Rejected</span><span class="dt">31 Aug 2026</span></span></div></div>
+        <button class="x" aria-label="Dismiss"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+      <div class="tabs" role="tablist" id="tb">
+        <button role="tab" aria-selected="true">Specification</button>
+        <button role="tab" aria-selected="false">Price breakup</button>
+        <button role="tab" aria-selected="false">Certificates<span class="c">2</span></button>
+        <button role="tab" aria-selected="false">Enquiries<span class="c">14</span></button>
+        <button role="tab" aria-selected="false" disabled>Despatch</button></div>
+      <div id="tp" class="sm i2" style="padding:12px 2px">Gross 58.420 g · stone 3.150 g · net 55.270 g · 22K 916 · kemp set · made to order, 21 days.</div>
+      <div class="rowg">
+        <button class="btn b-sec" data-t="ok">Success toast</button>
+        <button class="btn b-sec" data-t="err">Error toast</button>
+        <button class="btn b-sec" data-t="info">Neutral toast</button>
+        <span class="tw"><button class="btn b-sec">Wastage 5.50%</button><span class="tip" role="tooltip">3.040 g of 55.270 g net</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ OVERLAYS ═══════════ -->
+  <section id="overlay">
+    <div class="sh"><h2 class="h1">Overlays</h2><span class="sp">radius 20 · the only things that cast shadow</span></div>
+    <div class="lab">
+      <button class="btn b-pri" data-o="m1">Confirm an order</button>
+      <button class="btn b-dan" data-o="m2">Destructive confirm</button>
+      <button class="btn b-sec" data-o="dw">Open drawer</button>
+      <button class="btn b-sec" data-o="sh">Open bottom sheet</button>
+    </div>
+    <p class="note">Escape closes. Outside click closes. Focus returns to the trigger.</p>
+  </section>
+
+  <!-- ═══════════ TRADE OBJECTS ═══════════ -->
+  <section id="objects">
+    <div class="sh"><h2 class="h1">Trade objects</h2>
+      <span class="sp">radius 0 · every one names a physical referent</span></div>
+    <div class="g2">
+      <div><div class="figt">Hallmark · the assay stamp struck on the piece</div>
+        <div class="hm">
+          <div><div class="l">BIS</div>
+            <svg width="19" height="17" viewBox="0 0 20 18" fill="none" style="margin-top:4px" aria-hidden="true">
+              <path d="M10 1.6 18.6 16.4H1.4L10 1.6Z" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M10 6.2 14.4 13.9H5.6L10 6.2Z" stroke="currentColor" stroke-width="1.1"/></svg></div>
+          <div><div class="l">PURITY</div><div class="v">22K916</div></div>
+          <div><div class="l">HUID</div><div class="v">A1B2C3</div></div>
+        </div>
+        <p class="note">Three marks, in the order they are struck. The BIS mark ships as the official asset; the outline here is a placeholder.</p></div>
+      <div><div class="figt">Rate board · the board in a bullion shop</div>
+        <div class="board">
+          <div class="bh2"><span class="lb" style="color:var(--text-primary)">Gold rate</span><span class="docs">30 Aug 2026 · PM close</span></div>
+          <table><thead><tr><th>Purity</th><th>AM open</th><th>PM close</th></tr></thead>
+            <tbody>
+              <tr><td>999</td><td>1,58,392</td><td>1,59,578</td></tr>
+              <tr><td>916</td><td>1,45,193</td><td>1,46,280</td></tr>
+              <tr><td>750</td><td>1,18,794</td><td>1,19,684</td></tr>
+              <tr><td>585</td><td>92,659</td><td>93,353</td></tr>
+            </tbody></table>
+          <div class="bf">Rupees per 10 grams. Excludes GST, making charges and stone value.</div></div>
+        <p class="note">Two snapshots, morning and close. Never a live ticker.</p></div>
+    </div>
+    <div class="bh">Specification plate · the tag tied to a piece in a tray</div>
+    <div class="g4" id="plates"></div>
+    <p class="note">Used wherever a piece has no photograph. The photograph replaces it at the same 4:5 frame.</p>
+  </section>
+
+  <!-- ═══════════ TABLE ═══════════ -->
+  <section id="table">
+    <div class="sh"><h2 class="h1">Data table</h2>
+      <span class="sp">126 screens · sort, select, bulk · row 56 / 48 / 36 px</span></div>
+    <div class="rowg" style="margin-bottom:11px">
+      <div class="seg" id="rm" role="group" aria-label="Row detail">
+        <button type="button" data-r="d" aria-pressed="true">Two-line rows</button>
+        <button type="button" data-r="t" aria-pressed="false">One-line rows</button></div>
+    </div>
+    <div class="tf">
+      <div id="bulk"></div>
+      <div class="tsc"><table class="tbl" id="dt">
+        <thead><tr>
+          <th class="selc"><input type="checkbox" id="dtA" aria-label="Select all"></th>
+          <th class="fold"><button class="sortb" data-k="sku" aria-sort="ascending">Design code
+            <svg class="ar" width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v6M2 4.8l2.5 2.5L7 4.8" stroke="currentColor" stroke-width="1.4"/></svg></button></th>
+          <th><button class="sortb" data-k="name">Piece
+            <svg class="ar" width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v6M2 4.8l2.5 2.5L7 4.8" stroke="currentColor" stroke-width="1.4"/></svg></button></th>
+          <th>Purity</th>
+          <th class="r"><button class="sortb" data-k="net">Net wt
+            <svg class="ar" width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v6M2 4.8l2.5 2.5L7 4.8" stroke="currentColor" stroke-width="1.4"/></svg></button></th>
+          <th class="r">Making</th><th>Basis</th>
+          <th class="r"><button class="sortb" data-k="rate">Rate / g
+            <svg class="ar" width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v6M2 4.8l2.5 2.5L7 4.8" stroke="currentColor" stroke-width="1.4"/></svg></button></th>
+          <th class="r"><button class="sortb" data-k="val">Value
+            <svg class="ar" width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M4.5 1v6M2 4.8l2.5 2.5L7 4.8" stroke="currentColor" stroke-width="1.4"/></svg></button></th>
+          <th>Status</th></tr></thead>
+        <tbody id="dtb"></tbody></table></div>
+    </div>
+    <p class="note"><b>Selected rows</b> take the emerald tint and their rules darken to <code class="id">--status-positive-br</code>. The fold that separates the design code from the data is the only vertical rule in the system.</p>
+  </section>
+
+  <!-- ═══════════ PRICE ═══════════ -->
+  <section id="price">
+    <div class="sh"><h2 class="h1">Price states</h2>
+      <span class="sp">50 screens · 4 states, 1 component</span></div>
+    <div class="rowg" style="margin-bottom:13px">
+      <div class="seg" id="ps" role="group">
+        <button type="button" data-p="ind" aria-pressed="true">Indicative</button>
+        <button type="button" data-p="live" aria-pressed="false">Live</button>
+        <button type="button" data-p="lock" aria-pressed="false">Locked</button>
+        <button type="button" data-p="fin" aria-pressed="false">Final</button></div>
+    </div>
+    <div class="g2">
+      <div class="doc" style="max-width:420px">
+        <div class="doch"><div class="h3" id="pt" style="font-size:var(--fs-h3)">Price breakup</div>
+          <div style="text-align:right"><div class="docs" id="pts">At the live 916 rate</div>
+          <div id="pst" style="margin-top:8px"></div></div></div>
+        <div class="slipb">
+          <div class="slr"><span class="k">Gross weight</span><span class="v">58.420 g</span></div>
+          <div class="slr"><span class="k">Less stone weight</span><span class="v">&minus; 3.150 g</span></div>
+          <div class="slr fold"><span class="k">Net weight</span><span class="v">55.270 g</span></div>
+          <div style="height:8px"></div>
+          <div class="slr"><span class="k">22K 916 at ₹1,46,280 per 10 g</span><span class="v">₹ 8,08,490</span></div>
+          <div class="slr"><span class="k">Wastage 5.50 per cent · 3.040 g</span><span class="v">₹ 44,469</span></div>
+          <div class="slr"><span class="k">Making at ₹1,450 per gram</span><span class="v">₹ 80,142</span></div>
+          <div class="slr"><span class="k">Stone value · kemp, 3.150 g</span><span class="v">₹ 48,500</span></div>
+          <div class="slr"><span class="k">Hallmarking, 1 article</span><span class="v">₹ 45</span></div>
+          <div class="slr fold"><span class="k">Taxable value</span><span class="v">₹ 9,81,646</span></div>
+          <div style="height:8px"></div>
+          <div class="slr"><span class="k">GST 3 per cent on metal and wastage</span><span class="v">₹ 25,589</span></div>
+          <div class="slr"><span class="k">GST 5 per cent on making</span><span class="v">₹ 4,007</span></div>
+          <div class="slr"><span class="k">GST 1.5 per cent on stones</span><span class="v">₹ 728</span></div>
+          <div class="slr"><span class="k">GST 18 per cent on hallmarking</span><span class="v">₹ 8</span></div>
+        </div>
+        <div class="slt"><span class="lb" style="color:var(--text-primary)">Total</span><span class="v num" id="pv">₹ 10,11,978</span></div>
+        <div class="slf" id="pf">Value addition 15.41 per cent of metal value. HSN 7113. Moves with the live rate until a quotation is issued.</div>
+      </div>
+      <div>
+        <div class="figt">Weight and purity · the weight slip</div>
+        <div style="display:flex;gap:26px;flex-wrap:wrap;border:var(--border-w) solid var(--border-default);
+          border-radius:var(--radius-md);padding:16px">
+          <div><div class="lb">Gross</div><div class="num" style="font-size:20px">58.420 <span class="i3" style="font-size:12px;font-weight:600">g</span></div></div>
+          <div><div class="lb">Stone</div><div class="num" style="font-size:20px">3.150 <span class="i3" style="font-size:12px;font-weight:600">g</span></div></div>
+          <div style="border-left:var(--border-w) solid var(--border-strong);padding-left:26px"><div class="lb">Net</div>
+            <div class="num" style="font-size:26px;font-weight:800;letter-spacing:-.025em">55.270 <span class="i3" style="font-size:12px;font-weight:600">g</span></div></div>
+          <div><div class="lb">Purity</div><div class="num" style="font-size:20px">22K 916</div><div class="mi i3" style="margin-top:2px">91.6 tunch</div></div>
+        </div>
+        <table class="spec" style="margin-top:18px"><tbody>
+          <tr><td class="k" style="width:30%">Body</td><td>Byte-identical in all four states and in all 50 screens.</td></tr>
+          <tr><td class="k">Header</td><td>The stamp and the timestamp. Nothing else changes.</td></tr>
+          <tr><td class="k">Total</td><td>Full weight, except Indicative, which drops to <code class="id">--text-tertiary</code>.</td></tr>
+          <tr><td class="k">Expiry</td><td>An absolute timestamp with the date. Never a countdown.</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ UNIVERSAL STATES ═══════════ -->
+  <section id="states">
+    <div class="sh"><h2 class="h1">Universal states</h2>
+      <span class="sp">six · each names the fact, then offers one action</span></div>
+    <div class="seg" id="us" role="group" style="margin-bottom:12px">
+      <button type="button" data-u="empty" aria-pressed="true">Empty</button>
+      <button type="button" data-u="load" aria-pressed="false">Loading</button>
+      <button type="button" data-u="err" aria-pressed="false">Error</button>
+      <button type="button" data-u="none" aria-pressed="false">No results</button>
+      <button type="button" data-u="perm" aria-pressed="false">No permission</button>
+      <button type="button" data-u="off" aria-pressed="false">Offline</button></div>
+    <div class="tf">
+      <table class="tbl"><thead><tr><th class="fold">Design code</th><th>Piece</th><th class="r">Net wt</th><th class="r">Value</th><th>Status</th></tr></thead></table>
+      <div id="ub"></div>
+    </div>
+    <p class="note"><b>Spinners appear inside buttons only.</b> Every other loading state renders the real layout with the data missing, so nothing reflows when it arrives.</p>
+  </section>
+
+  <!-- ═══════════ RULES ═══════════ -->
+  <section id="rules">
+    <div class="sh"><h2 class="h1">Copy and never do this</h2></div>
+    <div class="g2">
+      <div>
+        <div class="bh" style="margin-top:0">Format, fixed</div>
+        <table class="spec"><tbody>
+          <tr><td class="k" style="width:30%">Case</td><td>Sentence case everywhere, including buttons, labels and chips. No uppercase, no title case.</td></tr>
+          <tr><td class="k">Buttons</td><td>Verb plus object. "Request quotation", not "Submit".</td></tr>
+          <tr><td class="k">Errors</td><td>What is wrong, then the value that fixes it.</td></tr>
+          <tr><td class="k">Money</td><td>₹ then a space, Indian grouping, no paise. <span class="num">₹ 10,11,978</span></td></tr>
+          <tr><td class="k">Weight</td><td>Three decimals, trailing zeros kept. <span class="num">7.360 g</span></td></tr>
+          <tr><td class="k">Purity</td><td><span class="num">22K 916</span>, with tunch below where a jeweller says it aloud.</td></tr>
+          <tr><td class="k">Rate</td><td>Always with its basis and time. <span class="num">₹1,46,280 / 10 g · 15:40 IST</span></td></tr>
+          <tr><td class="k">Identifiers</td><td>Mono, as issued, never re-cased. <span class="id">ELZ-TH-4471</span></td></tr>
+        </tbody></table>
+        <div class="bh">Banned words</div>
+        <p class="note">seamless · robust · comprehensive · cutting-edge · transformative · unlock · unleash · empower · elevate · streamline · leverage · journey · ecosystem · landscape · tapestry · "No X. No Y. Just Z." · "it's not just X, it's Y" · "Welcome back, [Name]" · "No data yet" · em dashes.</p>
+      </div>
+      <div>
+        <div class="bh" style="margin-top:0">Never do this</div>
+        <table class="spec">
+          <thead><tr><th style="width:44%">Banned</th><th>Instead</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Coloured left border on a card or banner</td><td>The stamp.</td></tr>
+            <tr><td class="k">Cream or beige grounds</td><td>Pearl White <span class="id">#FEFEFF</span>, or the dark page at <span class="id">#0A0F0E</span>.</td></tr>
+            <tr><td class="k">Gold as text on white</td><td>2.08:1 on white. Use <code class="id">--status-attention-fg</code>, or gold as a fill.</td></tr>
+            <tr><td class="k">Uppercase labels, letter-spaced eyebrows</td><td>Sentence case, tracking 0.</td></tr>
+            <tr><td class="k">Gradients, backdrop blur, glow</td><td>Flat colour, hairline borders.</td></tr>
+            <tr><td class="k">Rotated or skewed elements</td><td>Everything sits square.</td></tr>
+            <tr><td class="k">Cards on shadow, or cards inside cards</td><td>Borders. Four things cast shadow.</td></tr>
+            <tr><td class="k">Pill-shaped buttons</td><td>Radius 8. Pills are chips, badges and avatars.</td></tr>
+            <tr><td class="k">One radius on everything</td><td>Six steps, assigned by object type.</td></tr>
+            <tr><td class="k">Generated or abstract art as an image placeholder</td><td>The specification plate.</td></tr>
+            <tr><td class="k">Countdowns and live tickers</td><td>An absolute timestamp.</td></tr>
+            <tr><td class="k">Zebra striping</td><td>Hairline row rules.</td></tr>
+            <tr><td class="k">Emoji or symbols as icons</td><td>One icon set, 1.5px stroke.</td></tr>
+            <tr><td class="k">Placeholder text as the field label</td><td>A persistent label above every field.</td></tr>
+            <tr><td class="k">Proportional figures in a column</td><td><span class="id">tabular-nums</span> on every figure.</td></tr>
+            <tr><td class="k">A generic spinner as a page state</td><td>The real layout with the data missing.</td></tr>
+            <tr><td class="k">Four equal stat cards in a row</td><td>Figures sit in the page structure.</td></tr>
+            <tr><td class="k">A real firm's name in example content</td><td>Invented names in the hub's naming grammar.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="border-top:var(--border-w-3) solid var(--text-primary);padding-top:16px;margin-top:40px">
+      <p class="sm i2" style="max-width:78ch">Elanzia Trade design system v2.0. Ethic Serif for headings, Figtree for body and UI, Anek Devanagari and Anek Gujarati for Indic scripts, IBM Plex Mono for identifiers. Contrast ratios are WCAG 2.1. Example prices are computed from a 916 rate of ₹1,46,280 per 10 g. All business names in examples are invented.</p>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="m1" role="dialog" aria-modal="true" aria-labelledby="m1t">
+  <div class="mh"><h3 id="m1t" class="h2">Place order SO-2026-11740</h3>
+    <button class="ibtn" data-c style="width:32px;height:32px" aria-label="Close"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <div class="mb">
+    <div>
+      <div class="slr"><span class="k">Antique temple necklace, kemp set</span><span class="v">55.270 g</span></div>
+      <div class="slr"><span class="k">22K 916 held at</span><span class="v">₹ 1,46,280 / 10 g</span></div>
+      <div class="slr fold"><span class="k">Order value</span><span class="v">₹ 10,11,978</span></div>
+      <div class="slr"><span class="k">Advance due now, 25 per cent</span><span class="v">₹ 2,52,995</span></div>
+      <div class="slr"><span class="k">Balance on despatch</span><span class="v">₹ 7,58,983</span></div>
+    </div>
+    <div style="margin-top:14px"><span class="stamp"><span>Rate locked</span><span class="dt">expires 01 Sep, 11:04 IST</span></span></div>
+  </div>
+  <div class="mf"><button class="btn b-sec" data-c>Cancel</button><button class="btn b-pri" data-c>Pay advance ₹2,52,995</button></div>
+</div>
+<div class="modal" id="m2" role="dialog" aria-modal="true" aria-labelledby="m2t">
+  <div class="mh"><h3 id="m2t" class="h2">Withdraw 3 pieces</h3>
+    <button class="ibtn" data-c style="width:32px;height:32px" aria-label="Close"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <div class="mb"><span class="id">ELZ-TH-4471</span>, <span class="id">ELZ-JP-2208</span> and <span class="id">ELZ-KL-1160</span> will stop appearing in search and in every buyer's saved list. Two have open enquiries, which stay open. This cannot be undone from the vendor console.</div>
+  <div class="mf"><button class="btn b-sec" data-c>Keep them live</button><button class="btn b-dan" data-c>Withdraw 3 pieces</button></div>
+</div>
+<aside class="drawer" id="dw" role="dialog" aria-modal="true" aria-label="Filters">
+  <div class="mh"><h3 class="h2">Filters</h3><button class="ibtn" data-c style="width:32px;height:32px" aria-label="Close"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button></div>
+  <div class="mb" style="flex:1;overflow-y:auto">
+    <div class="vs" style="gap:18px">
+      <div class="fld"><label>Net weight band</label><div style="display:flex;gap:8px">
+        <div class="afx" style="flex:1"><input class="nin" value="40.000"><span class="s">g</span></div>
+        <div class="afx" style="flex:1"><input class="nin" value="60.000"><span class="s">g</span></div></div></div>
+      <div><div class="lb" style="color:var(--text-primary);margin-bottom:9px">Hub</div><div class="vs" style="gap:9px">
+        <label class="opt"><input type="checkbox" checked><span>Thrissur</span></label>
+        <label class="opt"><input type="checkbox"><span>Jaipur</span></label>
+        <label class="opt"><input type="checkbox"><span>Rajkot</span></label>
+        <label class="opt"><input type="checkbox"><span>Coimbatore</span></label></div></div>
+    </div>
+  </div>
+  <div class="mf"><button class="btn b-gho" data-c>Clear all</button><button class="btn b-pri" data-c>Show 184 pieces</button></div>
+</aside>
+<div class="sheet" id="sh" role="dialog" aria-modal="true" aria-label="Sort">
+  <div class="grab"></div>
+  <div class="mh" style="padding-top:6px"><h3 class="h2">Sort pieces</h3></div>
+  <div class="mb" style="padding-top:4px"><div class="vs" style="gap:2px">
+    <label class="opt" style="padding:11px 0"><input type="radio" name="srt" checked><span>Net weight, low to high</span></label>
+    <label class="opt" style="padding:11px 0"><input type="radio" name="srt"><span>Rate per gram, low to high</span></label>
+    <label class="opt" style="padding:11px 0"><input type="radio" name="srt"><span>Value addition, low to high</span></label>
+    <label class="opt" style="padding:11px 0"><input type="radio" name="srt"><span>Recently listed</span></label></div></div>
+  <div class="mf"><button class="btn b-sec" data-c style="flex:1">Cancel</button><button class="btn b-pri" data-c style="flex:1">Apply</button></div>
+</div>
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var CS=getComputedStyle(document.documentElement);
+function v(n){return CS.getPropertyValue(n).trim()}
+
+/* spacing scale */
+$('#sp-demo').innerHTML=[0,1,2,3,4,5,6,7,8,9,10,11,12].map(function(i){
+  var px=CS.getPropertyValue('--space-'+i).trim();
+  return '<div style="text-align:center"><div style="width:'+(px==='0'?'1px':px)+';height:36px;background:var(--action-bg)"></div>'+
+    '<div class="mi i3" style="margin-top:5px;font-family:var(--font-mono)">'+px+'</div></div>'}).join('');
+
+/* plates */
+var PL=[{c:'ELZ-TH-4471',t:'Bridal necklace · polki',p:'22K 916',g:'44.580 g',s:'2.400 g',n:'42.180 g',m:'₹1,480 /g',v:'Vadakkan Gold &amp; Diamonds',h:'Thrissur'},
+ {c:'ELZ-BNG-1180',t:'Kada, plain',p:'22K 916',g:'28.400 g',s:'None',n:'28.400 g',m:'6.0% of metal',v:'Shree Hariom Ornaments',h:'Rajkot'},
+ {c:'ELZ-RNG-0742',t:'Solitaire band · 0.30 ct',p:'18K 750',g:'6.920 g',s:'0.060 g',n:'6.860 g',m:'₹4,200 flat',v:'Ratanchand Jadau House',h:'Jaipur'},
+ {c:'ELZ-EAR-3315',t:'Jhumka · temple',p:'22K 916',g:'19.860 g',s:'1.220 g',n:'18.640 g',m:'₹1,180 /g',v:'Ponmalai Thangam Castings',h:'Coimbatore'}];
+$('#plates').innerHTML=PL.map(function(d){return '<div class="plate"><div class="pc">'+d.c+'</div><div class="pcat">'+d.t+'</div><div class="prl"></div>'+
+ '<div class="pr"><dt>Purity</dt><dd>'+d.p+'</dd></div><div class="pr"><dt>Gross</dt><dd>'+d.g+'</dd></div>'+
+ '<div class="pr"><dt>Stone</dt><dd>'+d.s+'</dd></div><div class="pr"><dt>Net</dt><dd>'+d.n+'</dd></div>'+
+ '<div class="pr"><dt>Making</dt><dd>'+d.m+'</dd></div>'+
+ '<div class="pf">'+d.v+'<br>'+d.h+' · photograph pending</div></div>'}).join('');
+
+$$('.seg[aria-label="Density"] button').forEach(function(b){b.onclick=function(){
+  document.documentElement.setAttribute('data-density',b.dataset.d);
+  $$('.seg[aria-label="Density"] button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))})}});
+
+var links=$$('nav.side a'),map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+$$('section').forEach(function(s){new IntersectionObserver(function(es){es.forEach(function(e){
+  if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});if(map[e.target.id])map[e.target.id].classList.add('on')}})},
+  {rootMargin:'-52px 0px -74% 0px'}).observe(s)});
+
+$$('[data-load]').forEach(function(b){var t=b.textContent;b.onclick=function(){b.classList.add('ld');
+  setTimeout(function(){b.classList.remove('ld');b.textContent=t;toast('ok','Listing published','ELZ-TH-4471 is live in the marketplace.')},1500)}});
+
+function closeAll(keep){$$('.slist.open,.menu.open,.cal.open').forEach(function(l){if(l!==keep){l.classList.remove('open');
+  var t=l.parentNode.querySelector('[aria-expanded]');if(t)t.setAttribute('aria-expanded','false')}})}
+document.addEventListener('click',function(){closeAll(null)});
+$$('[data-sel]').forEach(function(w){var btn=$('.sbtn',w),list=$('.slist',w),val=$('.v',btn);
+  btn.onclick=function(e){e.stopPropagation();closeAll(list);var o=list.classList.toggle('open');btn.setAttribute('aria-expanded',String(o))};
+  $$('li',list).forEach(function(li){li.onclick=function(){$$('li',list).forEach(function(x){x.setAttribute('aria-selected','false')});
+    li.setAttribute('aria-selected','true');val.textContent=li.firstChild.textContent.trim();val.classList.remove('cv');
+    list.classList.remove('open');btn.setAttribute('aria-expanded','false')}})});
+var mt=$('#mt'),ml=$('#ml');
+mt.onclick=function(e){e.stopPropagation();closeAll(ml);var o=ml.classList.toggle('open');mt.setAttribute('aria-expanded',String(o))};
+$$('#ml button').forEach(function(b){if(!b.disabled)b.onclick=function(){ml.classList.remove('open');
+  mt.setAttribute('aria-expanded','false');toast('info',b.childNodes[0].textContent.trim(),'Action fired from the row menu.')}});
+
+var sw=$('#srch'),si=$('input',sw),sr=$('#sres'),st;
+var DATA=[{c:'ELZ-TH-4471',n:'Antique temple necklace, kemp set',m:'Vadakkan Gold &amp; Diamonds · Thrissur',w:'55.270 g'},
+ {c:'ELZ-EAR-3402',n:'Jhumka, temple, kemp',m:'Vadakkan Gold &amp; Diamonds · Thrissur',w:'16.120 g'},
+ {c:'ELZ-NKL-2260',n:'Kasu maalai, temple',m:'Ponmalai Thangam Castings · Coimbatore',w:'68.940 g'},
+ {c:'ELZ-JP-2208',n:'Kundan bridal set, 7 piece',m:'Ratanchand Jadau House · Jaipur',w:'85.640 g'}];
+si.oninput=function(){var q=si.value.trim();sw.classList.toggle('has',!!q);clearTimeout(st);
+  if(!q){sr.innerHTML='';return}
+  sr.innerHTML='<div class="res"><div class="r"><div style="flex:1"><div class="sk" style="width:180px"></div><div class="sk" style="width:110px;margin-top:7px"></div></div></div><div class="r"><div style="flex:1"><div class="sk" style="width:150px"></div><div class="sk" style="width:120px;margin-top:7px"></div></div></div></div>';
+  st=setTimeout(function(){
+    var h=DATA.filter(function(d){return (d.c+' '+d.n+' '+d.m).toLowerCase().indexOf(q.toLowerCase())>-1});
+    if(!h.length){sr.innerHTML='<div class="res"><div class="empty"><div style="font-size:var(--d-sm);font-weight:700">No pieces match "'+q.replace(/[<>&]/g,'')+'"</div><p class="msg" style="max-width:44ch;margin:7px auto 0">Search runs on piece name, design code and maker. Try a weight band or a hub filter instead.</p><button class="btn b-sec b-sm" style="margin-top:13px">Clear search</button></div></div>';
+      $('.res button').onclick=function(){si.value='';si.dispatchEvent(new Event('input'))};return}
+    sr.innerHTML='<div class="res">'+h.map(function(d){return '<div class="r"><div><div style="font-weight:600">'+d.n+'</div><div class="msg">'+d.m+'</div></div><div style="text-align:right"><div class="id" style="font-weight:600;color:var(--text-link);font-size:11px">'+d.c+'</div><div class="msg num">'+d.w+'</div></div></div>'}).join('')+'</div>'},210)};
+$('.clr',sw).onclick=function(){si.value='';si.focus();si.dispatchEvent(new Event('input'))};
+
+var cal=$('#cal'),dt2=$('#dt2'),dv=$('#dv'),cur=new Date(2026,8,1),pk=null;
+var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function drawCal(){var y=cur.getFullYear(),m=cur.getMonth(),fd=new Date(y,m,1).getDay(),nd=new Date(y,m+1,0).getDate(),td=new Date(2026,7,31);
+  var h='<div class="calh"><button class="ibtn" style="width:28px;height:28px" data-mv="-1" aria-label="Previous month"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M7.5 2L3.5 6l4 4" stroke="currentColor" stroke-width="1.6"/></svg></button><span class="m">'+MON[m]+' '+y+'</span><button class="ibtn" style="width:28px;height:28px" data-mv="1" aria-label="Next month"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M4.5 2l4 4-4 4" stroke="currentColor" stroke-width="1.6"/></svg></button></div><div class="calg">';
+  ['S','M','T','W','T','F','S'].forEach(function(d){h+='<div class="dh">'+d+'</div>'});
+  for(var i=0;i<fd;i++)h+='<div></div>';
+  for(var d=1;d<=nd;d++){var dd=new Date(y,m,d),dis=dd<td,c=(pk&&pk.getTime()===dd.getTime()?'sel ':'')+(dd.getTime()===td.getTime()?'td':'');
+    h+='<button data-d="'+d+'" class="'+c+'"'+(dis?' disabled':'')+'>'+d+'</button>'}
+  cal.innerHTML=h+'</div>';
+  $$('[data-mv]',cal).forEach(function(b){b.onclick=function(e){e.stopPropagation();cur=new Date(cur.getFullYear(),cur.getMonth()+ +b.dataset.mv,1);drawCal()}});
+  $$('.calg button[data-d]',cal).forEach(function(b){if(b.disabled)return;b.onclick=function(e){e.stopPropagation();
+    pk=new Date(cur.getFullYear(),cur.getMonth(),+b.dataset.d);
+    dv.textContent=String(pk.getDate()).padStart(2,'0')+' '+MON[pk.getMonth()].slice(0,3)+' '+pk.getFullYear();
+    dv.classList.remove('cv');cal.classList.remove('open');dt2.setAttribute('aria-expanded','false')}})}
+drawCal();
+dt2.onclick=function(e){e.stopPropagation();closeAll(cal);var o=cal.classList.toggle('open');dt2.setAttribute('aria-expanded',String(o))};
+cal.onclick=function(e){e.stopPropagation()};
+
+var drop=$('#drop'),fl=$('#flist');
+function addF(name,size,fail){var row=document.createElement('div');row.className='frow';
+  row.innerHTML='<div class="thm">'+(/\.pdf$/i.test(name)?'PDF':'IMG')+'</div><div style="flex:1;min-width:0"><div class="fn">'+name+'</div><div class="fs">'+size+'</div><div class="bar"><i></i></div></div><button class="ibtn" style="width:30px;height:30px" aria-label="Remove"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button>';
+  fl.appendChild(row);var bar=$('.bar i',row),p=0;
+  $('.ibtn',row).onclick=function(){row.remove()};
+  var iv=setInterval(function(){p+=Math.random()*22;
+    if(fail&&p>62){clearInterval(iv);$('.bar',row).remove();row.style.borderColor='var(--status-negative-fg)';
+      $('.fs',row).outerHTML='<div class="fs" style="color:var(--status-negative-fg)">Upload failed at 12.4 MB. Limit is 12 MB. Compress the file and try again.</div>';return}
+    if(p>=100){p=100;clearInterval(iv);$('.bar',row).remove();
+      $('.fs',row).outerHTML='<div class="fs" style="color:var(--status-positive-fg)">Uploaded · '+size+'</div>'}
+    bar.style.width=Math.min(p,100)+'%'},200)}
+drop.onclick=function(){addF('ELZ-TH-4471-front.jpg','3.8 MB',false);
+  setTimeout(function(){addF('assay-slip-4471.pdf','412 KB',false)},240);
+  setTimeout(function(){addF('ELZ-TH-4471-detail-raw.jpg','12.4 MB',true)},480)};
+drop.ondragover=function(e){e.preventDefault();drop.classList.add('over')};
+drop.ondragleave=function(){drop.classList.remove('over')};
+drop.ondrop=function(e){e.preventDefault();drop.classList.remove('over');
+  [].slice.call(e.dataTransfer.files).forEach(function(f){addF(f.name,(f.size/1048576).toFixed(1)+' MB',f.size>12582912)})};
+drop.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();drop.click()}};
+
+var cbA=$('#cbA'),cbi=$$('.cbi');
+function sync(){var n=cbi.filter(function(c){return c.checked}).length;cbA.checked=n===cbi.length;cbA.indeterminate=n>0&&n<cbi.length}
+cbi.forEach(function(c){c.onchange=sync});
+cbA.onchange=function(){cbi.forEach(function(c){c.checked=cbA.checked});cbA.indeterminate=false};sync();
+$$('.fchip').forEach(function(c){if(!c.disabled)c.onclick=function(){c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')}});
+
+var TP=['Gross 58.420 g · stone 3.150 g · net 55.270 g · 22K 916 · kemp set · made to order, 21 days.',
+ 'Metal ₹8,08,490 · wastage ₹44,469 · making ₹80,142 · stones ₹48,500 · GST ₹30,332 · total ₹10,11,978.',
+ 'BIS hallmark, HUID A1B2C3, struck 28 Aug 2026. Stone certificate issued 22 Aug 2026.',
+ '14 open enquiries. Median first reply 3 h 10 m. 4 quotations issued this week, 1 accepted.'];
+var tabs=$$('#tb button');
+tabs.forEach(function(t,i){if(t.disabled)return;
+  t.onclick=function(){tabs.forEach(function(x){x.setAttribute('aria-selected','false')});t.setAttribute('aria-selected','true');$('#tp').textContent=TP[i]||''};
+  t.onkeydown=function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();
+    var en=tabs.filter(function(x){return !x.disabled}),j=en.indexOf(t)+d;if(j<0)j=en.length-1;if(j>=en.length)j=0;en[j].focus();en[j].click()}});
+
+$$('.ban .x').forEach(function(x){x.onclick=function(){x.closest('.ban').style.display='none';toast('info','Banner dismissed','It returns on the next page load.')}});
+function toast(k,h,b){var t=document.createElement('div');t.className='toast';
+  t.innerHTML='<span class="stamp '+(k==='ok'?'pos':k==='err'?'neg':'')+'" style="flex:0 0 auto"><span>'+(k==='ok'?'Done':k==='err'?'Failed':'Note')+'</span></span><div style="flex:1"><div class="th">'+h+'</div><div class="tb">'+b+'</div></div><button class="x" aria-label="Dismiss"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6"/></svg></button>';
+  $('#toasts').appendChild(t);var kill=function(){t.classList.add('out');setTimeout(function(){t.remove()},190)};
+  $('.x',t).onclick=kill;setTimeout(kill,5000)}
+$$('[data-t]').forEach(function(b){b.onclick=function(){var k=b.dataset.t;
+  if(k==='ok')toast('ok','Quotation QT-2026-0884 sent','Rate locked at ₹1,46,280 per 10 g. Valid 24 hours.');
+  else if(k==='err')toast('err','Could not publish ELZ-JP-2214','Net weight is missing on the assay slip.');
+  else toast('info','3 pieces moved to jangad','Released to R.M. Sethi & Sons. Settlement due 14 Sep 2026.')}});
+
+var lastF=null;
+function openO(id){var el=$('#'+id);if(!el)return;lastF=document.activeElement;
+  $('#scrim').classList.add('open');el.classList.add('open');var f=el.querySelector('button,input,[tabindex]');if(f)f.focus()}
+function closeO(){$$('.modal.open,.drawer.open,.sheet.open').forEach(function(e){e.classList.remove('open')});
+  $('#scrim').classList.remove('open');if(lastF)lastF.focus()}
+$$('[data-o]').forEach(function(b){b.onclick=function(){openO(b.dataset.o)}});
+$$('[data-c]').forEach(function(b){b.onclick=closeO});
+$('#scrim').onclick=closeO;
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeO();closeAll(null)}});
+
+var U={
+ empty:'<div class="tempty"><div style="font-size:var(--d-sm);font-weight:700">No pieces on jangad</div><p class="msg" style="max-width:46ch;margin:8px auto 0">Nothing has been released on approval. Pieces moved to jangad appear here with the buyer, the release date and the days outstanding.</p><button class="btn b-sec b-sm" style="margin-top:15px">Release pieces on jangad</button></div>',
+ load:'<table class="tbl"><tbody>'+[1,2,3,4].map(function(){return '<tr><td class="fold"><div class="sk" style="width:82px"></div></td><td><div class="sk" style="width:170px"></div></td><td><div class="sk" style="width:56px;margin-left:auto"></div></td><td><div class="sk" style="width:80px;margin-left:auto"></div></td><td><div class="sk" style="width:60px"></div></td></tr>'}).join('')+'</tbody></table>',
+ err:'<div class="tempty"><div style="font-size:var(--d-sm);font-weight:700">Could not load listings</div><p class="msg" style="max-width:46ch;margin:8px auto 0">The request timed out after 30 seconds. Nothing was changed. Reference ERR-2026-08-31-4471.</p><div style="margin-top:13px"><span class="stamp neg"><span>Request failed</span><span class="dt">31 Aug, 15:42</span></span></div><div style="display:flex;gap:8px;justify-content:center;margin-top:13px"><button class="btn b-pri b-sm">Try again</button><button class="btn b-gho b-sm">Copy reference</button></div></div>',
+ none:'<div class="tempty"><div style="font-size:var(--d-sm);font-weight:700">No pieces between 40.000 g and 60.000 g in Thrissur</div><p class="msg" style="max-width:46ch;margin:8px auto 0">184 pieces match the weight band across all hubs. 12 match Thrissur at any weight.</p><div style="display:flex;gap:8px;justify-content:center;margin-top:15px"><button class="btn b-sec b-sm">Drop the hub filter</button><button class="btn b-gho b-sm">Widen to 30 to 80 g</button></div></div>',
+ perm:'<div class="tempty"><div style="font-size:var(--d-sm);font-weight:700">Your role cannot view other makers\' listings</div><p class="msg" style="max-width:46ch;margin:8px auto 0">You are signed in as Catalogue Operator at Vadakkan Gold &amp; Diamonds. Marketplace-wide listings need the Sourcing role.</p><button class="btn b-sec b-sm" style="margin-top:15px">Request access from your admin</button></div>',
+ off:'<div class="tempty"><div style="font-size:var(--d-sm);font-weight:700">You are offline</div><p class="msg" style="max-width:46ch;margin:8px auto 0">Showing 25 pieces cached at 15:40 IST. Rates and availability may have moved. Edits are held and sent when the connection returns.</p><div style="margin-top:13px"><span class="stamp att"><span>Cached</span><span class="dt">15:40 IST</span></span></div><button class="btn b-sec b-sm" style="margin-top:13px">Retry connection</button></div>'};
+function setU(k){$('#ub').innerHTML=U[k];$$('#us button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.u===k))})}
+$$('#us button').forEach(function(b){b.onclick=function(){setU(b.dataset.u)}});setU('empty');
+
+var ROWS=[
+ {sku:'ELZ-TH-4471',name:'Antique temple necklace, kemp set',v:'Vadakkan Gold &amp; Diamonds · Thrissur',p:'22K 916',net:55.270,mk:'₹ 1,450',basis:'per gram',rate:18308,val:1011978,st:['c-pos','Live']},
+ {sku:'ELZ-JP-2208',name:'Kundan bridal set, 7 piece',v:'Ratanchand Jadau House · Jaipur',p:'22K 916',net:85.640,mk:'₹ 1,950',basis:'per gram',rate:20965,val:1795455,st:['c-pos','Live']},
+ {sku:'ELZ-JP-2214',name:'Polki jadau choker',v:'Ratanchand Jadau House · Jaipur',p:'22K 916',net:35.430,mk:'₹ 2,400',basis:'per gram',rate:32697,val:1158467,st:['c-neg','Rejected']},
+ {sku:'ELZ-KL-1160',name:'Filigree bangle pair',v:'S.K. Dutta Jewellers · Kolkata',p:'22K 916',net:24.180,mk:'6.0%',basis:'of metal',rate:16700,val:403820,st:['c-att','On jangad']},
+ {sku:'ELZ-RJ-0913',name:'Rope chain, 24 inch',v:'Shree Hariom Ornaments · Rajkot',p:'22K 916',net:18.640,mk:'₹ 210',basis:'per gram',rate:15290,val:285009,st:['c-neu','Draft']},
+ {sku:'ELZ-RNG-0742',name:'Solitaire band, 0.30 ct',v:'Ratanchand Jadau House · Jaipur',p:'18K 750',net:6.860,mk:'₹ 4,200',basis:'flat per piece',rate:40159,val:275494,st:['c-neu','In review']}];
+var sk='sku',sd=1,sel={},rm='d';
+$$('#rm button').forEach(function(b){b.onclick=function(){rm=b.dataset.r;
+  $$('#rm button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});drawT()}});
+function inr(n){return '₹ '+n.toLocaleString('en-IN')}
+function drawT(){
+  var r=ROWS.slice().sort(function(a,b){var x=a[sk],y=b[sk];return (typeof x==='number'?x-y:String(x).localeCompare(String(y)))*sd});
+  $('#dtb').innerHTML=r.map(function(d){return '<tr'+(sel[d.sku]?' class="on"':'')+'>'+
+    '<td class="selc"><input type="checkbox" data-s="'+d.sku+'"'+(sel[d.sku]?' checked':'')+' aria-label="Select '+d.sku+'"></td>'+
+    '<td class="fold"><span class="sku">'+d.sku+'</span></td>'+
+    '<td><div style="font-weight:500">'+d.name+'</div>'+(rm==='d'?'<div class="vend">'+d.v+'</div>':'')+'</td>'+
+    '<td class="num" style="font-size:var(--d-sm)">'+d.p+'</td>'+
+    '<td class="r num">'+d.net.toFixed(3)+' g</td><td class="r num">'+d.mk+'</td>'+
+    '<td class="basis">'+d.basis+'</td><td class="r num">'+inr(d.rate)+'</td><td class="r num">'+inr(d.val)+'</td>'+
+    '<td><span class="chip '+d.st[0]+'"><span class="d"></span>'+d.st[1]+'</span></td></tr>'}).join('');
+  $$('#dtb input[type=checkbox]').forEach(function(c){c.onchange=function(){
+    if(c.checked)sel[c.dataset.s]=1;else delete sel[c.dataset.s];drawT()}});
+  var n=Object.keys(sel).length,all=$('#dtA');all.checked=n===ROWS.length;all.indeterminate=n>0&&n<ROWS.length;
+  if(n){var w=ROWS.filter(function(d){return sel[d.sku]}).reduce(function(s,d){return s+d.net},0),
+        val=ROWS.filter(function(d){return sel[d.sku]}).reduce(function(s,d){return s+d.val},0);
+    $('#bulk').innerHTML='<div class="bulk"><span class="c">'+n+' piece'+(n>1?'s':'')+' selected</span>'+
+      '<span class="num" style="color:var(--text-tertiary);font-size:var(--d-sm)">Combined net '+w.toFixed(3)+' g · '+inr(val)+'</span>'+
+      '<span style="flex:1"></span><button class="btn b-sec b-sm">Publish</button>'+
+      '<button class="btn b-sec b-sm">Move to jangad</button>'+
+      '<button class="btn b-gho b-sm" style="color:var(--status-negative-fg)" data-o="m2">Withdraw</button></div>';
+    $$('#bulk [data-o]').forEach(function(b){b.onclick=function(){openO(b.dataset.o)}});
+    $$('#bulk .b-sec').forEach(function(b){b.onclick=function(){toast('ok',b.textContent+' · '+n+' pieces','Applied to the selection.');sel={};drawT()}});
+  } else $('#bulk').innerHTML=''}
+$$('#dt .sortb').forEach(function(b){b.onclick=function(){if(sk===b.dataset.k)sd=-sd;else{sk=b.dataset.k;sd=1}
+  $$('#dt .sortb').forEach(function(x){x.removeAttribute('aria-sort')});
+  b.setAttribute('aria-sort',sd===1?'ascending':'descending');drawT()}});
+$('#dtA').onchange=function(){sel={};if(this.checked)ROWS.forEach(function(d){sel[d.sku]=1});drawT()};
+drawT();
+
+var PS={
+ ind:{st:'',t:'Price breakup',s:'Indicative, at the live 916 rate',soft:1,f:'Value addition 15.41 per cent of metal value. HSN 7113. Moves with the live rate until a quotation is issued.'},
+ live:{st:'<span class="stamp"><span>Live rate</span><span class="dt">15:40 IST</span></span>',t:'Price breakup',s:'₹1,46,280 / 10 g<br>30 Aug 2026, 15:40 IST',soft:0,f:'Value addition 15.41 per cent. HSN 7113. Reprices on every rate update until the advance is paid.'},
+ lock:{st:'<span class="stamp att"><span>Rate locked</span><span class="dt">expires 01 Sep, 11:04</span></span>',t:'Quotation QT-2026-0884',s:'916 held at ₹1,46,280 / 10 g',soft:0,f:'Value addition 15.41 per cent. On expiry the piece reprices at the live 916 rate.'},
+ fin:{st:'<span class="stamp pos"><span>Final</span><span class="dt">30 Aug 2026</span></span>',t:'Tax invoice EL/2026-27/00418',s:'Rate at order · never recomputed',soft:0,f:'GSTIN 32AABCV1234K1ZX. Place of supply Kerala. HSN 7113. Value addition 15.41 per cent.'}};
+$$('#ps button').forEach(function(b){b.onclick=function(){var p=PS[b.dataset.p];
+  $$('#ps button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+  $('#pst').innerHTML=p.st;$('#pt').textContent=p.t;$('#pts').innerHTML=p.s;$('#pf').textContent=p.f;
+  $('#pv').classList.toggle('soft',!!p.soft)}});
+
+/* ═══════════════════ v3 · THEME, SWATCHES, GLASS, FILTER ═══════════════════ */
+function lum(h){h=h.replace('#','');var c=[0,2,4].map(function(i){return parseInt(h.substr(i,2),16)/255});
+  c=c.map(function(x){return x<=.04045?x/12.92:Math.pow((x+.055)/1.055,2.4)});
+  return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+function cr(a,b){var x=lum(a),y=lum(b),h=Math.max(x,y),l=Math.min(x,y);return (h+.05)/(l+.05)}
+function cvar(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+
+var ALIAS=[
+ ['--surface-page','--surface-page','',   'Every screen. The one ground the whole product sits on.'],
+ ['--surface-raised','--surface-raised','','Card, panel, modal, dropdown. In light it equals the page and is separated by a border; in dark it is one step lighter than the page.'],
+ ['--surface-sunken','--surface-sunken','','Input affixes and disabled fills. Never for table striping.'],
+ ['--surface-hover','--surface-hover','',  'Row hover, menu item hover, ghost button hover.'],
+ ['--surface-selected','--surface-selected','','Selected table row, active nav item, bulk bar.'],
+ ['--surface-inverse','--surface-inverse','--text-on-inverse','Tooltip, dark header, the logo lockup.'],
+ ['--text-primary','--text-primary','--surface-page','All reading text and every figure.'],
+ ['--text-secondary','--text-secondary','--surface-page','Supporting copy and table sub-lines.'],
+ ['--text-tertiary','--text-tertiary','--surface-page','Labels, captions, placeholders. The text floor: nothing live goes below it.'],
+ ['--text-disabled','--text-disabled','--surface-page','Disabled controls only. Never for live text.'],
+ ['--text-link','--text-link','--surface-page','Links, secondary and ghost button labels, SKU codes, selected tab.'],
+ ['--border-subtle','--border-subtle','','Rules inside a component that is already bordered.'],
+ ['--border-default','--border-default','','Row rules, card and panel edges, input borders.'],
+ ['--border-strong','--border-strong','','Table header rule, dropdown edge, toggle track when off.'],
+ ['--border-focus','--border-focus','--surface-page','The focus outline. 2px, offset 2px, on every interactive thing.'],
+ ['--action-bg','--action-bg','--action-fg','Primary button, checked box and radio, toggle on, progress fill.'],
+ ['--action-bg-hover','--action-bg-hover','--action-fg','Primary button hover.'],
+ ['--action-bg-active','--action-bg-active','--action-fg','Primary button pressed.'],
+ ['--danger-bg','--danger-bg','--danger-fg','Destructive button only. One per screen at most.'],
+ ['--accent-fill','--accent-fill','--accent-on-fill','Hallmark stamp, gold rules. A fill, never text.'],
+ ['--accent-rule','--accent-rule','--surface-page','A 1px or 2px gold rule where the section is about gold.'],
+ ['--status-positive-fg','--status-positive-fg','--status-positive-bg','Paid, live, despatched, verified.'],
+ ['--status-attention-fg','--status-attention-fg','--status-attention-bg','Expiring, due, on jangad, in review.'],
+ ['--status-negative-fg','--status-negative-fg','--status-negative-bg','Overdue, rejected, failed, short.'],
+ ['--status-neutral-fg','--status-neutral-fg','--status-neutral-bg','Draft, inactive, not set.']];
+
+function drawAlias(){var t=$('#aliastb');if(!t)return;
+ var dark=document.documentElement.getAttribute('data-theme')==='dark';
+ var lightVals={},darkVals={};
+ var root=document.documentElement,prev=root.getAttribute('data-theme');
+ root.setAttribute('data-theme','light');ALIAS.forEach(function(a){lightVals[a[1]]=cvar(a[1]);
+   if(a[2])lightVals[a[2]]=cvar(a[2])});
+ root.setAttribute('data-theme','dark');ALIAS.forEach(function(a){darkVals[a[1]]=cvar(a[1]);
+   if(a[2])darkVals[a[2]]=cvar(a[2])});
+ root.setAttribute('data-theme',prev);
+ var V=dark?darkVals:lightVals;
+ t.innerHTML=ALIAS.map(function(a){
+   var r='&mdash;';
+   if(a[2]){try{r=cr(V[a[1]],V[a[2]]).toFixed(2)}catch(e){r='&mdash;'}}
+   return '<tr><td class="id">'+a[0]+'</td><td class="id">'+lightVals[a[1]].toUpperCase()+
+     '</td><td class="id">'+darkVals[a[1]].toUpperCase()+'</td><td class="r num">'+r+'</td><td>'+a[3]+'</td></tr>'
+ }).join('')}
+
+var STAT=[['positive','Positive','Paid · live · despatched · verified'],
+          ['attention','Attention','Expiring · due · on jangad · in review'],
+          ['negative','Negative','Overdue · rejected · failed · short'],
+          ['neutral','Neutral','Draft · inactive · not set']];
+var CH={positive:'c-pos',attention:'c-att',negative:'c-neg',neutral:'c-neu'};
+function drawStat(){var g=$('#statgrid');if(!g)return;
+ g.innerHTML=STAT.map(function(s){
+  var fg=cvar('--status-'+s[0]+'-fg'),bg=cvar('--status-'+s[0]+'-bg'),br=cvar('--status-'+s[0]+'-br');
+  return '<div style="border:1px solid var(--status-'+s[0]+'-br);border-radius:var(--radius-md);overflow:hidden">'+
+   '<div style="background:var(--status-'+s[0]+'-bg);padding:14px"><span class="chip '+CH[s[0]]+'"><span class="d"></span>'+s[1]+'</span>'+
+   '<div class="mi" style="color:var(--status-'+s[0]+'-fg);margin-top:9px">'+s[2]+'</div></div>'+
+   '<div style="padding:11px 14px;font-family:var(--font-mono);font-size:10px;color:var(--text-tertiary);line-height:1.7">'+
+   'fg '+fg.toUpperCase()+' · '+cr(fg,bg).toFixed(2)+':1<br>bg '+bg.toUpperCase()+'<br>br '+br.toUpperCase()+'</div></div>'}).join('')}
+
+var FAM={emerald:[50,100,200,300,400,500,600,700,800,900,950],
+         gold:[50,100,200,300,400,500,600,700,800,900,950],
+         neutral:[0,50,100,200,300,400,500,600,700,800,900,950],
+         danger:[50,100,200,300,400,500,600,700,800,900,950]};
+function drawRamps(){var r=$('#ramps');if(!r)return;
+ r.innerHTML=Object.keys(FAM).map(function(f){
+  return '<div class="bh" style="margin-top:16px">'+f+'</div><div class="ramp">'+FAM[f].map(function(st){
+   var h=cvar('--'+f+'-'+st).toUpperCase();
+   return '<button class="sw" type="button" data-hex="'+h+'" title="Copy '+h+'">'+
+    '<div class="cap" style="background:'+h+'"></div>'+
+    '<div class="st"><b>'+st+'</b> '+h+'<br>'+cr(h,'#FEFEFF').toFixed(2)+' / '+cr(h,'#070C0E').toFixed(2)+'</div></button>'
+  }).join('')+'</div>'}).join('')+
+  '<div class="bh" style="margin-top:16px">Brand gold, outside the ramp</div><div class="ramp">'+
+  '<button class="sw" type="button" data-hex="#E2AA28" title="Copy #E2AA28"><div class="cap" style="background:#E2AA28"></div>'+
+  '<div class="st"><b>brand</b> #E2AA28<br>2.08 / 9.38</div></button></div>';
+ $$('#ramps .sw').forEach(function(b){b.onclick=function(){
+   var h=b.dataset.hex;
+   try{navigator.clipboard.writeText(h)}catch(e){}
+   b.classList.add('cp');setTimeout(function(){b.classList.remove('cp')},780)}})}
+
+function repaint(){drawAlias();drawStat();drawRamps()}
+
+$$('.top [data-t]').forEach(function(b){b.onclick=function(){
+  document.documentElement.setAttribute('data-theme',b.dataset.t);
+  $$('.top [data-t]').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+  repaint()}});
+$('#rm').onchange=function(){document.documentElement.setAttribute('data-motion',this.checked?'reduce':'full')};
+$('#ss').onchange=function(){document.documentElement.setAttribute('data-surfaces',this.checked?'solid':'glass')};
+
+var fi=$('#filt');
+if(fi)fi.oninput=function(){var q=this.value.toLowerCase();
+  $$('nav.side a').forEach(function(a){a.classList.toggle('hid',q&&a.textContent.toLowerCase().indexOf(q)<0)});
+  $$('nav.side .ng').forEach(function(g){var n=g.nextElementSibling,any=false;
+    while(n&&n.tagName==='A'){if(!n.classList.contains('hid'))any=true;n=n.nextElementSibling}
+    g.style.display=any?'':'none'})};
+
+var ts=$('#tsl');
+if(ts)ts.oninput=function(){var v=(+this.value/100);
+  document.documentElement.style.setProperty('--glass-tint',v.toFixed(2));
+  $('#tvl').textContent=v.toFixed(2);
+  var mix=function(a,b,t){var p=function(h,i){return parseInt(h.substr(i,2),16)};
+    return '#'+[0,2,4].map(function(i){return Math.round(p(a.replace('#',''),i)*t+p(b.replace('#',''),i)*(1-t))
+      .toString(16).padStart(2,'0')}).join('')};
+  var worst=mix('#FFFFFF','#2A1B06',v);          /* white tint over the darkest band of the photograph */
+  var rr=cr('#070C0E',worst);
+  var e=$('#tvr');e.textContent='Onyx on glass '+rr.toFixed(1)+':1';
+  e.className='tag '+(v<0.55?'mk':'ok')};
+
+$$('.mv').forEach(function(m){m.onclick=function(){m.classList.add('go');
+  setTimeout(function(){m.classList.remove('go')},1400)}});
+
+repaint();
+
+})();
+</script>
+</body>
+</html>

@@ -864,3 +864,121 @@ shared precisely because that arithmetic is a domain rule:
 ```jsx
 <PriceBreakup breakup={product.price} />
 ```
+
+---
+
+# The design system
+
+The authority is `elanzia-trade-design-system-v3.html` at the repo root. This
+section records the rules that a screen can get wrong, not the whole file.
+
+## Two token layers, and never cross them
+
+`src/theme/tokens.js` holds both, and `npm run theme` turns it into
+`src/theme/tokens.generated.css`. Do not edit the generated file.
+
+- **The ramps** are 45 fixed values in four families - emerald, gold, neutral,
+  danger. Identical in light and dark. Normalised, so step 600 is equally
+  legible in every family.
+- **The aliases** are 40 semantic names: `--surface-page`, `--action-bg`,
+  `--text-secondary`, `--status-positive-fg`. Dark mode is these 40 names given
+  new values, nothing more.
+
+A component reads the aliases, never the ramps. Write `var(--action-bg)`, not
+`var(--emerald-600)`. In practice a screen writes neither: it writes a Tailwind
+class, and `src/theme/tailwind-preset.js` maps that class to an alias.
+
+The class vocabulary is historic in places. `primary` is the colour of things
+you can act on. `charcoal` is the text ramp. `lightGray` is grounds and rules.
+
+## Density
+
+The portal runs `data-density="condensed"`, set on `<html>` in `index.html`. It
+is an admin console and pointer only: 32px controls, 36px rows, 13.5px body.
+
+Reach for `h-control`, `h-row`, `px-cellX`, `py-cellY`, `p-card` and the
+`text-body` / `text-sm` / `text-label` / `text-micro` steps rather than fixed
+sizes. All of them follow density, so the same markup is correct on a screen
+that runs relaxed.
+
+## Radius says what a thing is
+
+Six steps, assigned by object type. This is not a per-screen choice.
+
+| Step | Value | What takes it |
+| --- | --- | --- |
+| `rounded-none` | 0 | documents: price breakup, invoice, hallmark, rate board |
+| `rounded-xs` | 4px | checkbox, stamp, progress bar, thumbnail |
+| `rounded-sm` | 8px | the work layer: button, input, select, menu item |
+| `rounded-md` | 12px | the conversation layer: card, panel, banner, modal, toast |
+| `rounded-full` | 999px | pills: status chip, filter chip, count badge, avatar |
+
+A button is never a pill. A document never rounds.
+
+## Four things float
+
+`shadow-dropdown`, `shadow-modal`, `shadow-toast`, `shadow-sheet`. There is
+deliberately no `shadow-sm` or `shadow-md` in the preset. Everything else -
+cards, tables, banners, sticky footers - separates with a hairline
+`border-border`.
+
+## Status is four tones
+
+Positive, attention, negative, neutral. Each is a foreground / surface / border
+triple, so it stays legible when the aliases are remapped:
+
+```jsx
+<span className="border border-success-border bg-success-surface text-success" />
+```
+
+`StatusPill` maps a feature area's own vocabulary onto those four. Add a name
+to its `TONES` map rather than inventing a fifth colour.
+
+## Dark mode
+
+`data-theme` on `<html>`: `light` or `dark` is an explicit choice, absent means
+follow the operating system. `src/theme/useThemePreference.js` owns it, the top
+bar toggles it, and a small script in `index.html` applies a saved choice
+before first paint so the wrong theme never flashes.
+
+Nothing else in the portal needs to know about it. If a screen uses only
+alias-backed classes, dark mode is already correct.
+
+## Copy
+
+- Sentence case everywhere, including buttons, labels and chips. No uppercase,
+  no title case, no letter-spaced eyebrows.
+- Buttons are verb plus object. "Request quotation", not "Submit".
+- Errors say what is wrong, then the value that fixes it.
+- Identifiers are mono, as issued, never re-cased: `ELZ-TH-4471`.
+- Purity reads `22K 916`.
+- A rate always carries its basis and time: `₹1,46,280 / 10 g - 15:40 IST`.
+- Banned words: seamless, robust, comprehensive, cutting-edge, transformative,
+  unlock, unleash, empower, elevate, streamline, leverage, journey, ecosystem,
+  landscape, tapestry. Also "No X. No Y. Just Z.", "it's not just X, it's Y",
+  "Welcome back, [Name]", "No data yet", and em dashes.
+
+## Never do this
+
+| Banned | Instead |
+| --- | --- |
+| Coloured left border on a card or banner | `Stamp` |
+| Cream or beige grounds | Pearl White, or the dark page |
+| Gold as text on white - it is 2.08:1 | `text-warning`, or gold as a fill |
+| Uppercase labels, letter-spaced eyebrows | Sentence case, tracking 0 |
+| Gradients, backdrop blur, glow | Flat colour, hairline borders |
+| Rotated or skewed elements | Everything sits square |
+| Cards on shadow, or cards inside cards | Borders. Four things cast shadow |
+| Pill-shaped buttons | Radius 8. Pills are chips, badges and avatars |
+| One radius on everything | Six steps, assigned by object type |
+| Countdowns and live tickers | An absolute timestamp |
+| Zebra striping | Hairline row rules |
+| Emoji as icons | lucide-react only |
+| Placeholder text as the field label | A persistent label above every field |
+| Proportional figures in a column | `num` on every figure |
+| A generic spinner as a page state | The real layout with the data missing |
+| Four equal stat cards in a row | Figures sit in the page structure |
+| A real firm's name in example content | Invented names |
+
+Glass surfaces are Marketplace-only and are deliberately not implemented here.
+Do not add `backdrop-filter` to this portal.
